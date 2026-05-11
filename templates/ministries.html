@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .page-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 80px 0;
+        text-align: center;
+        color: var(--white);
+        animation: fadeInDown 1s ease;
+    }
+    
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .page-header h1 { font-size: 56px; font-weight: 900; font-family: 'Playfair Display', serif; }
+    
+    .ministries-section { padding: 60px 0; background: var(--dark-bg); }
+    
+    .ministry-card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 25px;
+        transition: all 0.4s ease;
+        border: 1px solid rgba(255,217,102,0.2);
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        animation: fadeInUp 0.8s ease;
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .ministry-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--gold);
+        box-shadow: 0 20px 40px rgba(184,59,94,0.2);
+    }
+    
+    .ministry-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .ministry-card:hover .ministry-icon {
+        transform: scale(1.1);
+    }
+    
+    .ministry-icon i {
+        font-size: 28px;
+        color: var(--dark-bg);
+    }
+    
+    .ministry-content h3 {
+        font-size: 24px;
+        color: var(--gold);
+        margin-bottom: 5px;
+        font-family: 'Playfair Display', serif;
+    }
+    
+    .ministry-time {
+        color: var(--blue-bright);
+        font-weight: 600;
+        margin: 8px 0;
+        font-size: 14px;
+    }
+    
+    .ministry-content p {
+        color: var(--text-light);
+    }
+    
+    .women-ministry {
+        background: linear-gradient(135deg, var(--maroon), var(--blue));
+        color: var(--white);
+        padding: 40px;
+        border-radius: 20px;
+        margin-top: 40px;
+        text-align: center;
+        animation: fadeInUp 0.8s ease;
+    }
+    
+    @media (max-width: 768px) {
+        .ministry-card { flex-direction: column; text-align: center; }
+        .page-header h1 { font-size: 36px; }
+    }
+</style>
+
+<section class="page-header">
+    <div class="container">
+        <h1 data-aos="fade-up">OUR MINISTRIES</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Find your place to serve and grow</p>
+    </div>
+</section>
+
+<section class="ministries-section">
+    <div class="container">
+        {% for program in church.weekly_programs %}
+        <div class="ministry-card" data-aos="fade-up">
+            <div class="ministry-icon"><i class="fas {{ program.icon }}"></i></div>
+            <div class="ministry-content">
+                <h3>{{ program.name }}</h3>
+                <div class="ministry-time">{{ program.day }} | {{ program.time }}</div>
+                <p>{{ program.description }}</p>
+                <p><i class="fas fa-map-pin"></i> {{ program.location }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        
+        <div class="women-ministry" data-aos="zoom-in">
+            <i class="fas fa-female" style="font-size: 48px; color: var(--gold); margin-bottom: 20px;"></i>
+            <h3 style="font-size: 32px;">Daughters of the Kingdom Women's Conference</h3>
+            <p style="margin: 20px 0;">Led by Reverend Bancy Wambua - Annual conference empowering women to rise into their God-given calling</p>
+            <a href="/leaders" class="btn btn-primary" style="background: var(--gold); color: var(--maroon);">LEARN MORE</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

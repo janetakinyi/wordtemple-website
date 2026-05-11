@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .page-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 80px 0;
+        text-align: center;
+        color: var(--white);
+        animation: fadeInDown 1s ease;
+    }
+    
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .page-header h1 { font-size: 56px; font-weight: 900; font-family: 'Playfair Display', serif; }
+    
+    .quotes-section { padding: 60px 0; background: var(--dark-bg); }
+    
+    .featured-quote {
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        padding: 50px;
+        border-radius: 30px;
+        text-align: center;
+        margin-bottom: 50px;
+        animation: fadeInUp 1s ease;
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .featured-quote .quote-text {
+        font-size: 32px;
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        color: var(--maroon);
+    }
+    
+    .featured-quote .quote-author {
+        color: var(--maroon);
+        font-size: 20px;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+    
+    .gold-bar {
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        padding: 15px 25px;
+        border-radius: 50px;
+        margin: 50px auto 30px;
+        text-align: center;
+        max-width: 400px;
+    }
+    
+    .gold-bar h2 {
+        color: var(--maroon);
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+    }
+    
+    .quote-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .quote-card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 20px;
+        border-left: 5px solid var(--gold);
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        animation: fadeInUp 0.8s ease backwards;
+    }
+    
+    .quote-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--maroon);
+        box-shadow: 0 20px 40px rgba(184,59,94,0.2);
+    }
+    
+    .quote-text {
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--text-light);
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+    
+    .quote-author {
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 14px;
+        text-align: right;
+    }
+    
+    @media (max-width: 768px) {
+        .quote-grid { grid-template-columns: 1fr; }
+        .featured-quote .quote-text { font-size: 22px; }
+        .page-header h1 { font-size: 36px; }
+        .gold-bar h2 { font-size: 22px; }
+    }
+</style>
+
+<section class="page-header">
+    <div class="container">
+        <h1 data-aos="fade-up">APOSTOLIC INSIGHTS</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Words of Wisdom from Apostle Michael & Reverend Bancy Wambua</p>
+    </div>
+</section>
+
+<section class="quotes-section">
+    <div class="container">
+        <!-- FEATURED QUOTE - APOSTLE MICHAEL WAMBUA -->
+        <div class="featured-quote" data-aos="zoom-in">
+            <div class="quote-text">"Prayer turns an ordinary man into an extraordinary man."</div>
+            <div class="quote-author">— Apostle Michael Wambua</div>
+        </div>
+        
+        <!-- APOSTLE MICHAEL WAMBUA QUOTES - GOLD BAR -->
+        <div class="gold-bar" data-aos="fade-up">
+            <h2><i class="fas fa-crown"></i> Apostle Michael Wambua</h2>
+        </div>
+        <div class="quote-grid">
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"To choose powerlessness, is to choose failure."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Ministry is suicidal without power."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Life becomes truly enjoyable when you have the power to subdue opposing power."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"You can't solve a spiritual problem with a natural answer."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"NO MATTER HOW LOW YOU GO YOU CAN NEVER GO BEYOND GOD'S MERCY"</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"YOU LOOSE WHAT GOD GAVE YOU WHEN YOU FORSAKE HIM"</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"You can only experience Jesus the Alpha in the spirit."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Hearing from God connects you to the very Being/nature of God."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"WHATEVER COMES BY FAVOR WILL RULE."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Favor is Sustained by Staying in the Teachings of God."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"The Anger and Envy of Men will Never overcome the Favor of God upon your life."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Change is First done in the Invisible before it can be Manifested in the Physical."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"FAVOR WILL ALWAYS OUTWEIGH THE HATRED OF MEN."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"FAVOUR AFFECTS THE INVISIBLE WORLD AROUND YOU."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"GOD NEVER FORSAKES THE ANOINTED ONES."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"The target of Faith is your Heart."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Divine encounters will leave a mark that will dissolve all kinds of Doubt and Fear."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Everywhere God is and believed, Signs and wonders will always be present."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"GOD CAN USE ANYTHING TO BRING EVERYTHING IN YOUR LIFE."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"No matter how long the Devil prepares, God will always win."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"NO MATTER THE LEVEL OF ANOINTING, TEMPTATIONS WILL ALWAYS COME"</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Worship is The highest degree of Spirituality."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"The majestic Presence of God is His Voice."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Every genuine worshipper of God has Dominion."</div>
+                <div class="quote-author">— Apostle Michael Wambua</div>
+            </div>
+        </div>
+        
+        <!-- REVEREND BANCY WAMBUA QUOTES - GOLD BAR -->
+        <div class="gold-bar" data-aos="fade-up">
+            <h2><i class="fas fa-crown"></i> Reverend Bancy Wambua</h2>
+        </div>
+        <div class="quote-grid">
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"The Word is the Inspired message of God."</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"The Holy Ghost is the solution to your troubles."</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Divine approval changes everything. When God approves you, you cannot remain in the same place or condition."</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Whatever you are going through right now is not the definition of who you will become. God has already approved you."</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Every time you conceive the Revelations of God, a Transformation takes place in your Life."</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"Until our eyes can see the revelations of God, we cannot experience His Transformation or Revival."</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"What God has anointed in your life cannot be undone. His anointing remains permanent."</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"When God comes into your life, He qualifies the disqualified."</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+            <div class="quote-card" data-aos="fade-up">
+                <div class="quote-text">"WHEN THE LORD EMPOWERS YOU, VICTORY IS ASSURED"</div>
+                <div class="quote-author">— Reverend Bancy Wambua</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

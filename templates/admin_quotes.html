@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Quotes - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0F0F1A; color: #e0e0e0; }
+        .admin-header { background: linear-gradient(135deg, #2A9D8F, #B83B5E); padding: 60px 0; text-align: center; color: white; }
+        .admin-header h1 { font-size: 48px; }
+        .quotes-section { padding: 40px; }
+        .quote-card { background: #16213e; border-radius: 20px; padding: 20px; margin-bottom: 20px; border-left: 5px solid #FFD966; }
+        .quote-text { color: #e0e0e0; font-size: 16px; margin-bottom: 10px; }
+        .quote-author { color: #FFD966; font-size: 14px; }
+        .add-form { background: #16213e; border-radius: 20px; padding: 30px; margin-bottom: 30px; border: 1px solid #FFD966; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; color: #e0e0e0; margin-bottom: 5px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,217,102,0.3); background: #0F0F1A; color: white; }
+        .submit-btn { background: linear-gradient(135deg, #FFD966, #F0B429); color: #1a2b4a; padding: 10px 25px; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; }
+        .back-btn { display: inline-block; margin-bottom: 20px; padding: 10px 25px; background: #FFD966; color: #1a2b4a; text-decoration: none; border-radius: 50px; }
+        .logout-btn { background: #e74c3c; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; display: inline-block; margin-top: 20px; margin-left: 15px; }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <div class="container">
+            <h1><i class="fas fa-quote-right"></i> Manage Quotes</h1>
+            <a href="/admin" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            <a href="/admin/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+    <div class="quotes-section">
+        <div class="add-form">
+            <h3><i class="fas fa-plus-circle"></i> Add New Quote</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label>Quote Text</label>
+                    <textarea name="quote" rows="3" required placeholder="Enter the quote text..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Author/Source</label>
+                    <input type="text" name="author" required placeholder="e.g., Apostle Michael Wambua">
+                </div>
+                <button type="submit" class="submit-btn"><i class="fas fa-save"></i> Add Quote</button>
+            </form>
+        </div>
+        <h3>Existing Quotes ({{ quotes|length }})</h3>
+        {% for quote in quotes %}
+        <div class="quote-card">
+            <div class="quote-text">"{{ quote.text }}"</div>
+            <div class="quote-author">— {{ quote.source }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

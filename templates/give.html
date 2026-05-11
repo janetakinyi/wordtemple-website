@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .page-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 80px 0;
+        text-align: center;
+        color: var(--white);
+        animation: fadeInDown 1s ease;
+    }
+    
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .page-header h1 { font-size: 56px; font-weight: 900; font-family: 'Playfair Display', serif; }
+    
+    .give-section { padding: 60px 0; background: var(--dark-bg); }
+    
+    .give-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+    
+    .give-card {
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 20px;
+        border: 1px solid var(--gold);
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        animation: fadeInUp 0.8s ease;
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .give-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--maroon);
+        box-shadow: 0 20px 40px rgba(184,59,94,0.2);
+    }
+    
+    .give-card h3 {
+        font-size: 28px;
+        color: var(--gold);
+        margin-bottom: 25px;
+        font-family: 'Playfair Display', serif;
+        border-left: 4px solid var(--gold);
+        padding-left: 15px;
+    }
+    
+    .give-amount {
+        font-size: 42px;
+        font-weight: 800;
+        color: var(--gold);
+        margin: 15px 0;
+        font-family: monospace;
+    }
+    
+    .give-detail {
+        background: var(--dark-bg);
+        padding: 15px;
+        border-radius: 12px;
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: all 0.3s ease;
+        color: var(--text-light);
+        border: 1px solid rgba(255,217,102,0.2);
+    }
+    
+    .give-detail:hover {
+        background: var(--maroon);
+        transform: translateX(5px);
+        border-color: var(--gold);
+    }
+    
+    .give-detail i {
+        font-size: 28px;
+        color: var(--gold);
+        width: 40px;
+    }
+    
+    .give-detail strong {
+        color: var(--gold);
+    }
+    
+    .partnership-card {
+        background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 40px;
+        border: 2px solid var(--gold);
+    }
+    
+    .partnership-card h3 {
+        color: var(--gold);
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    
+    .partnership-detail {
+        background: var(--dark-bg);
+        padding: 25px;
+        border-radius: 15px;
+        margin: 20px auto;
+        max-width: 500px;
+        border: 1px solid var(--gold);
+    }
+    
+    .equity-logo i, .equity-logo span {
+        color: var(--gold);
+    }
+    
+    .building-project {
+        background: linear-gradient(135deg, var(--maroon), var(--blue));
+        padding: 20px;
+        border-radius: 15px;
+        margin-top: 20px;
+    }
+    
+    .building-project p {
+        color: var(--white);
+    }
+    
+    .visit-btn {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 12px 30px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--maroon);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 800;
+    }
+    
+    @media (max-width: 768px) {
+        .give-grid { grid-template-columns: 1fr; }
+        .page-header h1 { font-size: 36px; }
+        .give-amount { font-size: 32px; }
+    }
+</style>
+
+<section class="page-header">
+    <div class="container">
+        <h1 data-aos="fade-up">WAYS TO GIVE</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Support the Commission</p>
+    </div>
+</section>
+
+<!-- ROTATING SCRIPTURES SECTION -->
+<div id="scriptureRotator" style="text-align: center; padding: 30px; background: linear-gradient(135deg, var(--card-bg), var(--dark-bg)); border-radius: 20px; border: 1px solid var(--gold); margin-bottom: 30px;">
+    <i class="fas fa-bible" style="color: var(--gold); font-size: 32px; margin-bottom: 15px; display: block;"></i>
+    <p style="color: var(--gold); font-style: italic; font-size: 14px; margin-bottom: 5px;">📖 SCRIPTURE ON GIVING</p>
+    <div id="scriptureVerse" style="margin-top: 10px; transition: opacity 0.8s ease-in-out;">
+        <p style="color: var(--gold); font-size: 20px; font-weight: 600; margin-bottom: 15px;">Loading...</p>
+        <p style="color: var(--text-light); font-style: italic;">"..."</p>
+    </div>
+    <p style="visibility: hidden;">⟳ Changes every 16 seconds</p>
+</div>
+
+<!-- BOLD CONFESSION SCRIPTURE SECTION -->
+<div id="confessionSection" style="text-align: center; padding: 45px; background: linear-gradient(135deg, #B83B5E, #2A9D8F); border-radius: 25px; margin-bottom: 45px; border: 3px solid #FFD966; box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+    <div style="background: rgba(0,0,0,0.25); border-radius: 20px; padding: 25px;">
+        <i class="fas fa-praying-hands" style="color: #FFD966; font-size: 48px; margin-bottom: 15px; display: block;"></i>
+        <p style="color: #FFD966; font-weight: 800; font-size: 18px; letter-spacing: 4px; margin-bottom: 10px;">🔥 MY DAILY DECLARATION 🔥</p>
+        <p style="color: #FFFFFF; font-size: 28px; font-weight: 800; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-family: 'Playfair Display', serif;">2 Corinthians 3:5</p>
+        <p style="color: #FFFFFF; font-style: italic; line-height: 1.8; font-size: 20px; font-weight: 500;">"Not that we are sufficient of ourselves to think of anything as being from ourselves, but our sufficiency is from God."</p>
+        <div style="margin-top: 25px; padding: 12px 25px; background: #FFD966; border-radius: 60px; display: inline-block;">
+            <p style="color: #6B1A2A; font-size: 16px; font-weight: 800;">🗣️ I DECLARE: My sufficiency comes from God alone! 🗣️</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateY(10px); }
+        20% { opacity: 1; transform: translateY(0); }
+        80% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-10px); }
+    }
+</style>
+
+<script>
+    const scriptures = [
+        { verse: "Malachi 3:10", text: "Bring all the tithes into the storehouse... and test Me now in this,\" says the Lord, \"if I will not open for you the windows of heaven and pour out such blessing that there will not be room enough to receive it." },
+        { verse: "Genesis 14:20 ", text: "Then Abram gave him a tithe of all." },
+        { verse: "Proverbs 3:9-10 ", text: "Honor the Lord with your possessions, and with the firstfruits of all your increase; so your barns will be filled with plenty, and your vats will overflow with new wine." },
+        { verse: "Deuteronomy 16:17 ", text: "Every man shall give as he is able, according to the blessing of the Lord your God which He has given you." },
+        { verse: "Proverbs 11:24-25 ", text: "One gives freely, yet grows all the richer; another withholds what he should give, and only suffers want. Whoever brings blessing will be enriched, and one who waters will himself be watered." },
+        { verse: "1 Chronicles 29:14 ", text: "Everything comes from You, and we have given You only what comes from Your hand." },
+        { verse: "Hebrews 7:4", text: "Abraham gave a tenth of the spoils." },
+        { verse: "2 Corinthians 9:7 ", text: "God loves a cheerful giver. So let each one give as he purposes in his heart, not grudgingly or of necessity." },
+        { verse: "Luke 6:38 ", text: "Give, and it will be given to you: good measure, pressed down, shaken together, and running over will be put into your bosom." },
+        { verse: "Acts 20:35 ", text: "Remember the words of the Lord Jesus, that He said, 'It is more blessed to give than to receive.'" },
+        { verse: "Philippians 4:19 ", text: "And my God shall supply all your need according to His riches in glory by Christ Jesus." }
+    ];
+    
+    let currentIndex = 0;
+    let isAnimating = false;
+    
+    function updateScripture() {
+        if (isAnimating) return;
+        isAnimating = true;
+        const verseDiv = document.getElementById('scriptureVerse');
+        verseDiv.style.opacity = '0';
+        setTimeout(() => {
+            const selected = scriptures[currentIndex];
+            verseDiv.innerHTML = `<p style="color: var(--gold); font-size: 20px; font-weight: 600; margin-bottom: 15px;">📖 ${selected.verse}</p><p style="color: var(--text-light); font-style: italic; line-height: 1.6;">"${selected.text}"</p>`;
+            verseDiv.style.opacity = '1';
+            currentIndex = (currentIndex + 1) % scriptures.length;
+            isAnimating = false;
+        }, 500);
+    }
+    
+    updateScripture();
+    setInterval(updateScripture, 16000);
+</script>
+
+<section class="give-section">
+    <div class="container">
+        <div class="give-grid">
+            <div class="give-card" data-aos="fade-right">
+                <h3>🇰🇪 KENYA</h3>
+                <div class="give-detail">
+                    <i class="fas fa-mobile-alt"></i>
+                    <div>
+                        <strong>M-PESA BUY GOODS TILL NO</strong>
+                        <div class="give-amount">{{ church.giving.mpesa_till }}</div>
+                        <div>{{ church.giving.mpesa_account }}</div>
+                    </div>
+                </div>
+                <div class="give-detail">
+                    <i class="fas fa-university"></i>
+                    <div>
+                        <strong>EQUITY BANK</strong>
+                        <div>Paybill: {{ church.giving.equity_paybill }}</div>
+                        <div>Account No: {{ church.giving.equity_account }}</div>
+                    </div>
+                </div>
+                <div class="give-detail">
+                    <i class="fas fa-university"></i>
+                    <div>
+                        <strong>KCB BANK ACCOUNT</strong>
+                        <div>Paybill: {{ church.giving.kcb_paybill }}</div>
+                        <div>Account Number: {{ church.giving.kcb_account }}</div>
+                        <div>For Cheques/Cash/Transfers: {{ church.giving.kcb_cheque }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="give-card" data-aos="fade-left">
+                <h3>🌍 INTERNATIONAL</h3>
+                <div class="give-detail">
+                    <i class="fas fa-exchange-alt"></i>
+                    <div>
+                        <strong>SENDWAVE</strong>
+                        <div>{{ church.giving.sendwave }}</div>
+                        <div>Name: {{ church.giving.sendwave_name }}</div>
+                    </div>
+                </div>
+                <div class="give-detail">
+                    <i class="fab fa-paypal"></i>
+                    <div>
+                        <strong>PAYPAL</strong>
+                        <div>{{ church.giving.paypal }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="partnership-card" data-aos="zoom-in">
+            <h3><i class="fas fa-handshake"></i> PARTNERSHIP / DEVELOPMENT ACCOUNT</h3>
+            <div class="partnership-detail">
+                <div class="equity-logo"><i class="fas fa-university"></i> <span>EQUITY BANK</span></div>
+                <div class="give-amount">Paybill: {{ church.giving.partnership_paybill }}</div>
+                <div>Account Number: {{ church.giving.partnership_account }}</div>
+                <div>Account Name: <strong>{{ church.giving.development_account }}</strong></div>
+            </div>
+            <div class="building-project">
+                <i class="fas fa-church" style="font-size: 32px; margin-bottom: 10px;"></i>
+                <p><strong>🏗️ Building the House of God - New Sanctuary Project</strong></p>
+            </div>
+            <a href="/connect" class="visit-btn"><i class="fas fa-map-marker-alt"></i> VISIT US</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

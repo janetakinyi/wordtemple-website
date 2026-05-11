@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .page-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 60px 0;
+        text-align: center;
+        color: var(--white);
+        animation: fadeInDown 1s ease;
+    }
+    
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .page-header h1 { font-size: 48px; font-weight: 900; font-family: 'Playfair Display', serif; }
+    .page-header p { font-size: 16px; opacity: 0.9; margin-top: 15px; }
+    
+    .register-section {
+        padding: 60px 0;
+        background: var(--dark-bg);
+    }
+    
+    .register-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+    }
+    
+    .form-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid rgba(255,217,102,0.2);
+        animation: fadeInUp 0.8s ease;
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .form-card h2 {
+        color: var(--gold);
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+    
+    .form-card h3 {
+        color: var(--white);
+        font-size: 20px;
+        margin: 25px 0 15px;
+        border-left: 3px solid var(--gold);
+        padding-left: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        color: var(--text-light);
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .form-group label .required {
+        color: #ff4444;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,217,102,0.3);
+        background: var(--dark-bg);
+        color: var(--text-light);
+        font-size: 14px;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--gold);
+    }
+    
+    .radio-group {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+    
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .radio-option input {
+        width: auto;
+    }
+    
+    .row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .submit-btn {
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--maroon);
+        padding: 15px 40px;
+        border: none;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255,217,102,0.3);
+    }
+    
+    .event-info-card {
+        background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid rgba(255,217,102,0.2);
+        height: fit-content;
+    }
+    
+    .event-info-card h2 {
+        color: var(--gold);
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    
+    .event-detail {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255,217,102,0.1);
+    }
+    
+    .event-detail i {
+        color: var(--gold);
+        width: 30px;
+        margin-right: 10px;
+    }
+    
+    .event-detail strong {
+        color: var(--white);
+    }
+    
+    .event-detail p {
+        color: var(--text-muted);
+        margin-top: 8px;
+        margin-left: 40px;
+    }
+    
+    @media (max-width: 1024px) {
+        .register-grid { grid-template-columns: 1fr; }
+        .row-2 { grid-template-columns: 1fr; }
+    }
+    
+    @media (max-width: 768px) {
+        .page-header h1 { font-size: 32px; }
+        .form-card { padding: 25px; }
+    }
+</style>
+
+<section class="page-header">
+    <div class="container">
+        <h1 data-aos="fade-up">CONFERENCE REGISTRATION</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Register for Upcoming Events & Conferences</p>
+    </div>
+</section>
+
+<section class="register-section">
+    <div class="container">
+        <div class="register-grid">
+            
+            <!-- REGISTRATION FORM -->
+            <div class="form-card" data-aos="fade-right">
+                <h2>📝 Registration Form</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Fill in your details to register. You will receive a confirmation email.</p>
+                
+                <form action="https://formsubmit.co/revelationpowerchannel@gmail.com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_subject" value="🎟️ NEW CONFERENCE REGISTRATION - Word Temple Church">
+                    <input type="hidden" name="_autoresponse" value="Thank you for registering for our conference! We have received your information and will contact you within 24 hours with payment instructions. God bless you! - Word Temple Church Team">
+                    
+                    <h3>👤 Personal Information</h3>
+                    <div class="row-2">
+                        <div class="form-group">
+                            <label>Full Name <span class="required">*</span></label>
+                            <input type="text" name="Full Name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Church/Organization</label>
+                            <input type="text" name="Church/Organization" placeholder="Your church or organization">
+                        </div>
+                    </div>
+                    
+                    <div class="row-2">
+                        <div class="form-group">
+                            <label>Email Address <span class="required">*</span></label>
+                            <input type="email" name="Email" required placeholder="youremail@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number <span class="required">*</span></label>
+                            <input type="tel" name="Phone Number" required placeholder="+254 XXX XXX XXX">
+                        </div>
+                    </div>
+                    
+                    <h3>📅 Select Conference</h3>
+                    <div class="form-group">
+                        <select name="Conference" required>
+                            <option value="">-- Select a Conference --</option>
+                            <option value="June Conference 2026">June Conference (June 3rd - 7th, 2026)</option>
+                            <option value="Revelation & Power Conference 2026">Revelation & Power Conference (December 2026)</option>
+                            <option value="Daughters of the Kingdom 2026">Daughters of the Kingdom - Ladies Conference (August 2026)</option>
+                            <option value="Youth Conference 2026">Youth Conference - "The Remnant" (April 2026)</option>
+                            <option value="Pastors & Leaders Summit">Pastors & Leaders Summit</option>
+                        </select>
+                    </div>
+                    
+                    <h3>🍽️ Meal Preference</h3>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="Meal Preference" value="Vegetarian" id="veg"> 
+                                <label for="veg">Vegetarian</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="Meal Preference" value="Non-Vegetarian" id="nonVeg" checked> 
+                                <label for="nonVeg">Non-Vegetarian</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="Meal Preference" value="Vegan" id="vegan"> 
+                                <label for="vegan">Vegan</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>🙏 Special Requests</h3>
+                    <div class="form-group">
+                        <textarea name="Special Requests" rows="3" placeholder="Any special needs, dietary restrictions, or accessibility requirements..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="radio-option">
+                            <input type="checkbox" name="Terms Agreement" value="Agreed" required>
+                            <label>I confirm that the information provided is accurate.</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">SUBMIT REGISTRATION <i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+            
+            <!-- EVENT INFORMATION -->
+            <div class="event-info-card" data-aos="fade-left">
+                <h2>ℹ️ Event Information</h2>
+                
+                <div class="event-detail">
+                    <i class="fas fa-calendar-alt"></i> <strong>Upcoming Conferences</strong>
+                    <p>📅 June Conference: June 3rd - 7th, 2026<br>
+                    📅 Revelation & Power: December 2026<br>
+                    📅 Daughters of the Kingdom: August 2026<br>
+                    📅 Youth Conference: April 2026</p>
+                </div>
+                
+                <div class="event-detail">
+                    <i class="fas fa-map-marker-alt"></i> <strong>Venue</strong>
+                    <p>Word Temple Church of God International<br>
+                    Eastleigh, 1st Avenue, 3rd Street<br>
+                    Next to St. Teresa's Dispensary, Nairobi</p>
+                </div>
+                
+                <div class="event-detail">
+                    <i class="fas fa-tag"></i> <strong>Registration Fee</strong>
+                    <p>Early Bird: KES 1,500 (2 months before event)<br>
+                    Regular: KES 2,500<br>
+                    At the Door: KES 3,500</p>
+                    <p><strong>Payment:</strong> M-PESA Till 841690</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

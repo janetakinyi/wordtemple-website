@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .hero {
+        min-height: 90vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+    
+    .hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+    
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(10,10,20,0.3) 0%, rgba(184,59,94,0.2) 50%, rgba(42,157,143,0.2) 100%);
+    z-index: 1;
+}
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: var(--white);
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+}
+
+.hero h1 span {
+    background: linear-gradient(135deg, var(--gold), var(--white));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
+}
+
+.hero .scripture {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    color: #FFD966;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    font-weight: 600;
+}
+
+
+.hero .verse {
+    font-size: 22px;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    line-height: 1.6;
+    color: #FFD966;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    font-weight: 500;
+    background: rgba(0,0,0,0.3);
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+
+.series-badge {
+    display: inline-block;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    padding: 12px 25px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    border: 1px solid var(--gold);
+    animation: bounce 2s ease-in-out infinite;
+    color: white;
+    font-weight: 500;
+}
+ /* SPACE AFTER VERSE - MARGIN BOTTOM */
+    .verse-space {
+        margin-bottom: 40px;
+    }
+    
+    .series-badge {
+        display: inline-block;
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        padding: 12px 25px;
+        border-radius: 50px;
+        margin-bottom: 30px;
+        border: 1px solid var(--gold);
+        animation: bounce 2s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    
+   .hero-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+     .section-title {
+        text-align: center;
+        font-size: 48px;
+        margin-bottom: 50px;
+        background: linear-gradient(135deg, var(--gold), var(--blue-bright));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    
+    .quick-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin: 60px 0;
+    }
+    
+    .link-card {
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255,217,102,0.2);
+        text-decoration: none;
+        display: block;
+    }
+    
+    .link-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--gold);
+        box-shadow: 0 20px 40px rgba(184,59,94,0.2);
+    }
+    
+    .link-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+    }
+    
+    .link-icon i {
+        font-size: 28px;
+        color: var(--dark-bg);
+    }
+    
+    .link-card h3 {
+        font-size: 24px;
+        color: var(--gold);
+        margin-bottom: 10px;
+    }
+    
+    .link-card p {
+        color: var(--text-muted);
+    }
+    
+    .event-card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        border-left: 5px solid var(--gold);
+        margin-bottom: 20px;
+    }
+    
+    .event-card h3 {
+        color: var(--gold);
+    }
+    
+    .about-preview {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+    }
+    
+    .stats-card {
+        background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid rgba(255,217,102,0.2);
+    }
+    
+    @media (max-width: 768px) {
+        .hero h1 { font-size: 40px; }
+        .quick-links { grid-template-columns: 1fr; }
+        .section-title { font-size: 32px; }
+        .about-preview { grid-template-columns: 1fr; }
+        .hero-buttons { flex-direction: column; align-items: center; }
+    }
+</style>
+
+<!-- HERO SECTION WITH BACKGROUND VIDEO -->
+<section class="hero">
+    <video autoplay loop muted playsinline class="hero-video">
+        <source src="{{ url_for('static', filename='videos/WTC.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay"></div>
+    
+    <div class="container hero-content">
+       <div class="series-badge" data-aos="fade-down">
+    <i class="fas fa-fire"></i> 40 DAYS PROPHETIC JOURNEY | AFTER THE RESURRECTION OF JESUS CHRIST
+</div>
+        <h1 data-aos="fade-up">
+            <span>{{ church.theme_2026 }}</span>
+        </h1>
+        <p class="scripture" data-aos="fade-up" data-aos-delay="100">{{ church.theme_scripture }}</p>
+        <p class="verse" data-aos="fade-up" data-aos-delay="200">{{ church.theme_verse }}</p>
+        
+        <!-- SPACE AFTER VERSE - BUTTONS SECTION -->
+        <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+            <a href="/connect" class="btn btn-primary">JOIN US SUNDAY</a>
+            <a href="{{ church.youtube }}" target="_blank" class="btn btn-secondary"><i class="fab fa-youtube"></i> WATCH LIVE</a>
+        </div>
+    </div>
+</section>
+
+<!-- QUICK LINKS -->
+<div class="container">
+    <div class="quick-links">
+        <a href="/leaders" class="link-card" data-aos="fade-up">
+            <div class="link-icon"><i class="fas fa-users"></i></div>
+            <h3>Our Leaders</h3>
+            <p>Apostle Michael & Rev. Bancy Wambua</p>
+        </a>
+        <a href="/connect" class="link-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="link-icon"><i class="fas fa-calendar-alt"></i></div>
+            <h3>Service Times</h3>
+            <p>Sunday 5:30 AM | 8:30 AM | 11:00 AM</p>
+        </a>
+        <a href="/give" class="link-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="link-icon"><i class="fas fa-hand-holding-heart"></i></div>
+            <h3>Give Online</h3>
+            <p>Support the Commission</p>
+        </a>
+<a href="/membership" class="link-card" data-aos="fade-up" data-aos-delay="300">
+    <div class="link-icon"><i class="fas fa-user-plus"></i></div>
+    <h3>Become a Member</h3>
+    <p>Join Word Temple Church</p>
+</a>
+</div>
+
+    </div>
+</div>
+
+<!-- UPCOMING EVENTS -->
+<section style="padding: 60px 0; background: var(--dark-bg);">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">UPCOMING EVENTS</h2>
+        <div class="event-card" data-aos="fade-up">
+            <h3>📅 First Sunday of Every Month</h3>
+            <p style="font-size: 20px; font-weight: bold; color: var(--gold);">Prophetic Family Blessing Sunday</p>
+            <p>Join us for a special family blessing service</p>
+        </div>
+        <div class="event-card" data-aos="fade-up">
+            <h3>📅 First Friday of Every Month</h3>
+            <p style="font-size: 20px; font-weight: bold; color: var(--gold);">Mini-Kesha Prayer Service</p>
+            <p>6:30 PM - 9:30 PM | Powerful prayer with Apostle Michael Wambua</p>
+        </div>
+        <div class="event-card" data-aos="fade-up">
+            <h3>🎉 Annual Events</h3>
+            <p><strong style="color: var(--gold);">Revelation & Power Conference</strong> (December)</p>
+            <p><strong style="color: var(--gold);">Daughters of the Kingdom Women Conference</strong> (Led by Rev. Bancy)</p>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT PREVIEW -->
+<section style="padding: 80px 0;">
+    <div class="container">
+        <div class="about-preview">
+            <div data-aos="fade-right">
+                <h2 style="font-size: 42px; color: var(--gold);">Word Temple Church</h2>
+                <p style="font-size: 18px; line-height: 1.8; margin: 20px 0; color: var(--text-muted);">Founded on 18th January 2004 in a small wooden kiosk, Word Temple Church of God International has grown to over 30 branches nationwide under the leadership of Apostle Michael Wambua.</p>
+                <a href="/about" class="btn btn-primary">READ MORE</a>
+            </div>
+            <div data-aos="fade-left">
+                <div class="stats-card">
+                    <i class="fas fa-church" style="font-size: 60px; color: var(--gold);"></i>
+                    <h3 style="color: var(--gold); margin-top: 20px;">30+ Branches Nationwide</h3>
+                    <p style="color: var(--text-muted);">15+ Countries Ministered</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

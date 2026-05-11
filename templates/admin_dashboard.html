@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .admin-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 60px 0;
+        text-align: center;
+        color: var(--white);
+    }
+    .admin-header h1 { font-size: 48px; }
+    .admin-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 40px;
+        background: var(--dark-bg);
+    }
+    .stat-card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        border: 1px solid var(--gold);
+    }
+    .stat-card:hover { transform: translateY(-5px); }
+    .stat-number { font-size: 48px; font-weight: 800; color: var(--gold); }
+    .stat-label { color: var(--text-light); margin-top: 10px; }
+    .admin-menu {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 40px;
+        background: var(--dark-bg);
+    }
+    .menu-card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid rgba(255,217,102,0.2);
+        display: block;
+    }
+    .menu-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+    .menu-card i { font-size: 48px; color: var(--gold); margin-bottom: 15px; }
+    .menu-card h3 { color: var(--white); margin-bottom: 10px; }
+    .menu-card p { color: var(--text-muted); font-size: 14px; }
+    .logout-btn {
+        background: #e74c3c;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+        .admin-stats, .admin-menu { grid-template-columns: 1fr; }
+    }
+</style>
+
+<section class="admin-header">
+    <div class="container">
+        <h1><i class="fas fa-crown"></i> Admin Dashboard</h1>
+        <p>Welcome back, {{ session.username }}!</p>
+        <a href="/admin/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+</section>
+
+<div class="admin-stats">
+    <div class="stat-card">
+        <div class="stat-number">{{ registrations|length }}</div>
+        <div class="stat-label">Total Registrations</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ quotes|length }}</div>
+        <div class="stat-label">Quotes</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Events</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">160+</div>
+        <div class="stat-label">Gallery Photos</div>
+    </div>
+</div>
+
+<div class="admin-menu">
+    <a href="/admin/registrations" class="menu-card">
+        <i class="fas fa-users"></i>
+        <h3>View Registrations</h3>
+        <p>See all conference registrations</p>
+    </a>
+    <a href="/admin/quotes" class="menu-card">
+        <i class="fas fa-quote-right"></i>
+        <h3>Manage Quotes</h3>
+        <p>Add or edit apostolic quotes</p>
+    </a>
+    <a href="/admin/settings" class="menu-card">
+        <i class="fas fa-sliders-h"></i>
+        <h3>Website Settings</h3>
+        <p>Change theme, service times, announcements</p>
+    </a>
+    <a href="/admin/upload-photo" class="menu-card">
+        <i class="fas fa-upload"></i>
+        <h3>Upload Photos</h3>
+        <p>Add images to gallery</p>
+    </a>
+    <a href="/admin/events" class="menu-card">
+        <i class="fas fa-calendar-alt"></i>
+        <h3>Manage Events</h3>
+        <p>Update conference information</p>
+    </a>
+</div>
+{% endblock %}
