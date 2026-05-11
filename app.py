@@ -1,3 +1,6 @@
+# Word Temple Church of God International Website
+# Copyright (c) 2026 Word Temple Church of God International
+# All rights reserved. Unauthorized copying of this file, via any medium, is strictly prohibited.
 from flask import Flask, render_template, session, redirect, url_for, request, flash
 from functools import wraps
 import os
