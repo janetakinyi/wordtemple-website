@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>{{ church.name }} | {{ church.theme_2026 }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
@@ -44,7 +44,8 @@
             margin: 0 auto;
             padding: 0 30px;
         }
-
+        
+        /* ===== TOP BAR ===== */
         .top-bar {
             background: linear-gradient(135deg, var(--blue), var(--maroon));
             color: var(--white);
@@ -54,29 +55,12 @@
             overflow: hidden;
         }
         
-        .top-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            100% { left: 100%; }
-        }
-        
         .top-bar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            position: relative;
-            z-index: 2;
         }
         
         .contact-info {
@@ -90,7 +74,6 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
-            cursor: pointer;
         }
         
         .contact-info span:hover {
@@ -117,7 +100,8 @@
             color: var(--gold);
             transform: translateY(-3px) scale(1.2);
         }
-
+        
+        /* ===== NAVIGATION ===== */
         .navbar {
             background: var(--nav-bg);
             backdrop-filter: blur(10px);
@@ -157,7 +141,6 @@
             height: 100%;
             object-fit: contain;
             border-radius: 10px;
-            background: transparent;
         }
         
         .logo-text h1 {
@@ -184,6 +167,8 @@
             font-size: 28px;
             cursor: pointer;
             color: var(--gold);
+            background: none;
+            border: none;
         }
         
         .nav-menu {
@@ -234,15 +219,14 @@
             border: none;
             display: inline-block;
             text-align: center;
-            line-height: normal;
         }
         
         .give-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255,217,102,0.5);
-            background: linear-gradient(135deg, #F0B429, #FFD966);
         }
-
+        
+        /* ===== BUTTONS ===== */
         .btn {
             display: inline-block;
             padding: 10px 25px;
@@ -251,30 +235,8 @@
             font-weight: 700;
             font-size: 15px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
             cursor: pointer;
             border: none;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-            z-index: -1;
-        }
-        
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
         }
         
         .btn-primary {
@@ -299,7 +261,8 @@
             color: var(--maroon);
             transform: translateY(-2px);
         }
-
+        
+        /* ===== FOOTER ===== */
         footer {
             background: linear-gradient(135deg, #0a0a14, #12122a);
             color: var(--text-light);
@@ -378,12 +341,72 @@
             font-size: 12px;
             opacity: 0.6;
         }
-
+        
+        /* ===== RESPONSIVE BREAKPOINTS ===== */
+        
+        /* Tablet (768px - 1024px) */
         @media (max-width: 1024px) {
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .container {
+                padding: 0 20px;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+            
+            .nav-menu a {
+                font-size: 14px;
+            }
+            
+            .give-btn {
+                padding: 6px 15px !important;
+                font-size: 14px !important;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
         }
         
+        /* Mobile (up to 768px) */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            /* Top Bar - Stack vertically */
+            .top-bar .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 8px;
+                justify-content: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            /* Logo */
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .logo-text h1 {
+                font-size: 18px;
+            }
+            
+            .logo-text p {
+                font-size: 8px;
+                letter-spacing: 2px;
+            }
+            
+            /* Mobile Menu */
             .mobile-menu-toggle {
                 display: block;
             }
@@ -414,17 +437,52 @@
             .nav-menu a {
                 display: block;
                 padding: 10px;
+                font-size: 16px;
             }
             
             .give-btn {
                 display: inline-block !important;
-                margin-top: 10px;
+                margin-top: 5px;
             }
             
-            .footer-grid { grid-template-columns: 1fr; }
-            .contact-info { flex-direction: column; gap: 10px; }
-            .logo-text h1 { font-size: 18px; }
-            .logo-img { width: 40px; height: 40px; }
+            /* Footer */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                text-align: center;
+            }
+            
+            .footer-grid h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-grid .social-links {
+                justify-content: center;
+            }
+        }
+        
+        /* Small Mobile (up to 480px) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            .contact-info span {
+                font-size: 11px;
+            }
+            
+            .social-links a {
+                font-size: 14px;
+            }
+            
+            .logo-text h1 {
+                font-size: 16px;
+            }
+            
+            .nav-menu {
+                top: 65px;
+            }
         }
     </style>
 </head>
@@ -459,9 +517,9 @@
             </div>
             
             <!-- Mobile Menu Toggle Button -->
-            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
             
             <ul class="nav-menu" id="navMenu">
                 <li><a href="/">HOME</a></li>
@@ -525,6 +583,7 @@
     <script>
         AOS.init({ duration: 1000, once: false, mirror: true, offset: 80 });
         
+        // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -539,7 +598,8 @@
         const menu = document.getElementById('navMenu');
         
         if (toggle && menu) {
-            toggle.addEventListener('click', function() {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
                 menu.classList.toggle('active');
             });
             
@@ -548,6 +608,13 @@
                 link.addEventListener('click', () => {
                     menu.classList.remove('active');
                 });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!navbar.contains(event.target)) {
+                    menu.classList.remove('active');
+                }
             });
         }
     </script>
