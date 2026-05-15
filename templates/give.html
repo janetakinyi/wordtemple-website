@@ -229,32 +229,35 @@
     <div class="container">
         <div class="give-grid">
             <div class="give-card" data-aos="fade-right">
-                <h3>🇰🇪 KENYA</h3>
-                <div class="give-detail">
-                    <i class="fas fa-mobile-alt"></i>
-                    <div>
-                        <strong>M-PESA BUY GOODS TILL NO</strong>
-                        <div class="give-amount">{{ church.giving.mpesa_till }}</div>
-                        <div>{{ church.giving.mpesa_account }}</div>
-                    </div>
-                </div>
-                <div class="give-detail">
-                    <i class="fas fa-university"></i>
-                    <div>
-                        <strong>EQUITY BANK</strong>
-                        <div>Paybill: {{ church.giving.equity_paybill }}</div>
-                        <div>Account No: {{ church.giving.equity_account }}</div>
-                    </div>
-                </div>
-                <div class="give-detail">
-                    <i class="fas fa-university"></i>
-                    <div>
-                        <strong>KCB BANK ACCOUNT</strong>
-                        <div>Paybill: {{ church.giving.kcb_paybill }}</div>
-                        <div>Account Number: {{ church.giving.kcb_account }}</div>
-                        <div>For Cheques/Cash/Transfers: {{ church.giving.kcb_cheque }}</div>
-                    </div>
-                </div>
+<h3>🇰🇪 KENYA</h3>
+<div class="give-detail">
+    <i class="fas fa-mobile-alt"></i>
+    <div>
+        <strong>M-PESA BUY GOODS TILL NO</strong>
+        <div class="give-amount">{{ church.giving.mpesa_till }}</div>
+        <div>{{ church.giving.mpesa_account }}</div>
+        <small style="color: var(--gold);">(Tithes and Offerings)</small>
+    </div>
+</div>
+<div class="give-detail">
+    <i class="fas fa-university"></i>
+    <div>
+        <strong>EQUITY BANK</strong>
+        <div>Paybill: {{ church.giving.equity_paybill }}</div>
+        <div>Account No: {{ church.giving.equity_account }}</div>
+        <small style="color: var(--gold);">(Partnership / Development Account)</small>
+    </div>
+</div>
+<div class="give-detail">
+    <i class="fas fa-university"></i>
+    <div>
+        <strong>KCB BANK ACCOUNT</strong>
+        <div>Paybill: {{ church.giving.kcb_paybill }}</div>
+        <div>Account Number: {{ church.giving.kcb_account }}</div>
+        <div>For Cheques/Cash/Transfers: {{ church.giving.kcb_cheque }}</div>
+        <small style="color: var(--gold);">(New Sanctuary Project)</small>
+    </div>
+</div>                
             </div>
             <div class="give-card" data-aos="fade-left">
                 <h3>🌍 INTERNATIONAL</h3>
