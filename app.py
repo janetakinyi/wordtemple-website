@@ -1,6 +1,8 @@
 # Word Temple Church of God International Website
 # Copyright (c) 2026 Word Temple Church of God International
 # All rights reserved. Unauthorized copying of this file, via any medium, is strictly prohibited.
+from flask import redirect
+
 import os
 import sys
 
@@ -170,7 +172,7 @@ def about():
 
 @app.route('/founders')
 def leaders():
-    return render_template('founders.html', church=church_info)
+    return redirect('/founders')
 
 @app.route('/connect')
 def connect():
@@ -388,5 +390,13 @@ def membership():
 def conference_register():
     return render_template('conference-register.html', church=church_info)
 
+
+@app.route('/founders')
+def founders():
+    return render_template('founders.html', church=church_info)
 if __name__ == '__main__':
     app.run(debug=True)
+
+@app.route('/founders')
+def founders():
+    return render_template('founders.html', church=church_info)
