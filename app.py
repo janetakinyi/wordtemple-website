@@ -1,6 +1,13 @@
 # Word Temple Church of God International Website
 # Copyright (c) 2026 Word Temple Church of God International
 # All rights reserved. Unauthorized copying of this file, via any medium, is strictly prohibited.
+import os
+import sys
+
+# Ensure files are writable
+if os.environ.get('RENDER'):
+    # Use /tmp for writable storage on Render
+    os.chdir('/tmp')
 from flask import Flask, render_template, session, redirect, url_for, request, flash
 from functools import wraps
 import os
@@ -161,9 +168,9 @@ def home():
 def about():
     return render_template('about.html', church=church_info)
 
-@app.route('/leaders')
+@app.route('/founders')
 def leaders():
-    return render_template('leaders.html', church=church_info)
+    return render_template('founders.html', church=church_info)
 
 @app.route('/connect')
 def connect():

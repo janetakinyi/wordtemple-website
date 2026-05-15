@@ -13,8 +13,8 @@ EVENTS_FILE = 'events_data.json'
 def init_admin():
     if not os.path.exists(ADMIN_FILE):
         default_admin = {
-            "admin": {
-                "password": generate_password_hash("wordtemple2026"),
+            "website": {
+                "password": generate_password_hash("wordtempl32025"),
                 "role": "super_admin",
                 "created": str(datetime.now())
             }
