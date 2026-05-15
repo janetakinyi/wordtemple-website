@@ -170,10 +170,6 @@ def home():
 def about():
     return render_template('about.html', church=church_info)
 
-@app.route('/founders')
-def leaders():
-    return redirect('/founders')
-
 @app.route('/connect')
 def connect():
     return render_template('connect.html', church=church_info)
@@ -391,11 +387,9 @@ def conference_register():
     return render_template('conference-register.html', church=church_info)
 
 
-@app.route('/founders')
-def founders():
-    return render_template('founders.html', church=church_info)
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/leaders')
+def leaders():
+    return redirect('/founders')
 
 @app.route('/founders')
 def founders():
