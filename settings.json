@@ -1,26 +1,58 @@
 {
-    "theme_2026": "Our Year of SUPERNATURAL BREAKTHROUGHS",
-    "theme_scripture": "2 Samuel 5:20 (NKJV)",
-    "theme_verse": "like a breakthrough of water? Therefore he called the name of that place Baal Perazim.",
-    "announcements": [
-        "🎉 Early Bird Registration for Revelation & Power Conference ends October 31st!",
-        "🌸 Daughters of the Kingdom Conference - Special accommodation rates available!",
-        "🔥 Youth Conference 'The Remnant' - Group discounts for churches!",
-        "📚 New Book Release: 'The Authority of Faith' by Apostle Michael Wambua"
+  "theme_2026": "Our Year of SUPERNATURAL BREAKTHROUGHS",
+  "theme_scripture": "2 Samuel 5:20 (NKJV)",
+  "theme_verse": "like a breakthrough of water? Therefore he called the name of that place Baal Perazim.",
+  "announcements": [
+    "\ud83c\udf89  Registration for Revelation & Power Conference ends October 31st!",
+    "\ud83c\udf38 Daughters of the Kingdom Conference - Accommodation available",
+    "\ud83d\udd25November  Youth Conference "
+  ],
+  "services": {
+    "sunday": [
+      {
+        "name": "1st Service",
+        "time": "5:30 AM - 8:00 AM"
+      },
+      {
+        "name": "2nd Service",
+        "time": "8:30 AM - 11:00 AM"
+      },
+      {
+        "name": "3rd Service",
+        "time": "11:00 AM - 2:00 PM"
+      }
     ],
-    "services": {
-        "sunday": [
-            {"name": "1st Service", "time": "5:30 AM - 8:00 AM"},
-            {"name": "2nd Service", "time": "8:30 AM - 11:00 AM"},
-            {"name": "3rd Service", "time": "11:00 AM - 2:00 PM"}
-        ],
-        "weekly": [
-            {"day": "Monday - Friday", "name": "Morning Meditation", "time": "6:30 AM - 7:30 AM"},
-            {"day": "Monday - Friday", "name": "Lunch Hour Services", "time": "12:30 PM - 2:00 PM"},
-            {"day": "Tuesday", "name": "Pastors & Leaders Meeting", "time": "9:00 AM - 11:30 AM"},
-            {"day": "Wednesday", "name": "Gospel Master Class", "time": "6:30 PM - 8:00 PM"},
-            {"day": "First Friday", "name": "Mini-Kesha Prayer Service", "time": "6:30 PM - 9:30 PM"},
-            {"day": "Saturday", "name": "Youth Service - The Remnant", "time": "10:00 AM - 5:00 PM"}
-        ]
-    }
+    "weekly": [
+      {
+        "day": "Monday - Friday",
+        "name": "Morning Meditation",
+        "time": "6:30 AM - 7:30 AM"
+      },
+      {
+        "day": "Monday - Friday",
+        "name": "Lunch Hour Services",
+        "time": "12:30 PM - 2:00 PM"
+      },
+      {
+        "day": "Tuesday",
+        "name": "Pastors & Leaders Meeting",
+        "time": "9:00 AM - 11:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "name": "Gospel Master Class",
+        "time": "6:30 PM - 8:00 PM"
+      },
+      {
+        "day": "First Friday",
+        "name": "Mini-Kesha Prayer Service",
+        "time": "6:30 PM - 9:30 PM"
+      },
+      {
+        "day": "Saturday",
+        "name": "Youth Service - The Remnant",
+        "time": "10:00 AM - 5:00 PM"
+      }
+    ]
+  }
 }

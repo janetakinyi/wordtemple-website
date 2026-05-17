@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .editor-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 30px;
+        background: var(--card-bg);
+        border-radius: 20px;
+        border: 1px solid var(--gold);
+    }
+    .form-group {
+        margin-bottom: 25px;
+    }
+    label {
+        display: block;
+        color: var(--gold);
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    input, textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,217,102,0.3);
+        background: var(--dark-bg);
+        color: var(--text-light);
+    }
+    textarea {
+        min-height: 100px;
+    }
+    .event-box {
+        background: rgba(255,217,102,0.1);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        border: 1px solid var(--gold);
+    }
+    .event-box h3 {
+        color: var(--gold);
+        margin-bottom: 15px;
+    }
+    .row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    .btn-save {
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--maroon);
+        padding: 12px 30px;
+        border: none;
+        border-radius: 50px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .btn-add {
+        background: var(--blue);
+        color: white;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-bottom: 15px;
+    }
+    .warning {
+        background: rgba(231,76,60,0.2);
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border-left: 4px solid #e74c3c;
+    }
+</style>
+
+<div class="container">
+    <div class="editor-container">
+        <h2 style="color: var(--gold);">📝 Content Editor</h2>
+        <div class="warning">
+            <i class="fas fa-info-circle"></i> You can only edit text content. HTML and Python code are protected.
+        </div>
+
+        <form method="POST">
+            <!-- Theme Settings -->
+            <div class="event-box">
+                <h3>🎨 Theme Settings</h3>
+                <div class="form-group">
+                    <label>🏷️ Annual Theme Title</label>
+                    <input type="text" name="theme_title" value="{{ content.theme.title }}" required>
+                </div>
+                <div class="form-group">
+                    <label>📖 Theme Scripture</label>
+                    <input type="text" name="theme_scripture" value="{{ content.theme.scripture }}" required>
+                </div>
+                <div class="form-group">
+                    <label>📜 Theme Verse</label>
+                    <textarea name="theme_verse">{{ content.theme.verse }}</textarea>
+                </div>
+            </div>
+
+            <!-- Mid-Year Revival Event -->
+            <div class="event-box">
+                <h3>🔥 Mid-Year Revival Conference</h3>
+                <div class="row-2">
+                    <div class="form-group">
+                        <label>Event Title</label>
+                        <input type="text" name="midyear_title" value="{{ content.events.midyear_revival.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Dates</label>
+                        <input type="text" name="midyear_dates" value="{{ content.events.midyear_revival.dates }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Theme</label>
+                    <input type="text" name="midyear_theme" value="{{ content.events.midyear_revival.theme }}">
+                </div>
+                <div class="row-2">
+                    <div class="form-group">
+                        <label>Host</label>
+                        <input type="text" name="midyear_host" value="{{ content.events.midyear_revival.host }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Host Title</label>
+                        <input type="text" name="midyear_host_title" value="{{ content.events.midyear_revival.host_title }}">
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div class="form-group">
+                        <label>Guest Speaker</label>
+                        <input type="text" name="midyear_guest" value="{{ content.events.midyear_revival.guest }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Guest From</label>
+                        <input type="text" name="midyear_guest_from" value="{{ content.events.midyear_revival.guest_from }}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daughters of the Kingdom Event -->
+            <div class="event-box">
+                <h3>🌸 Daughters of the Kingdom - Ladies Conference</h3>
+                <div class="row-2">
+                    <div class="form-group">
+                        <label>Event Title</label>
+                        <input type="text" name="daughters_title" value="{{ content.events.daughters_kingdom.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Dates</label>
+                        <input type="text" name="daughters_dates" value="{{ content.events.daughters_kingdom.dates }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Theme</label>
+                    <input type="text" name="daughters_theme" value="{{ content.events.daughters_kingdom.theme }}">
+                </div>
+                <div class="form-group">
+                    <label>Hosts</label>
+                    <input type="text" name="daughters_hosts" value="{{ content.events.daughters_kingdom.hosts }}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-save"><i class="fas fa-save"></i> Save All Changes</button>
+            <a href="/admin" class="btn-save" style="background: #666; text-decoration: none; margin-left: 10px;">Back to Admin</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

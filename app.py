@@ -2,7 +2,7 @@
 # Copyright (c) 2026 Word Temple Church of God International
 # All rights reserved. Unauthorized copying of this file, via any medium, is strictly prohibited.
 from flask import redirect
-
+import json
 import os
 import sys
 
@@ -394,3 +394,61 @@ def leaders():
 @app.route('/founders')
 def founders():
     return render_template('founders.html', church=church_info)
+
+@app.route('/admin/safe-edit', methods=['GET', 'POST'])
+@login_required
+def safe_edit():
+    import json
+    content_file = 'content.json'
+    
+    if request.method == 'POST':
+        data = {
+            'announcements': request.form.getlist('announcements'),
+            'theme': {
+                'title': request.form.get('theme_title'),
+                'scripture': request.form.get('theme_scripture'),
+                'verse': request.form.get('theme_verse')
+            },
+            'events': {
+                'midyear_revival': {
+                    'title': request.form.get('midyear_title'),
+                    'dates': request.form.get('midyear_dates'),
+                    'theme': request.form.get('midyear_theme'),
+                    'host': request.form.get('midyear_host'),
+                    'host_title': request.form.get('midyear_host_title'),
+                    'guest': request.form.get('midyear_guest'),
+                    'guest_from': request.form.get('midyear_guest_from')
+                },
+                'daughters_kingdom': {
+                    'title': request.form.get('daughters_title'),
+                    'dates': request.form.get('daughters_dates'),
+                    'theme': request.form.get('daughters_theme'),
+                    'hosts': request.form.get('daughters_hosts')
+                }
+            }
+        }
+        data['announcements'] = [a for a in data['announcements'] if a.strip()]
+        
+        with open(content_file, 'w') as f:
+            json.dump(data, f, indent=2)
+        
+        flash('Content saved successfully!', 'success')
+        return redirect(url_for('safe_edit'))
+    
+    try:
+        with open(content_file, 'r') as f:
+            content_data = json.load(f)
+    except:
+        content_data = {
+            'announcements': [],
+            'theme': {'title': '', 'scripture': '', 'verse': ''},
+            'events': {
+                'midyear_revival': {},
+                'daughters_kingdom': {}
+            }
+        }
+    
+    return render_template('safe_editor.html', content=content_data, church=church_info)
+
+if __name__ == '__main__':
+    app.run(debug=True)
