@@ -269,58 +269,41 @@
 <section class="gallery-section">
     <div class="container">
         
-     <!-- FEATURED VIDEO -->
-<div class="featured-video" data-aos="zoom-in">
-    <div class="featured-badge">
-        <i class="fas fa-crown"></i> FEATURED: REVELATION & POWER CONFERENCE
-    </div>
-    <h2 style="color: var(--white); font-size: 28px; margin-bottom: 20px;">Commissioning Service with Apostle Michael Wambua</h2>
-    <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/Xcmz4n0OKhg" frameborder="0" allowfullscreen></iframe>
-</div>
-<p style="margin-top: 20px; color: var(--white);">The Commissioning of Apostle Michael Wambua | Papa Dr. Wilfred Lai | 10th December 2021</p>
-</div>
+        <!-- FEATURED VIDEO -->
+        <div class="featured-video" data-aos="zoom-in">
+            <div class="featured-badge">
+                <i class="fas fa-crown"></i> FEATURED: COMMISSIONING SERVICE
+            </div>
+            <h2 style="color: var(--white); font-size: 28px; margin-bottom: 20px;">Commissioning Service with Apostle Michael Wambua</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/Xcmz4n0OKhg" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <p style="margin-top: 20px; color: var(--white);">The Commissioning of Apostle Michael Wambua | Papa Dr. Wilfred Lai | 10th December 2021</p>
+        </div>
 
         <!-- VIDEO PLAYLISTS -->
         <h2 class="section-title" data-aos="fade-up">📺 WATCH BY CATEGORY</h2>
         <div class="video-grid">
-            <!-- Morning Services Playlist -->
             <div class="video-card" data-aos="fade-up">
                 <div class="video-thumb"><iframe src="https://www.youtube.com/embed/rDB3lnV-uy8" frameborder="0" allowfullscreen></iframe></div>
                 <div class="video-info"><h4><i class="fas fa-sun"></i> Morning Services</h4><p>Monday - Friday Services</p></div>
             </div>
-            
-            <!-- Pastors & Leaders Playlist -->
             <div class="video-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="video-thumb"><iframe src="https://www.youtube.com/embed/nhcILNYVMMI" frameborder="0" allowfullscreen></iframe></div>
                 <div class="video-info"><h4><i class="fas fa-chalkboard-user"></i> Pastors & Leaders</h4><p>Leadership Training</p></div>
             </div>
-            
-          <!-- Annual Youth Conference 2026 Playlist -->
-<div class="video-card" data-aos="fade-up" data-aos-delay="200">
-    <div class="video-thumb">
-        <iframe src="https://www.youtube.com/embed/7-IXmTMhZKs" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-info">
-        <h4><i class="fas fa-child"></i> Annual Youth Conference 2026</h4>
-        <p>Different Lights for Us to Shine | Pastor Kelvin Waweru</p>
-        <a href="https://www.youtube.com/watch?v=7-IXmTMhZKs&list=PLRg-jafxkiMe0W4C5tdXkZU_f2JtUHfqm" target="_blank" style="color: var(--gold);">Watch Full Playlist →</a>
-    </div>
-</div>
-            
-            <!-- Daughters of the Kingdom Playlist -->
+            <div class="video-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="video-thumb"><iframe src="https://www.youtube.com/embed/pcOoWndilig" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-info"><h4><i class="fas fa-child"></i> Youth Conference</h4><p>Annual Youth Conference</p></div>
+            </div>
             <div class="video-card" data-aos="fade-up">
                 <div class="video-thumb"><iframe src="https://www.youtube.com/embed/rPvgh73Z4Bs" frameborder="0" allowfullscreen></iframe></div>
                 <div class="video-info"><h4><i class="fas fa-female"></i> Daughters of the Kingdom</h4><p>Ladies Conference</p></div>
             </div>
-            
-            <!-- Revelation & Power Playlist -->
             <div class="video-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="video-thumb"><iframe src="https://www.youtube.com/embed/uA9m_Xo19HI" frameborder="0" allowfullscreen></iframe></div>
                 <div class="video-info"><h4><i class="fas fa-crown"></i> Revelation & Power</h4><p>Annual Conference</p></div>
             </div>
-            
-            <!-- Praise & Worship Playlist -->
             <div class="video-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="video-thumb"><iframe src="https://www.youtube.com/embed/vqydc4lg6NI" frameborder="0" allowfullscreen></iframe></div>
                 <div class="video-info"><h4><i class="fas fa-music"></i> Praise & Worship</h4><p>Word Temple Voices</p></div>
@@ -331,7 +314,7 @@
             <a href="{{ church.youtube }}" target="_blank" class="btn btn-primary" style="background: var(--gold); color: var(--maroon); padding: 15px 40px;">VISIT YOUTUBE CHANNEL</a>
         </div>
 
-        <!-- DYNAMIC PHOTO GALLERY -->
+        <!-- PHOTO GALLERY -->
         <div class="image-gallery-section">
             
             <h2 class="image-category-title"><i class="fas fa-hands-praying"></i> WORSHIP THAT TOUCHES HEAVEN</h2>
@@ -346,7 +329,7 @@
             <div class="image-grid" id="preachingGrid"></div>
             <div class="view-more-container" id="preachingMore"></div>
 
-            <h2 class="image-category-title"><i class="fas fa-child"></i> YOUTH CONFERENCE - THE REMNANT</h2>
+            <h2 class="image-category-title"><i class="fas fa-child"></i> YOUTH CONFERENCE</h2>
             <div class="image-grid" id="youthGrid"></div>
             <div class="view-more-container" id="youthMore"></div>
 
@@ -382,25 +365,18 @@
             const ladiesImages = allImages.filter(img => img.toLowerCase().includes('wconf'));
             const praiseImages = allImages.filter(img => img.toLowerCase().includes('praise'));
             
-            // Default captions
-            const worshipCaptions = ['An atmosphere of glory', 'Hands lifted in praise', 'The presence of the Lord'];
-            const rpCaptions = ['The power of God moved mightily', 'A divine encounter', 'Glory revealed'];
-            const preachingCaptions = ['Apostle Michael Wambua ministering', 'The Word going forth with power'];
-            const youthCaptions = ['Young people on fire for God', 'Passionate worship', 'The next generation rising'];
-            const ladiesCaptions = ['Royal daughters', 'Kingdom women', 'Women rising in purpose'];
-            const praiseCaptions = ['Celebrating His goodness', 'Joy unspeakable', 'Making a joyful noise'];
+            const defaultCaptions = ['Moments of Glory', 'Divine Encounter', 'Kingdom Impact'];
             
-            function loadImageGrid(containerId, images, captions, count) {
+            function loadImageGrid(containerId, images, count) {
                 const container = document.getElementById(containerId);
                 if (!container || images.length === 0) {
-                    if (container) container.innerHTML = '<p style="color: white; text-align: center;">No images found in this category.</p>';
+                    if (container) container.innerHTML = '<p style="color: white; text-align: center;">No images found.</p>';
                     return;
                 }
                 
                 let html = '';
                 const limit = Math.min(count, images.length);
                 for(let i = 0; i < limit; i++) {
-                    const captionIndex = i % captions.length;
                     html += `
                         <div class="gallery-item" onclick="openModal('${images[i]}')">
                             <div class="gallery-image">
@@ -414,18 +390,18 @@
             
             function loadMore(category) {
                 const config = {
-                    worship: { images: worshipImages, captions: worshipCaptions, gridId: 'worshipGrid', moreId: 'worshipMore' },
-                    rp: { images: rpImages, captions: rpCaptions, gridId: 'rpGrid', moreId: 'rpMore' },
-                    preaching: { images: preachingImages, captions: preachingCaptions, gridId: 'preachingGrid', moreId: 'preachingMore' },
-                    youth: { images: youthImages, captions: youthCaptions, gridId: 'youthGrid', moreId: 'youthMore' },
-                    ladies: { images: ladiesImages, captions: ladiesCaptions, gridId: 'ladiesGrid', moreId: 'ladiesMore' },
-                    praise: { images: praiseImages, captions: praiseCaptions, gridId: 'praiseGrid', moreId: 'praiseMore' }
+                    worship: { images: worshipImages, gridId: 'worshipGrid', moreId: 'worshipMore' },
+                    rp: { images: rpImages, gridId: 'rpGrid', moreId: 'rpMore' },
+                    preaching: { images: preachingImages, gridId: 'preachingGrid', moreId: 'preachingMore' },
+                    youth: { images: youthImages, gridId: 'youthGrid', moreId: 'youthMore' },
+                    ladies: { images: ladiesImages, gridId: 'ladiesGrid', moreId: 'ladiesMore' },
+                    praise: { images: praiseImages, gridId: 'praiseGrid', moreId: 'praiseMore' }
                 };
                 
                 const data = config[category];
                 if (!data) return;
                 
-                loadImageGrid(data.gridId, data.images, data.captions, data.images.length);
+                loadImageGrid(data.gridId, data.images, data.images.length);
                 const moreContainer = document.getElementById(data.moreId);
                 if (moreContainer) moreContainer.innerHTML = '';
             }
@@ -438,12 +414,12 @@
             }
             
             // Load initial 8 images
-            loadImageGrid('worshipGrid', worshipImages, worshipCaptions, 8);
-            loadImageGrid('rpGrid', rpImages, rpCaptions, 8);
-            loadImageGrid('preachingGrid', preachingImages, preachingCaptions, 8);
-            loadImageGrid('youthGrid', youthImages, youthCaptions, 8);
-            loadImageGrid('ladiesGrid', ladiesImages, ladiesCaptions, 8);
-            loadImageGrid('praiseGrid', praiseImages, praiseCaptions, 8);
+            loadImageGrid('worshipGrid', worshipImages, 8);
+            loadImageGrid('rpGrid', rpImages, 8);
+            loadImageGrid('preachingGrid', preachingImages, 8);
+            loadImageGrid('youthGrid', youthImages, 8);
+            loadImageGrid('ladiesGrid', ladiesImages, 8);
+            loadImageGrid('praiseGrid', praiseImages, 8);
             
             // Setup View More buttons
             setupViewMore('worship', worshipImages, 'worshipMore');
@@ -473,3 +449,4 @@
     
     loadAllImages();
 </script>
+{% endblock %}
