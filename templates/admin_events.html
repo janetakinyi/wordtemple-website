@@ -1,44 +1,186 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Events - Admin Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0F0F1A; color: #e0e0e0; }
-        .admin-header { background: linear-gradient(135deg, #2A9D8F, #B83B5E); padding: 60px 0; text-align: center; color: white; }
-        .admin-header h1 { font-size: 48px; }
-        .events-section { padding: 40px; }
-        .event-card { background: #16213e; border-radius: 20px; padding: 20px; margin-bottom: 20px; border-left: 5px solid #FFD966; }
-        .back-btn { display: inline-block; margin-bottom: 20px; padding: 10px 25px; background: #FFD966; color: #1a2b4a; text-decoration: none; border-radius: 50px; }
-        .logout-btn { background: #e74c3c; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; display: inline-block; margin-top: 20px; margin-left: 15px; }
-    </style>
-</head>
-<body>
-    <div class="admin-header">
-        <div class="container">
-            <h1><i class="fas fa-calendar-alt"></i> Manage Events</h1>
-            <a href="/admin" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
-            <a href="/admin/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .admin-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 60px 0;
+        text-align: center;
+        color: var(--white);
+    }
+    .admin-header h1 { font-size: 48px; }
+    .events-section {
+        padding: 40px;
+        background: var(--dark-bg);
+    }
+    .event-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 30px;
+        border-left: 5px solid var(--gold);
+        display: flex;
+        gap: 25px;
+        transition: all 0.3s ease;
+    }
+    .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .event-thumb {
+        width: 180px;
+        height: 120px;
+        background: linear-gradient(135deg, var(--maroon), var(--blue));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    .event-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .event-thumb i {
+        font-size: 40px;
+        color: var(--gold);
+        opacity: 0.7;
+    }
+    .event-info {
+        flex: 1;
+    }
+    .event-title {
+        font-size: 22px;
+        color: var(--gold);
+        margin-bottom: 8px;
+    }
+    .event-date {
+        color: var(--blue-bright);
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .event-description {
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+    .event-actions {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    .btn-edit, .btn-upload {
+        padding: 6px 15px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .btn-edit {
+        background: var(--gold);
+        color: var(--maroon);
+    }
+    .btn-upload {
+        background: var(--blue);
+        color: white;
+    }
+    .back-btn, .logout-btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px 25px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .back-btn { background: var(--gold); color: var(--maroon); }
+    .logout-btn { background: #e74c3c; color: white; }
+    
+    @media (max-width: 768px) {
+        .event-card { flex-direction: column; }
+        .event-thumb { width: 100%; height: 160px; }
+    }
+</style>
+
+<section class="admin-header">
+    <div class="container">
+        <h1><i class="fas fa-calendar-alt"></i> Manage Events</h1>
+        <a href="/admin" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        <a href="/admin/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+</section>
+
+<div class="events-section">
+    <div class="container">
+        
+        <!-- Mid-Year Revival Conference -->
+        <div class="event-card">
+            <div class="event-thumb">
+                <img src="{{ url_for('static', filename='images/events/midyear-revival.jpg') }}" alt="Mid-Year Revival" onerror="this.parentElement.innerHTML='<i class=\\\"fas fa-fire\\\"></i>'">
+            </div>
+            <div class="event-info">
+                <h3 class="event-title">🔥 Mid-Year Revival Conference</h3>
+                <div class="event-date"><i class="fas fa-calendar-alt"></i> May 31st - June 7th, 2026</div>
+                <p class="event-description">Theme: "O Lord, revive Your work in the midst of the years!" - Habakkuk 3:2. Host: Apostle Michael Wambua. Guest: Apostle Richard Mayanja (Uganda).</p>
+                <div class="event-actions">
+                    <a href="/admin/upload-photo" class="btn-upload"><i class="fas fa-upload"></i> Upload Thumbnail</a>
+                    <a href="/admin/settings" class="btn-edit"><i class="fas fa-edit"></i> Edit Details</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daughters of the Kingdom Conference -->
+        <div class="event-card">
+            <div class="event-thumb">
+                <img src="{{ url_for('static', filename='images/events/daughters-conference.jpg') }}" alt="Daughters of the Kingdom" onerror="this.parentElement.innerHTML='<i class=\\\"fas fa-female\\\"></i>'">
+            </div>
+            <div class="event-info">
+                <h3 class="event-title">🌸 Daughters of the Kingdom - Ladies Conference</h3>
+                <div class="event-date"><i class="fas fa-calendar-alt"></i> August 20th - 21st, 2026</div>
+                <p class="event-description">Theme: "Set Apart for God" (Luke 10:38-42). Hosts: Apostle Michael Wambua & Rev. Bancy Wambua.</p>
+                <div class="event-actions">
+                    <a href="/admin/upload-photo" class="btn-upload"><i class="fas fa-upload"></i> Upload Thumbnail</a>
+                    <a href="/admin/settings" class="btn-edit"><i class="fas fa-edit"></i> Edit Details</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Revelation & Power Conference -->
+        <div class="event-card">
+            <div class="event-thumb">
+                <img src="{{ url_for('static', filename='images/events/revelation-conference.jpg') }}" alt="Revelation & Power" onerror="this.parentElement.innerHTML='<i class=\\\"fas fa-crown\\\"></i>'">
+            </div>
+            <div class="event-info">
+                <h3 class="event-title">👑 Revelation & Power Conference</h3>
+                <div class="event-date"><i class="fas fa-calendar-alt"></i> December 2026</div>
+                <p class="event-description">"The Faith of God" - Mark 11:22. The 8th Annual National Gospel Camp. A transformative gathering where the power of God is unleashed.</p>
+                <div class="event-actions">
+                    <a href="/admin/upload-photo" class="btn-upload"><i class="fas fa-upload"></i> Upload Thumbnail</a>
+                    <a href="/admin/settings" class="btn-edit"><i class="fas fa-edit"></i> Edit Details</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Youth Conference -->
+        <div class="event-card">
+            <div class="event-thumb">
+                <img src="{{ url_for('static', filename='images/events/youth-conference.jpg') }}" alt="Youth Conference" onerror="this.parentElement.innerHTML='<i class=\\\"fas fa-child\\\"></i>'">
+            </div>
+            <div class="event-info">
+                <h3 class="event-title">👦 Youth Conference - Annual</h3>
+                <div class="event-date"><i class="fas fa-calendar-alt"></i> April 2026</div>
+                <p class="event-description">Theme: "Youth and the Digital Space" - Matthew 5:14 "You are the light of the world." Empowering the next generation for Kingdom impact.</p>
+                <div class="event-actions">
+                    <a href="/admin/upload-photo" class="btn-upload"><i class="fas fa-upload"></i> Upload Thumbnail</a>
+                    <a href="/admin/settings" class="btn-edit"><i class="fas fa-edit"></i> Edit Details</a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="events-section">
-        <div class="event-card">
-            <h3>🔥 Revelation & Power Conference</h3>
-            <p>December 2026 | Word Temple Church Grounds</p>
-        </div>
-        <div class="event-card">
-            <h3>🌸 Daughters of the Kingdom Conference</h3>
-            <p>August 2026 | Word Temple Church, Eastleigh</p>
-        </div>
-        <div class="event-card">
-            <h3>👦 Youth Conference - "The Remnant"</h3>
-            <p>April 2026 | Word Temple Church, Eastleigh</p>
-        </div>
-    </div>
-</body>
-</html>
+</div>
+{% endblock %}
