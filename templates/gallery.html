@@ -367,25 +367,14 @@
 </div>
 
 <script>
-    // Global state for view more functionality
-    let galleryState = {
-        worship: { loaded: 8, total: 0, images: [], captions: [] },
-        rp: { loaded: 8, total: 0, images: [], captions: [] },
-        preaching: { loaded: 8, total: 0, images: [], captions: [] },
-        youth: { loaded: 8, total: 0, images: [], captions: [] },
-        ladies: { loaded: 8, total: 0, images: [], captions: [] },
-        praise: { loaded: 8, total: 0, images: [], captions: [] }
-    };
-    
-    // DYNAMIC GALLERY - Loads ALL photos from the server
+    // DYNAMIC GALLERY - Loads ALL images from the server automatically
     async function loadAllImages() {
         try {
-            // Fetch the list of images from the server
             const response = await fetch('/get-gallery-images');
             const data = await response.json();
             const allImages = data.images;
             
-            // Sort images by category based on filename
+            // Categorize images based on filename patterns
             const worshipImages = allImages.filter(img => img.toLowerCase().includes('worship'));
             const rpImages = allImages.filter(img => img.toLowerCase().includes('rp'));
             const preachingImages = allImages.filter(img => img.toLowerCase().includes('preaching'));
@@ -393,25 +382,20 @@
             const ladiesImages = allImages.filter(img => img.toLowerCase().includes('wconf'));
             const praiseImages = allImages.filter(img => img.toLowerCase().includes('praise'));
             
-            // Captions
-            const worshipCaptions = ['An atmosphere of glory', 'Hands lifted in praise', 'The presence of the Lord', 'Worship in Spirit and Truth'];
-            const rpCaptions = ['The power of God moved mightily', 'A divine encounter', 'Glory revealed', 'Anointed worship'];
-            const preachingCaptions = ['Apostle Michael Wambua ministering', 'The Word going forth with power', 'Lives transformed by the Word', 'A moment of divine encounter'];
-            const youthCaptions = ['Young people on fire for God', 'Passionate worship', 'The next generation rising', 'Youth on fire'];
-            const ladiesCaptions = ['Royal daughters', 'Kingdom women', 'Women rising in purpose', 'Empowered for Kingdom impact'];
-            const praiseCaptions = ['Celebrating His goodness', 'Joy unspeakable', 'Making a joyful noise', 'Dance before the Lord'];
-            
-            // Update global state
-            galleryState.worship = { loaded: 8, total: worshipImages.length, images: worshipImages, captions: worshipCaptions };
-            galleryState.rp = { loaded: 8, total: rpImages.length, images: rpImages, captions: rpCaptions };
-            galleryState.preaching = { loaded: 8, total: preachingImages.length, images: preachingImages, captions: preachingCaptions };
-            galleryState.youth = { loaded: 8, total: youthImages.length, images: youthImages, captions: youthCaptions };
-            galleryState.ladies = { loaded: 8, total: ladiesImages.length, images: ladiesImages, captions: ladiesCaptions };
-            galleryState.praise = { loaded: 8, total: praiseImages.length, images: praiseImages, captions: praiseCaptions };
+            // Default captions
+            const worshipCaptions = ['An atmosphere of glory', 'Hands lifted in praise', 'The presence of the Lord'];
+            const rpCaptions = ['The power of God moved mightily', 'A divine encounter', 'Glory revealed'];
+            const preachingCaptions = ['Apostle Michael Wambua ministering', 'The Word going forth with power'];
+            const youthCaptions = ['Young people on fire for God', 'Passionate worship', 'The next generation rising'];
+            const ladiesCaptions = ['Royal daughters', 'Kingdom women', 'Women rising in purpose'];
+            const praiseCaptions = ['Celebrating His goodness', 'Joy unspeakable', 'Making a joyful noise'];
             
             function loadImageGrid(containerId, images, captions, count) {
                 const container = document.getElementById(containerId);
-                if (!container) return;
+                if (!container || images.length === 0) {
+                    if (container) container.innerHTML = '<p style="color: white; text-align: center;">No images found in this category.</p>';
+                    return;
+                }
                 
                 let html = '';
                 const limit = Math.min(count, images.length);
@@ -420,7 +404,7 @@
                     html += `
                         <div class="gallery-item" onclick="openModal('${images[i]}')">
                             <div class="gallery-image">
-                                <img src="/static/images/gallery/${images[i]}" alt="Gallery image">
+                                <img src="/static/images/gallery/${images[i]}" alt="Gallery image" loading="lazy">
                             </div>
                         </div>
                     `;
@@ -428,14 +412,32 @@
                 container.innerHTML = html;
             }
             
-            function setupViewMore(category, total, moreId) {
+            function loadMore(category) {
+                const config = {
+                    worship: { images: worshipImages, captions: worshipCaptions, gridId: 'worshipGrid', moreId: 'worshipMore' },
+                    rp: { images: rpImages, captions: rpCaptions, gridId: 'rpGrid', moreId: 'rpMore' },
+                    preaching: { images: preachingImages, captions: preachingCaptions, gridId: 'preachingGrid', moreId: 'preachingMore' },
+                    youth: { images: youthImages, captions: youthCaptions, gridId: 'youthGrid', moreId: 'youthMore' },
+                    ladies: { images: ladiesImages, captions: ladiesCaptions, gridId: 'ladiesGrid', moreId: 'ladiesMore' },
+                    praise: { images: praiseImages, captions: praiseCaptions, gridId: 'praiseGrid', moreId: 'praiseMore' }
+                };
+                
+                const data = config[category];
+                if (!data) return;
+                
+                loadImageGrid(data.gridId, data.images, data.captions, data.images.length);
+                const moreContainer = document.getElementById(data.moreId);
+                if (moreContainer) moreContainer.innerHTML = '';
+            }
+            
+            function setupViewMore(category, images, moreId) {
                 const moreContainer = document.getElementById(moreId);
-                if (moreContainer && total > 8) {
-                    moreContainer.innerHTML = `<button class="view-more-btn" onclick="loadMore('${category}')">View More (${total - 8} more) ↓</button>`;
+                if (moreContainer && images.length > 8) {
+                    moreContainer.innerHTML = `<button class="view-more-btn" onclick="loadMore('${category}')">View More (${images.length - 8} more) ↓</button>`;
                 }
             }
             
-            // Load initial images (8 each)
+            // Load initial 8 images
             loadImageGrid('worshipGrid', worshipImages, worshipCaptions, 8);
             loadImageGrid('rpGrid', rpImages, rpCaptions, 8);
             loadImageGrid('preachingGrid', preachingImages, preachingCaptions, 8);
@@ -444,46 +446,17 @@
             loadImageGrid('praiseGrid', praiseImages, praiseCaptions, 8);
             
             // Setup View More buttons
-            setupViewMore('worship', worshipImages.length, 'worshipMore');
-            setupViewMore('rp', rpImages.length, 'rpMore');
-            setupViewMore('preaching', preachingImages.length, 'preachingMore');
-            setupViewMore('youth', youthImages.length, 'youthMore');
-            setupViewMore('ladies', ladiesImages.length, 'ladiesMore');
-            setupViewMore('praise', praiseImages.length, 'praiseMore');
+            setupViewMore('worship', worshipImages, 'worshipMore');
+            setupViewMore('rp', rpImages, 'rpMore');
+            setupViewMore('preaching', preachingImages, 'preachingMore');
+            setupViewMore('youth', youthImages, 'youthMore');
+            setupViewMore('ladies', ladiesImages, 'ladiesMore');
+            setupViewMore('praise', praiseImages, 'praiseMore');
             
         } catch(e) {
             console.error('Error loading gallery:', e);
         }
     }
-    
-    // Global loadMore function
-    window.loadMore = function(category) {
-        const state = galleryState[category];
-        if (!state || state.loaded >= state.total) return;
-        
-        const containerId = `${category}Grid`;
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        // Load all remaining images
-        let html = container.innerHTML;
-        for(let i = state.loaded; i < state.total; i++) {
-            const captionIndex = i % state.captions.length;
-            html += `
-                <div class="gallery-item" onclick="openModal('${state.images[i]}')">
-                    <div class="gallery-image">
-                        <img src="/static/images/gallery/${state.images[i]}" alt="Gallery image">
-                    </div>
-                </div>
-            `;
-        }
-        container.innerHTML = html;
-        state.loaded = state.total;
-        
-        // Remove the view more button
-        const moreContainer = document.getElementById(`${category}More`);
-        if (moreContainer) moreContainer.innerHTML = '';
-    };
     
     function openModal(imageSrc) {
         const modal = document.getElementById('imageModal');
@@ -498,7 +471,5 @@
     
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
     
-    // Load the gallery
     loadAllImages();
 </script>
-{% endblock %}
