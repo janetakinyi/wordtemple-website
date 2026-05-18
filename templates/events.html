@@ -77,6 +77,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
+        margin-bottom: 80px;
     }
     
     .event-card {
@@ -100,18 +101,12 @@
         width: 100%;
         background: linear-gradient(135deg, var(--maroon), var(--blue));
         overflow: hidden;
-        position: relative;
     }
     
     .event-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-    
-    .event-card:hover .event-image img {
-        transform: scale(1.05);
     }
     
     .event-content {
@@ -179,14 +174,78 @@
         box-shadow: 0 10px 20px rgba(255,217,102,0.3);
     }
     
+    /* Regular Services Section */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 40px;
+    }
+    
+    .service-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255,217,102,0.2);
+    }
+    
+    .service-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--gold);
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+    }
+    
+    .service-icon i {
+        font-size: 24px;
+        color: var(--maroon);
+    }
+    
+    .service-card h3 {
+        color: var(--gold);
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .service-card p {
+        color: var(--text-muted);
+        font-size: 14px;
+    }
+    
+    .service-time {
+        color: var(--white);
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    
+    .regular-title {
+        font-size: 32px;
+        color: var(--gold);
+        text-align: center;
+        margin-bottom: 40px;
+        font-family: 'Playfair Display', serif;
+    }
+    
     @media (max-width: 1024px) {
         .events-grid { grid-template-columns: 1fr; }
+        .services-grid { grid-template-columns: repeat(2, 1fr); }
     }
     
     @media (max-width: 768px) {
         .page-header h1 { font-size: 36px; }
         .event-image { height: 200px; }
-        .event-buttons { flex-direction: row; }
+        .services-grid { grid-template-columns: 1fr; }
     }
 </style>
 
@@ -211,77 +270,110 @@
 <section class="events-section">
     <div class="container">
         
-       <h2 class="section-title" data-aos="fade-up">📅 UPCOMING EVENTS</h2>
-<div class="events-grid">
-    
-    <!-- 1. MID-YEAR REVIVAL CONFERENCE (JUNE) -->
-    <div class="event-card" data-aos="fade-up">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/midyear-revival.jpg') }}" alt="Mid-Year Revival Conference" onerror="this.src='https://via.placeholder.com/400x250?text=Mid-Year+Revival'">
-        </div>
-        <div class="event-content">
-            <div class="event-date"><i class="fas fa-calendar-alt"></i> May 31st - June 7th, 2026</div>
-            <h3 class="event-title">🔥 MID-YEAR REVIVAL CONFERENCE</h3>
-            <p class="event-description"><strong>Theme:</strong> "O Lord, revive Your work!" - Habakkuk 3:2</p>
-            <p class="event-description"><strong>Host:</strong> Apostle Michael Wambua</p>
-            <p class="event-description"><strong>Guest:</strong> Apostle Richard Mayanja (Uganda)</p>
-            <div class="event-buttons">
-                <a href="/conference-register" class="event-btn">REGISTER</a>
-                <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+        <h2 class="section-title" data-aos="fade-up">📅 UPCOMING CONFERENCES</h2>
+        <div class="events-grid">
+            
+            <!-- Mid-Year Revival Conference -->
+            <div class="event-card" data-aos="fade-up">
+                <div class="event-image">
+                    <img src="{{ url_for('static', filename='images/events/juneconf.jpg') }}" alt="Mid-Year Revival Conference" onerror="this.parentElement.style.background='linear-gradient(135deg, var(--maroon), var(--blue))'">
+                </div>
+                <div class="event-content">
+                    <div class="event-date"><i class="fas fa-calendar-alt"></i> May 31st - June 7th, 2026</div>
+                    <h3 class="event-title">🔥 MID-YEAR REVIVAL CONFERENCE</h3>
+                    <p class="event-description"><strong>Theme:</strong> "O Lord, revive Your work!" - Habakkuk 3:2</p>
+                    <p class="event-description"><strong>Host:</strong> Apostle Michael Wambua</p>
+                    <p class="event-description"><strong>Guest:</strong> Apostle Richard Mayanja (Uganda)</p>
+                    <div class="event-buttons">
+                        <a href="/conference-register" class="event-btn">REGISTER</a>
+                        <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Daughters of the Kingdom -->
+            <div class="event-card" data-aos="fade-up">
+                <div class="event-image">
+                    <img src="{{ url_for('static', filename='images/events/daughters-conference.jpg') }}" alt="Daughters of the Kingdom" onerror="this.parentElement.style.background='linear-gradient(135deg, var(--maroon), var(--blue))'">
+                </div>
+                <div class="event-content">
+                    <div class="event-date"><i class="fas fa-calendar-alt"></i> August 20th - 21st, 2026</div>
+                    <h3 class="event-title">🌸 Daughters of the Kingdom - Ladies Conference</h3>
+                    <p class="event-description"><strong>Theme:</strong> "Set Apart for God" (Luke 10:38-42)</p>
+                    <p class="event-description"><strong>Hosts:</strong> Apostle Michael & Rev. Bancy Wambua</p>
+                    <div class="event-buttons">
+                        <a href="/conference-register" class="event-btn">REGISTER</a>
+                        <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Revelation & Power -->
+            <div class="event-card" data-aos="fade-up">
+                <div class="event-image">
+                    <img src="{{ url_for('static', filename='images/events/revelation-conference.jpg') }}" alt="Revelation & Power Conference" onerror="this.parentElement.style.background='linear-gradient(135deg, var(--maroon), var(--blue))'">
+                </div>
+                <div class="event-content">
+                    <div class="event-date"><i class="fas fa-calendar-alt"></i> December 2026</div>
+                    <h3 class="event-title">👑 Revelation & Power Conference</h3>
+                    <p class="event-description"><strong>Theme:</strong> "The Faith of God" - Mark 11:22</p>
+                    <p class="event-description">The 8th Annual National Gospel Camp.</p>
+                    <div class="event-buttons">
+                        <a href="/conference-register" class="event-btn">REGISTER</a>
+                        <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Youth Conference -->
+            <div class="event-card" data-aos="fade-up">
+                <div class="event-image">
+                    <img src="{{ url_for('static', filename='images/events/youth-conference.jpg') }}" alt="Youth Conference" onerror="this.parentElement.style.background='linear-gradient(135deg, var(--maroon), var(--blue))'">
+                </div>
+                <div class="event-content">
+                    <div class="event-date"><i class="fas fa-calendar-alt"></i> November 2026</div>
+                    <h3 class="event-title">👦 Annual Youth Conference</h3>
+                    <p class="event-description"><strong>Theme:</strong> "Youth and the Digital Space" - Matthew 5:14</p>
+                    <p class="event-description">Empowering the next generation for Kingdom impact.</p>
+                    <div class="event-buttons">
+                        <a href="/conference-register" class="event-btn">REGISTER</a>
+                        <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!-- 2. DAUGHTERS OF THE KINGDOM (AUGUST) -->
-    <div class="event-card" data-aos="fade-up">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/daughters-conference.jpg') }}" alt="Daughters of the Kingdom" onerror="this.src='https://via.placeholder.com/400x250?text=Daughters+of+the+Kingdom'">
-        </div>
-        <div class="event-content">
-            <div class="event-date"><i class="fas fa-calendar-alt"></i> August 20th - 21st, 2026</div>
-            <h3 class="event-title">🌸 Daughters of the Kingdom - Ladies Conference</h3>
-            <p class="event-description"><strong>Theme:</strong> "Set Apart for God" (Luke 10:38-42)</p>
-            <p class="event-description"><strong>Hosts:</strong> Apostle Michael & Rev. Bancy Wambua</p>
-            <div class="event-buttons">
-                <a href="/conference-register" class="event-btn">REGISTER</a>
-                <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+        
+        <!-- REGULAR SERVICES SECTION -->
+        <h2 class="regular-title" data-aos="fade-up">📌 REGULAR WEEKLY SERVICES</h2>
+        <div class="services-grid">
+            <div class="service-card" data-aos="fade-up">
+                <div class="service-icon"><i class="fas fa-church"></i></div>
+                <h3>Sunday Services</h3>
+                <p>1st Service: 5:30 AM</p>
+                <p>2nd Service: 8:30 AM</p>
+                <p>3rd Service: 11:00 AM</p>
+                <div class="service-time">Join us every Sunday</div>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-icon"><i class="fas fa-fire"></i></div>
+                <h3>Wednesday Masterclass</h3>
+                <p>Deep teaching and anointing</p>
+                <div class="service-time">Every Wednesday 6:30 PM</div>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-icon"><i class="fas fa-pray"></i></div>
+                <h3>First Friday Mini-Kesha</h3>
+                <p>Powerful prayer service</p>
+                <div class="service-time">First Friday 6:30 PM</div>
             </div>
         </div>
-    </div>
-    
-    <!-- 3. REVELATION & POWER CONFERENCE (DECEMBER) -->
-    <div class="event-card" data-aos="fade-up">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/revelation-conference.jpg') }}" alt="Revelation & Power Conference" onerror="this.src='https://via.placeholder.com/400x250?text=Revelation+%26+Power'">
-        </div>
-        <div class="event-content">
-            <div class="event-date"><i class="fas fa-calendar-alt"></i> December 2026</div>
-            <h3 class="event-title">👑 Revelation & Power Conference</h3>
-            <p class="event-description"><strong>Theme:</strong> "The Faith of God" - Mark 11:22</p>
-            <p class="event-description">The 8th Annual National Gospel Camp.</p>
-            <div class="event-buttons">
-                <a href="/conference-register" class="event-btn">REGISTER</a>
-                <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
-            </div>
+        
+        <!-- JOIN US BUTTON -->
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="/connect" class="btn btn-primary" style="background: var(--gold); color: var(--maroon); padding: 15px 40px;">JOIN US THIS SUNDAY</a>
         </div>
     </div>
-    
-    <!-- 4. YOUTH CONFERENCE (NOVEMBER) -->
-    <div class="event-card" data-aos="fade-up">
-        <div class="event-image">
-            <img src="{{ url_for('static', filename='images/events/youth-conference.jpg') }}" alt="Youth Conference" onerror="this.src='https://via.placeholder.com/400x250?text=Youth+Conference'">
-        </div>
-        <div class="event-content">
-            <div class="event-date"><i class="fas fa-calendar-alt"></i> November 2026</div>
-            <h3 class="event-title">👦 Annual Youth Conference</h3>
-            <p class="event-description"><strong>Theme:</strong> "Youth and the Digital Space" - Matthew 5:14</p>
-            <p class="event-description">Empowering the next generation for Kingdom impact.</p>
-            <div class="event-buttons">
-                <a href="/conference-register" class="event-btn">REGISTER</a>
-                <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
-            </div>
-        </div>
-    </div>
-</div>          
 </section>
 {% endblock %}
