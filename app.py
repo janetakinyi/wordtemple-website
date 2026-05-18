@@ -1,18 +1,11 @@
 # Word Temple Church of God International Website
 # Copyright (c) 2026 Word Temple Church of God International
-# All rights reserved. Unauthorized copying of this file, via any medium, is strictly prohibited.
-from flask import redirect
-import json
-import os
-import sys
+# All rights reserved.
 
-# Ensure files are writable
-if os.environ.get('RENDER'):
-    # Use /tmp for writable storage on Render
-    os.chdir('/tmp')
-from flask import Flask, render_template, session, redirect, url_for, request, flash
+from flask import Flask, render_template, session, redirect, url_for, request, flash, send_from_directory
 from functools import wraps
 import os
+import json
 from werkzeug.utils import secure_filename
 from admin import verify_admin, save_registration, get_registrations, get_quotes, get_events, get_settings, save_settings, update_quotes
 
@@ -28,7 +21,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# Church information - COMPLETE
+# Church information
 church_info = {
     'name': 'Word Temple Church of God International',
     'short_name': 'Word Temple Church',
@@ -39,99 +32,57 @@ church_info = {
     'phone_alt': '+254 720 313 832',
     'email': 'wordtemple@hotmail.com',
     
-    # APOSTLE MICHAEL WAMBUA
     'apostle': {
         'name': 'Apostle Michael Wambua',
         'title': 'Apostle Over The Commission',
         'role': 'Founder & Presiding Bishop',
-        'bio': 'Apostle Michael Wambua is the Founder and Presiding Bishop of Word Temple Church of God International, a dynamic and rapidly growing ministry based in Eastleigh, Nairobi, with over 30 branches and affiliates nationwide. The ministry is committed to transforming lives through the teaching and preaching of the revealed Word of God.',
-        'conference': 'He is the convener of the annual Revelation and Power Conference, a transformative gathering that ignites spiritual growth and revival, as well as the Pastors and Leaders Meeting, where he equips and imparts wisdom to church leaders for effective ministry.',
-        'international': 'An international teacher and preacher of the Word, Apostle Wambua has ministered in over 23 countries, impacting lives across nations with profound revelation, clarity, and spiritual authority.',
-        'education': 'Apostle Michael Wambua holds a Diploma in Transformational Church Leadership from Pan African University and is currently pursuing a Bachelor\'s degree in Biblical Studies from KAG East University.',
-        'author': 'He is also a dedicated writer, authoring books that equip, inspire, and strengthen individuals in their spiritual journey.',
-        'family': 'Beyond ministry, he is a devoted husband and a loving father of two, and a spiritual father to many sons and daughters in the faith.',
+        'bio': 'Apostle Michael Wambua is the Founder and Presiding Bishop of Word Temple Church of God International.',
+        'conference': 'He is the convener of the annual Revelation and Power Conference.',
+        'international': 'He has ministered in over 23 countries.',
+        'education': 'Holds a Diploma in Transformational Church Leadership.',
+        'author': 'Author of several books.',
+        'family': 'Devoted husband and father of two.',
         'founded': '18th January 2004',
         'commission_date': '18th May 1999',
         'commission_word': '"I am sending you for a Worldwide Mission"',
         'mission': 'Defending and confirming the gospel'
     },
     
-    # REVEREND BANCY WAMBUA
     'rev_bancy': {
         'name': 'Reverend Bancy Wambua',
         'title': 'Co-Founder, Worship Leader, Women\'s Ministry Director',
-        'bio': 'Reverend Bancy is a devoted servant of God, a passionate worshiper, and a committed preacher of the Gospel. As a mother of two, she beautifully balances family life with her calling in ministry.',
-        'conference': 'She is the leader of the annual Daughters of the Kingdom Women Conference, where she inspires and equips women to rise into their God-given calling.',
-        'youth': 'Reverend Bancy also serves as a youth patron, mentoring and guiding the younger generation in their spiritual journey.',
-        'co_founder': 'She is the co-founder of Word Temple Church of God International, where she continues to impact lives through worship, teaching, and leadership.',
-        'mission': 'Her life reflects a heart fully surrendered to God, dedicated to spreading His Word and transforming lives through worship and teaching.'
+        'bio': 'Reverend Bancy is a devoted servant of God and passionate worshiper.',
+        'conference': 'Leader of the annual Daughters of the Kingdom Women Conference.',
+        'youth': 'Serves as a youth patron.',
+        'co_founder': 'Co-founder of Word Temple Church of God International.',
+        'mission': 'Spreading His Word and transforming lives through worship.'
     },
     
-    # Church History
-    'vision': 'Restoration of the Full Gospel unto the body of Christ and planting churches all over the World',
-    'mission': 'To teach and preach the whole council of God\'s word, the Gospel of Jesus Christ worldwide through indoor meetings and outdoor meetings.',
+    'vision': 'Restoration of the Full Gospel and planting churches worldwide',
+    'mission': 'To teach and preach the whole council of God\'s word worldwide',
     'core_values': ['Integrity', 'Credibility', 'Holiness', 'Humility', 'Determination', 'Seizing opportunities', 'Exemplary living', 'Team player'],
     
-    # 2026 Theme
     'theme_2026': 'Our Year of SUPERNATURAL BREAKTHROUGHS',
     'theme_scripture': '2 Samuel 5:20 (NKJV)',
-    'theme_verse': '"like a breakthrough of water? Therefore he called the name of that place Baal Perazim."',
+    'theme_verse': '"like a breakthrough of water?"',
     
-    # SUNDAY SERVICES
     'services': [
         {'name': '1st Service', 'time': '5:30 AM - 8:00 AM', 'day': 'Sunday', 'type': 'Morning Glory'},
         {'name': '2nd Service', 'time': '8:30 AM - 11:00 AM', 'day': 'Sunday', 'type': 'Family Service'},
         {'name': '3rd Service', 'time': '11:00 AM - 2:00 PM', 'day': 'Sunday', 'type': 'Prophetic Blessing'}
     ],
     
-    # WEEKLY PROGRAMS
     'weekly_programs': [
         {'day': 'Monday - Friday', 'name': 'Morning Meditation', 'time': '6:30 AM - 7:30 AM', 'location': 'Church Auditorium & Online', 'icon': 'fa-sun', 'description': 'Start your day with God\'s Word'},
         {'day': 'Monday - Friday', 'name': 'Lunch Hour Services', 'time': '12:30 PM - 2:00 PM', 'location': 'Church Auditorium & Online', 'icon': 'fa-utensils', 'description': 'Daily spiritual nourishment'},
-        {'day': 'Tuesday', 'name': 'Pastors & Leaders Meeting', 'time': '9:00 AM - 11:30 AM', 'location': 'Church Auditorium', 'icon': 'fa-chalkboard-user', 'description': 'Leadership training with Apostle Michael Wambua'},
+        {'day': 'Tuesday', 'name': 'Pastors & Leaders Meeting', 'time': '9:00 AM - 11:30 AM', 'location': 'Church Auditorium', 'icon': 'fa-chalkboard-user', 'description': 'Leadership training'},
         {'day': 'Wednesday', 'name': 'Gospel Master Class', 'time': '6:30 PM - 8:00 PM', 'location': 'Church Auditorium & Online', 'icon': 'fa-fire', 'description': 'Deep teaching and anointing'},
-        {'day': 'First Friday', 'name': 'Mini-Kesha Prayer Service', 'time': '6:30 PM - 9:30 PM', 'location': 'Church Auditorium', 'icon': 'fa-pray', 'description': 'Powerful prayer service with Apostle Michael Wambua'},
-        {'day': 'Saturday', 'name': 'Youth Service - "The Remnant"', 'time': '10:00 AM - 12:00 PM', 'location': 'Church Auditorium', 'icon': 'fa-child', 'description': 'Young adults and teens'}
+        {'day': 'First Friday', 'name': 'Mini-Kesha Prayer Service', 'time': '6:30 PM - 9:30 PM', 'location': 'Church Auditorium', 'icon': 'fa-pray', 'description': 'Powerful prayer service'},
+        {'day': 'Saturday', 'name': 'Youth Service', 'time': '10:00 AM - 12:00 PM', 'location': 'Church Auditorium', 'icon': 'fa-child', 'description': 'Young adults and teens'}
     ],
     
-    # First Sunday Special
     'first_sunday': 'Prophetic Family Blessing Sunday',
     
-    # APOSTLE QUOTES
-    'apostle_quotes': [
-        'NO MATTER HOW LOW YOU GO YOU CAN NEVER GO BEYOND GOD\'S MERCY',
-        'YOU LOOSE WHAT GOD GAVE YOU WHEN YOU FORSAKE HIM',
-        'You can only experience Jesus the Alpha in the spirit.',
-        'Hearing from God connects you to the very Being/nature of God.',
-        'WHATEVER COMES BY FAVOR WILL RULE.',
-        'Favor is Sustained by Staying in the Teachings of God.',
-        'The Anger and Envy of Men will Never overcome the Favor of God upon your life.',
-        'Change is First done in the Invisible before it can be Manifested in the Physical.',
-        'FAVOR WILL ALWAYS OUTWEIGH THE HATRED OF MEN.',
-        'FAVOUR AFFECTS THE INVISIBLE WORLD AROUND YOU.',
-        'GOD NEVER FORSAKES THE ANOINTED ONES.',
-        'The target of Faith is your Heart.',
-        'Divine encounters will leave a mark that will dissolve all kinds of Doubt and Fear.',
-        'Everywhere God is and believed, Signs and wonders will always be present.',
-        'GOD CAN USE ANYTHING TO BRING EVERYTHING IN YOUR LIFE.',
-        'No matter how long the Devil prepares, God will always win.',
-        'NO MATTER THE LEVEL OF ANOINTING, TEMPTATIONS WILL ALWAYS COME',
-        'Worship is The highest degree of Spirituality.',
-        'The majestic Presence of God is His Voice.',
-        'Every genuine worshipper of God has Dominion.'
-        'There is a time when God opens your eyes for you to see the value of a pastor in your life.',
-        'Battles never end completely; you are always at war. It is important to know that you were anointed for that.',
-        'When you discover the value of the man of God, help starts to come your way.',
-        'Partnership is beyond natural transaction of things; it is impartation of power, wisdom and the anointing of God.'
-    ],
-
-    
-    # REV BANCY QUOTES
-    'rev_quotes': [
-        'WHEN THE LORD EMPOWERS YOU, VICTORY IS ASSURED'
-    ],
-    
-    # GIVING OPTIONS
     'giving': {
         'mpesa_till': '841690',
         'mpesa_account': 'WORD TEMPLE CHURCH OF GOD',
@@ -143,25 +94,37 @@ church_info = {
         'sendwave': '+254 720 313 832',
         'sendwave_name': 'Michael Ndiku',
         'paypal': 'wordtemple@hotmail.com',
-        'kcb_paybill':'52252',
-        'kcb_account':'7544081',
-        'kcb_cheque':'1325540706'
+        'kcb_paybill': '52252',
+        'kcb_account': '7544081',
+        'kcb_cheque': '1325540706'
     },
     
-    # YOUTUBE PLAYLISTS & VIDEOS
     'youtube': 'https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw',
     'youtube_channel': '@WordTempleChurchofGod',
     'youtube_subs': '4.49K',
-    'youtube_videos': '4,035',
-    
-    # SOCIAL MEDIA
     'facebook': 'https://web.facebook.com/WTCOFGOD',
     'twitter': 'https://x.com/WordTempleofGod',
     'instagram': 'https://www.instagram.com/wordtemplechurchofgod/'
 }
 
-# ========== ROUTES ==========
+# Serve static files
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static', filename)
 
+# Gallery API
+@app.route('/get-gallery-images')
+def get_gallery_images():
+    gallery_path = 'static/images/gallery/'
+    images = []
+    if os.path.exists(gallery_path):
+        for f in os.listdir(gallery_path):
+            if f.lower().endswith(('.jpg', '.jpeg', '.JPG', '.png', '.gif')):
+                images.append(f)
+        images.sort()
+    return {'images': images}
+
+# Page routes
 @app.route('/')
 def home():
     return render_template('index.html', church=church_info)
@@ -169,6 +132,18 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html', church=church_info)
+
+@app.route('/founders')
+def founders():
+    return render_template('founders.html', church=church_info)
+
+@app.route('/leaders')
+def leaders():
+    return redirect('/founders')
+
+@app.route('/events')
+def events():
+    return render_template('events.html', church=church_info)
 
 @app.route('/connect')
 def connect():
@@ -190,40 +165,19 @@ def quotes():
 def give():
     return render_template('give.html', church=church_info)
 
-@app.route('/events')
-def events():
-    return render_template('events.html', church=church_info)
-
 @app.route('/resources')
 def resources():
     return render_template('resources.html', church=church_info)
 
-# ========== REGISTER ROUTE (ONLY ONE) ==========
+@app.route('/membership')
+def membership():
+    return render_template('membership.html', church=church_info)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        registration_data = {
-            'Full Name': request.form.get('Full Name'),
-            'Email': request.form.get('Email'),
-            'Phone Number': request.form.get('Phone Number'),
-            'Church/Organization': request.form.get('Church/Organization'),
-            'Conference': request.form.get('Conference'),
-            'Accommodation Needed': request.form.get('Accommodation Needed'),
-            'Room Type': request.form.get('Room Type'),
-            'Check-in Date': request.form.get('Check-in Date'),
-            'Check-out Date': request.form.get('Check-out Date'),
-            'Number of Nights': request.form.get('Number of Nights'),
-            'Meal Preference': request.form.get('Meal Preference'),
-            'Special Requests': request.form.get('Special Requests')
-        }
-        save_registration(registration_data)
-        flash('Registration successful! You will receive a confirmation email.', 'success')
-        return redirect(url_for('register'))
-    return render_template('register.html', church=church_info)
+@app.route('/conference-register')
+def conference_register():
+    return render_template('conference-register.html', church=church_info)
 
-# ========== ADMIN ROUTES ==========
-
+# Admin routes
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
@@ -271,7 +225,7 @@ def admin_quotes():
             flash('Quote added successfully!', 'success')
     return render_template('admin_quotes.html', quotes=quotes)
 
-@app.route('/admin/events', methods=['GET', 'POST'])
+@app.route('/admin/events')
 @login_required
 def admin_events():
     events = get_events()
@@ -285,20 +239,15 @@ def admin_settings():
         settings['theme_2026'] = request.form.get('theme_2026')
         settings['theme_scripture'] = request.form.get('theme_scripture')
         settings['theme_verse'] = request.form.get('theme_verse')
-        
         announcements = request.form.getlist('announcements')
         settings['announcements'] = [a for a in announcements if a.strip()]
-        
         for i in range(3):
             settings['services']['sunday'][i]['time'] = request.form.get(f'sunday_time_{i}')
-        
         for i in range(6):
             settings['services']['weekly'][i]['time'] = request.form.get(f'weekly_time_{i}')
-        
         save_settings(settings)
         flash('Settings saved successfully!', 'success')
         return redirect(url_for('admin_settings'))
-    
     return render_template('admin_settings.html', settings=settings)
 
 @app.route('/admin/upload-photo', methods=['GET', 'POST'])
@@ -308,83 +257,23 @@ def admin_upload_photo():
         if 'photo' not in request.files:
             flash('No file selected', 'error')
             return redirect(url_for('admin_upload_photo'))
-        
         file = request.files['photo']
         if file.filename == '':
             flash('No file selected', 'error')
             return redirect(url_for('admin_upload_photo'))
-        
         if file:
-            from werkzeug.utils import secure_filename
-            import time
-            
-            # Get file extension
-            original_filename = secure_filename(file.filename)
-            name, ext = os.path.splitext(original_filename)
-            
-            # Add timestamp to filename to make it unique and show newest first
-            timestamp = int(time.time())
-            new_filename = f"{timestamp}_{original_filename}"
-            
-            # Save file
-            save_path = os.path.join('static/images/gallery/', new_filename)
-            file.save(save_path)
-            
-            flash(f'Photo {original_filename} uploaded successfully!', 'success')
+            filename = secure_filename(file.filename)
+            file.save(os.path.join('static/images/gallery/', filename))
+            flash(f'Photo {filename} uploaded successfully!', 'success')
             return redirect(url_for('admin_upload_photo'))
-    
-    # Get photos sorted by modification time (newest first)
     photos = []
-    gallery_path = 'static/images/gallery/'
-    if os.path.exists(gallery_path):
-        files = os.listdir(gallery_path)
-        # Filter only image files
-        image_extensions = ('.jpg', '.jpeg', '.JPG', '.png', '.gif', '.jpeg', '.JPEG')
-        image_files = []
-        for f in files:
-            if f.lower().endswith(image_extensions):
-                image_files.append(f)
-        # Sort by modification time (newest first)
-        image_files.sort(key=lambda x: os.path.getmtime(os.path.join(gallery_path, x)), reverse=True)
-        photos = image_files
-    
+    if os.path.exists('static/images/gallery/'):
+        photos = os.listdir('static/images/gallery/')
     return render_template('admin_upload.html', photos=photos)
-@app.route('/get-gallery-images')
-def get_gallery_images():
-    """Return list of all images in the gallery folder"""
-    import os
-    import glob
-    
-    gallery_path = 'static/images/gallery/'
-    images = []
-    
-    # Try multiple path patterns
-    possible_paths = [
-        'static/images/gallery/',
-        './static/images/gallery/',
-        '/home/jan3t/wordtemple-website/static/images/gallery/'
-    ]
-    
-    for path in possible_paths:
-        if os.path.exists(path):
-            gallery_path = path
-            break
-    
-    print(f"Looking for images in: {gallery_path}")
-    
-    if os.path.exists(gallery_path):
-        for f in os.listdir(gallery_path):
-            if f.lower().endswith(('.jpg', '.jpeg', '.JPG', '.png', '.gif')):
-                images.append(f)
-        images.sort()
-    
-    print(f"Found {len(images)} images")
-    return {'images': images}
+
 @app.route('/admin/delete-photo/<filename>')
 @login_required
 def delete_photo(filename):
-    """Delete a photo from the gallery"""
-    import os
     file_path = os.path.join('static/images/gallery/', filename)
     if os.path.exists(file_path):
         os.remove(file_path)
@@ -393,78 +282,19 @@ def delete_photo(filename):
         flash(f'Photo {filename} not found!', 'error')
     return redirect(url_for('admin_upload_photo'))
 
-@app.route('/membership')
-def membership():
-    return render_template('membership.html', church=church_info)
-
-
-@app.route('/conference-register')
-def conference_register():
-    return render_template('conference-register.html', church=church_info)
-
-
-@app.route('/leaders')
-def leaders():
-    return redirect('/founders')
-
-@app.route('/founders')
-def founders():
-    return render_template('founders.html', church=church_info)
-
-@app.route('/admin/safe-edit', methods=['GET', 'POST'])
-@login_required
-def safe_edit():
-    import json
-    content_file = 'content.json'
-    
+@app.route('/register', methods=['GET', 'POST'])
+def register():
     if request.method == 'POST':
-        data = {
-            'announcements': request.form.getlist('announcements'),
-            'theme': {
-                'title': request.form.get('theme_title'),
-                'scripture': request.form.get('theme_scripture'),
-                'verse': request.form.get('theme_verse')
-            },
-            'events': {
-                'midyear_revival': {
-                    'title': request.form.get('midyear_title'),
-                    'dates': request.form.get('midyear_dates'),
-                    'theme': request.form.get('midyear_theme'),
-                    'host': request.form.get('midyear_host'),
-                    'host_title': request.form.get('midyear_host_title'),
-                    'guest': request.form.get('midyear_guest'),
-                    'guest_from': request.form.get('midyear_guest_from')
-                },
-                'daughters_kingdom': {
-                    'title': request.form.get('daughters_title'),
-                    'dates': request.form.get('daughters_dates'),
-                    'theme': request.form.get('daughters_theme'),
-                    'hosts': request.form.get('daughters_hosts')
-                }
-            }
+        registration_data = {
+            'Full Name': request.form.get('Full Name'),
+            'Email': request.form.get('Email'),
+            'Phone Number': request.form.get('Phone Number'),
+            'Conference': request.form.get('Conference'),
         }
-        data['announcements'] = [a for a in data['announcements'] if a.strip()]
-        
-        with open(content_file, 'w') as f:
-            json.dump(data, f, indent=2)
-        
-        flash('Content saved successfully!', 'success')
-        return redirect(url_for('safe_edit'))
-    
-    try:
-        with open(content_file, 'r') as f:
-            content_data = json.load(f)
-    except:
-        content_data = {
-            'announcements': [],
-            'theme': {'title': '', 'scripture': '', 'verse': ''},
-            'events': {
-                'midyear_revival': {},
-                'daughters_kingdom': {}
-            }
-        }
-    
-    return render_template('safe_editor.html', content=content_data, church=church_info)
+        save_registration(registration_data)
+        flash('Registration successful!', 'success')
+        return redirect(url_for('register'))
+    return render_template('register.html', church=church_info)
 
 if __name__ == '__main__':
     app.run(debug=True)
