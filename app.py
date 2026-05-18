@@ -73,7 +73,7 @@ church_info = {
     ],
     
     'weekly_programs': [
-        {'day': 'Monday - Friday', 'name': 'Morning Meditation', 'time': '6:30 AM - 7:30 AM', 'location': 'Church Auditorium & Online', 'icon': 'fa-sun', 'description': 'Start your day with God\'s Word'},
+        {'day': 'Monday - Friday', 'name': 'Morning Breakthrough', 'time': '6:30 AM - 7:30 AM', 'location': 'Church Auditorium & Online', 'icon': 'fa-sun', 'description': 'Start your day with God\'s Word'},
         {'day': 'Monday - Friday', 'name': 'Lunch Hour Services', 'time': '12:30 PM - 2:00 PM', 'location': 'Church Auditorium & Online', 'icon': 'fa-utensils', 'description': 'Daily spiritual nourishment'},
         {'day': 'Tuesday', 'name': 'Pastors & Leaders Meeting', 'time': '9:00 AM - 11:30 AM', 'location': 'Church Auditorium', 'icon': 'fa-chalkboard-user', 'description': 'Leadership training'},
         {'day': 'Wednesday', 'name': 'Gospel Master Class', 'time': '6:30 PM - 8:00 PM', 'location': 'Church Auditorium & Online', 'icon': 'fa-fire', 'description': 'Deep teaching and anointing'},
