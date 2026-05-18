@@ -177,7 +177,7 @@
     /* Regular Services Section */
     .services-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 30px;
         margin-top: 40px;
     }
@@ -185,48 +185,88 @@
     .service-card {
         background: var(--card-bg);
         border-radius: 20px;
-        padding: 30px;
-        text-align: center;
-        transition: all 0.3s ease;
+        overflow: hidden;
+        transition: all 0.4s ease;
         border: 1px solid rgba(255,217,102,0.2);
+        display: flex;
+        flex-direction: column;
     }
     
     .service-card:hover {
         transform: translateY(-5px);
         border-color: var(--gold);
+        box-shadow: 0 20px 40px rgba(184,59,94,0.2);
     }
     
-    .service-icon {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
+    .service-image {
+        height: 200px;
+        width: 100%;
+        overflow: hidden;
     }
     
-    .service-icon i {
-        font-size: 24px;
-        color: var(--maroon);
+    .service-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
     
-    .service-card h3 {
+    .service-content {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .service-content h3 {
         color: var(--gold);
-        font-size: 20px;
+        font-size: 22px;
         margin-bottom: 10px;
     }
     
-    .service-card p {
+    .service-content p {
         color: var(--text-muted);
         font-size: 14px;
+        margin-bottom: 15px;
     }
     
-    .service-time {
-        color: var(--white);
-        font-weight: 600;
+    .service-times {
+        background: rgba(255,217,102,0.1);
+        padding: 12px;
+        border-radius: 10px;
+        margin: 15px 0;
+    }
+    
+    .service-times p {
+        margin-bottom: 5px;
+        color: var(--text-light);
+    }
+    
+    .service-buttons {
+        display: flex;
+        gap: 10px;
         margin-top: 10px;
+    }
+    
+    .service-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--maroon);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 12px;
+        transition: all 0.3s ease;
+        flex: 1;
+        text-align: center;
+    }
+    
+    .service-btn-outline {
+        background: transparent;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+    }
+    
+    .service-btn:hover {
+        transform: translateY(-2px);
     }
     
     .regular-title {
@@ -239,13 +279,13 @@
     
     @media (max-width: 1024px) {
         .events-grid { grid-template-columns: 1fr; }
-        .services-grid { grid-template-columns: repeat(2, 1fr); }
+        .services-grid { grid-template-columns: 1fr; }
     }
     
     @media (max-width: 768px) {
         .page-header h1 { font-size: 36px; }
         .event-image { height: 200px; }
-        .services-grid { grid-template-columns: 1fr; }
+        .service-image { height: 180px; }
     }
 </style>
 
@@ -276,7 +316,7 @@
             <!-- Mid-Year Revival Conference -->
             <div class="event-card" data-aos="fade-up">
                 <div class="event-image">
-                    <img src="{{ url_for('static', filename='images/events/juneconf.jpg') }}" alt="Mid-Year Revival Conference" onerror="this.parentElement.style.background='linear-gradient(135deg, var(--maroon), var(--blue))'">
+                    <img src="{{ url_for('static', filename='images/events/juneconf.jpg') }}" alt="Mid-Year Revival Conference">
                 </div>
                 <div class="event-content">
                     <div class="event-date"><i class="fas fa-calendar-alt"></i> May 31st - June 7th, 2026</div>
@@ -294,7 +334,7 @@
             <!-- Daughters of the Kingdom -->
             <div class="event-card" data-aos="fade-up">
                 <div class="event-image">
-                    <img src="{{ url_for('static', filename='images/events/daughters-conference.jpg') }}" alt="Daughters of the Kingdom" onerror="this.parentElement.style.background='linear-gradient(135deg, var(--maroon), var(--blue))'">
+                    <img src="{{ url_for('static', filename='images/events/daughters-conference.jpg') }}" alt="Daughters of the Kingdom">
                 </div>
                 <div class="event-content">
                     <div class="event-date"><i class="fas fa-calendar-alt"></i> August 20th - 21st, 2026</div>
@@ -311,7 +351,7 @@
             <!-- Revelation & Power -->
             <div class="event-card" data-aos="fade-up">
                 <div class="event-image">
-                    <img src="{{ url_for('static', filename='images/events/revelation-conference.jpg') }}" alt="Revelation & Power Conference" onerror="this.parentElement.style.background='linear-gradient(135deg, var(--maroon), var(--blue))'">
+                    <img src="{{ url_for('static', filename='images/events/revelation-conference.jpg') }}" alt="Revelation & Power Conference">
                 </div>
                 <div class="event-content">
                     <div class="event-date"><i class="fas fa-calendar-alt"></i> December 2026</div>
@@ -328,7 +368,7 @@
             <!-- Youth Conference -->
             <div class="event-card" data-aos="fade-up">
                 <div class="event-image">
-                    <img src="{{ url_for('static', filename='images/events/youth-conference.jpg') }}" alt="Youth Conference" onerror="this.parentElement.style.background='linear-gradient(135deg, var(--maroon), var(--blue))'">
+                    <img src="{{ url_for('static', filename='images/events/youth-conference.jpg') }}" alt="Youth Conference">
                 </div>
                 <div class="event-content">
                     <div class="event-date"><i class="fas fa-calendar-alt"></i> November 2026</div>
@@ -344,35 +384,52 @@
         </div>
         
         <!-- REGULAR SERVICES SECTION -->
-        <h2 class="regular-title" data-aos="fade-up">📌 REGULAR WEEKLY SERVICES</h2>
+        <h2 class="regular-title" data-aos="fade-up">📌 REGULAR SERVICES</h2>
         <div class="services-grid">
+            <!-- Sunday Service Card -->
             <div class="service-card" data-aos="fade-up">
-                <div class="service-icon"><i class="fas fa-church"></i></div>
-                <h3>Sunday Services</h3>
-                <p>1st Service: 5:30 AM</p>
-                <p>2nd Service: 8:30 AM</p>
-                <p>3rd Service: 11:00 AM</p>
-                <div class="service-time">Join us every Sunday</div>
+                <div class="service-image">
+                    <img src="{{ url_for('static', filename='images/events/Sunday Service.jpg') }}" alt="Sunday Service">
+                </div>
+                <div class="service-content">
+                    <h3>⛪ SUNDAY SERVICE</h3>
+                    <p>WITH APOSTLE MICHAEL WAMBUA</p>
+                    <div class="service-times">
+                        <p><strong>1st Service:</strong> 5:30 AM - 8:00 AM</p>
+                        <p><strong>2nd Service:</strong> 8:30 AM - 11:00 AM</p>
+                        <p><strong>3rd Service:</strong> 11:00 AM - 2:00 PM</p>
+                    </div>
+                    <div class="service-buttons">
+                        <a href="{{ church.youtube }}" target="_blank" class="service-btn">WATCH LIVE</a>
+                        <a href="/connect" class="service-btn service-btn-outline">JOIN IN PERSON</a>
+                    </div>
+                </div>
             </div>
             
+            <!-- Word Temple Voices Card -->
             <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-icon"><i class="fas fa-fire"></i></div>
-                <h3>Wednesday Masterclass</h3>
-                <p>Deep teaching and anointing</p>
-                <div class="service-time">Every Wednesday 6:30 PM</div>
-            </div>
-            
-            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-icon"><i class="fas fa-pray"></i></div>
-                <h3>First Friday Mini-Kesha</h3>
-                <p>Powerful prayer service</p>
-                <div class="service-time">First Friday 6:30 PM</div>
+                <div class="service-image">
+                    <img src="{{ url_for('static', filename='images/events/praise.jpg') }}" alt="Word Temple Voices">
+                </div>
+                <div class="service-content">
+                    <h3>🎵 WORD TEMPLE VOICES</h3>
+                    <p>EXPERIENCE THE PRESENCE</p>
+                    <div class="service-times">
+                        <p><strong>Morning Meditation:</strong> 6:30 AM - 7:30 AM (Mon-Fri)</p>
+                        <p><strong>Lunch Hour:</strong> 12:30 PM - 2:00 PM (Mon-Fri)</p>
+                        <p><strong>Evening Service:</strong> 6:00 PM - 8:30 PM (Mon-Fri)</p>
+                    </div>
+                    <div class="service-buttons">
+                        <a href="{{ church.youtube }}" target="_blank" class="service-btn">WATCH LIVE</a>
+                        <a href="/connect" class="service-btn service-btn-outline">VIEW SCHEDULE</a>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- JOIN US BUTTON -->
         <div style="text-align: center; margin-top: 50px;">
-            <a href="/connect" class="btn btn-primary" style="background: var(--gold); color: var(--maroon); padding: 15px 40px;">JOIN US THIS SUNDAY</a>
+            <a href="{{ church.youtube }}" target="_blank" class="btn btn-primary" style="background: var(--gold); color: var(--maroon); padding: 15px 40px;">JOIN US THIS SUNDAY</a>
         </div>
     </div>
 </section>
