@@ -1,7 +1,7 @@
 {
-  "admin": {
-    "password": "scrypt:32768:8:1$N8qneyrfvd1V7vlx$c479897c23c3cf6d5c0f4d1efcb00506068a99c492091dd94f8cb26831cb14019f8ff009195eb020951bd75ab91b17f1fa7c92f41bc77c2d918a6efc9d015b47",
+  "website": {
+    "password": "scrypt:32768:8:1$OUPfuTzSj5nfN3BQ$33437935b13d290a39d8edd77783a474e1348de8bc6eff3b693f7680bee52ad1606ce8d8303175426cd38ee712fae5364c054d36540787a5516261fb780be495",
     "role": "super_admin",
-    "created": "2026-04-14 13:17:20.644750"
+    "created": "2026-05-18"
   }
 }
