@@ -349,21 +349,37 @@ def admin_upload_photo():
         photos = image_files
     
     return render_template('admin_upload.html', photos=photos)
-
 @app.route('/get-gallery-images')
 def get_gallery_images():
     """Return list of all images in the gallery folder"""
     import os
+    import glob
+    
     gallery_path = 'static/images/gallery/'
     images = []
+    
+    # Try multiple path patterns
+    possible_paths = [
+        'static/images/gallery/',
+        './static/images/gallery/',
+        '/home/jan3t/wordtemple-website/static/images/gallery/'
+    ]
+    
+    for path in possible_paths:
+        if os.path.exists(path):
+            gallery_path = path
+            break
+    
+    print(f"Looking for images in: {gallery_path}")
+    
     if os.path.exists(gallery_path):
         for f in os.listdir(gallery_path):
             if f.lower().endswith(('.jpg', '.jpeg', '.JPG', '.png', '.gif')):
                 images.append(f)
-        # Sort by modification time (newest first)
-        images.sort(key=lambda x: os.path.getmtime(os.path.join(gallery_path, x)), reverse=True)
+        images.sort()
+    
+    print(f"Found {len(images)} images")
     return {'images': images}
-
 @app.route('/admin/delete-photo/<filename>')
 @login_required
 def delete_photo(filename):
