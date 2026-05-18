@@ -314,10 +314,32 @@
             <a href="{{ church.youtube }}" target="_blank" class="btn btn-primary" style="background: var(--gold); color: var(--maroon); padding: 15px 40px;">VISIT YOUTUBE CHANNEL</a>
         </div>
 
-        <!-- PHOTO GALLERY - ALL IMAGES WILL LOAD HERE -->
+        <!-- PHOTO GALLERY WITH CATEGORIES -->
         <div class="image-gallery-section">
-            <h2 class="image-category-title"><i class="fas fa-images"></i> GALLERY</h2>
-            <div class="image-grid" id="galleryGrid"></div>
+            
+            <h2 class="image-category-title"><i class="fas fa-hands-praying"></i> WORSHIP THAT TOUCHES HEAVEN</h2>
+            <div class="image-grid" id="worshipGrid"></div>
+            <div class="view-more-container" id="worshipMore"></div>
+
+            <h2 class="image-category-title"><i class="fas fa-crown"></i> REVELATION & POWER ANNUAL CONFERENCE</h2>
+            <div class="image-grid" id="rpGrid"></div>
+            <div class="view-more-container" id="rpMore"></div>
+
+            <h2 class="image-category-title"><i class="fas fa-bible"></i> PREACHING MOMENTS</h2>
+            <div class="image-grid" id="preachingGrid"></div>
+            <div class="view-more-container" id="preachingMore"></div>
+
+            <h2 class="image-category-title"><i class="fas fa-child"></i> YOUTH CONFERENCE</h2>
+            <div class="image-grid" id="youthGrid"></div>
+            <div class="view-more-container" id="youthMore"></div>
+
+            <h2 class="image-category-title"><i class="fas fa-female"></i> DAUGHTERS OF THE KINGDOM - LADIES CONFERENCE</h2>
+            <div class="image-grid" id="ladiesGrid"></div>
+            <div class="view-more-container" id="ladiesMore"></div>
+
+            <h2 class="image-category-title"><i class="fas fa-music"></i> PRAISE MOMENTS</h2>
+            <div class="image-grid" id="praiseGrid"></div>
+            <div class="view-more-container" id="praiseMore"></div>
         </div>
     </div>
 </section>
@@ -328,7 +350,7 @@
 </div>
 
 <script>
-    // LOAD ALL IMAGES FROM THE SERVER
+    // DYNAMIC GALLERY WITH CATEGORIES
     async function loadAllImages() {
         try {
             const response = await fetch('/get-gallery-images');
@@ -337,69 +359,80 @@
             
             console.log('Total images found:', allImages.length);
             
-            const container = document.getElementById('galleryGrid');
-            if (container && allImages.length > 0) {
+            // Categorize images based on filename patterns
+            const worshipImages = allImages.filter(img => img.toLowerCase().includes('worship'));
+            const rpImages = allImages.filter(img => img.toLowerCase().includes('rp'));
+            const preachingImages = allImages.filter(img => img.toLowerCase().includes('preaching'));
+            const youthImages = allImages.filter(img => img.toLowerCase().includes('youth'));
+            const ladiesImages = allImages.filter(img => img.toLowerCase().includes('wconf'));
+            const praiseImages = allImages.filter(img => img.toLowerCase().includes('praise'));
+            
+            function loadImageGrid(containerId, images, count) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                
+                if (images.length === 0) {
+                    container.innerHTML = '<p style="color: white; text-align: center; padding: 40px;">No images in this category</p>';
+                    return;
+                }
+                
                 let html = '';
-                // Show up to 100 images initially
-                const limit = Math.min(allImages.length, 100);
+                const limit = Math.min(count, images.length);
                 for(let i = 0; i < limit; i++) {
                     html += `
-                        <div class="gallery-item" onclick="openModal('${allImages[i]}')">
+                        <div class="gallery-item" onclick="openModal('${images[i]}')">
                             <div class="gallery-image">
-                                <img src="/static/images/gallery/${allImages[i]}" alt="Gallery image" loading="lazy">
+                                <img src="/static/images/gallery/${images[i]}" alt="Gallery image" loading="lazy">
                             </div>
                         </div>
                     `;
                 }
                 container.innerHTML = html;
-                
-                // Add "Load More" button if there are more images
-                if (allImages.length > 100) {
-                    const loadMoreBtn = document.createElement('div');
-                    loadMoreBtn.className = 'view-more-container';
-                    loadMoreBtn.innerHTML = `<button class="view-more-btn" onclick="loadMoreImages()">View More (${allImages.length - 100} more) ↓</button>`;
-                    container.parentNode.appendChild(loadMoreBtn);
-                    
-                    // Store remaining images globally
-                    window.remainingImages = allImages.slice(100);
-                }
-            } else {
-                container.innerHTML = '<p style="color: white; text-align: center;">No images found. Please check back later.</p>';
             }
+            
+            function setupViewMore(category, images, moreId) {
+                const moreContainer = document.getElementById(moreId);
+                if (moreContainer && images.length > 8) {
+                    moreContainer.innerHTML = `<button class="view-more-btn" onclick="loadMore('${category}')">View More (${images.length - 8} more) ↓</button>`;
+                }
+            }
+            
+            window.loadMore = function(category) {
+                const config = {
+                    worship: { images: worshipImages, gridId: 'worshipGrid', moreId: 'worshipMore' },
+                    rp: { images: rpImages, gridId: 'rpGrid', moreId: 'rpMore' },
+                    preaching: { images: preachingImages, gridId: 'preachingGrid', moreId: 'preachingMore' },
+                    youth: { images: youthImages, gridId: 'youthGrid', moreId: 'youthMore' },
+                    ladies: { images: ladiesImages, gridId: 'ladiesGrid', moreId: 'ladiesMore' },
+                    praise: { images: praiseImages, gridId: 'praiseGrid', moreId: 'praiseMore' }
+                };
+                
+                const data = config[category];
+                if (!data) return;
+                
+                loadImageGrid(data.gridId, data.images, data.images.length);
+                const moreContainer = document.getElementById(data.moreId);
+                if (moreContainer) moreContainer.innerHTML = '';
+            };
+            
+            // Load initial 8 images per category
+            loadImageGrid('worshipGrid', worshipImages, 8);
+            loadImageGrid('rpGrid', rpImages, 8);
+            loadImageGrid('preachingGrid', preachingImages, 8);
+            loadImageGrid('youthGrid', youthImages, 8);
+            loadImageGrid('ladiesGrid', ladiesImages, 8);
+            loadImageGrid('praiseGrid', praiseImages, 8);
+            
+            // Setup View More buttons
+            setupViewMore('worship', worshipImages, 'worshipMore');
+            setupViewMore('rp', rpImages, 'rpMore');
+            setupViewMore('preaching', preachingImages, 'preachingMore');
+            setupViewMore('youth', youthImages, 'youthMore');
+            setupViewMore('ladies', ladiesImages, 'ladiesMore');
+            setupViewMore('praise', praiseImages, 'praiseMore');
+            
         } catch(e) {
             console.error('Error loading gallery:', e);
-            document.getElementById('galleryGrid').innerHTML = '<p style="color: white; text-align: center;">Error loading images. Please refresh.</p>';
-        }
-    }
-    
-    function loadMoreImages() {
-        const container = document.getElementById('galleryGrid');
-        if (container && window.remainingImages && window.remainingImages.length > 0) {
-            let html = container.innerHTML;
-            const limit = Math.min(window.remainingImages.length, 100);
-            for(let i = 0; i < limit; i++) {
-                html += `
-                    <div class="gallery-item" onclick="openModal('${window.remainingImages[i]}')">
-                        <div class="gallery-image">
-                            <img src="/static/images/gallery/${window.remainingImages[i]}" alt="Gallery image" loading="lazy">
-                        </div>
-                    </div>
-                `;
-            }
-            container.innerHTML = html;
-            
-            // Update remaining images
-            window.remainingImages = window.remainingImages.slice(limit);
-            
-            // Remove button if no more images
-            if (window.remainingImages.length === 0) {
-                const btnContainer = document.querySelector('.view-more-container');
-                if (btnContainer) btnContainer.remove();
-            } else {
-                // Update button text
-                const btn = document.querySelector('.view-more-btn');
-                if (btn) btn.textContent = `View More (${window.remainingImages.length} more) ↓`;
-            }
         }
     }
     
