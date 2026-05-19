@@ -33,10 +33,10 @@ church_info = {
     'email': 'wordtemple@hotmail.com',
     
     'apostle': {
-        'name': 'Apostle Michael Wambua',
+        'name': 'Apostle Michael Wambua Wambua',
         'title': 'Apostle Over The Commission',
         'role': 'Founder & Presiding Bishop',
-        'bio': 'Apostle Michael Wambua is the Founder and Presiding Bishop of Word Temple Church of God International.',
+        'bio': 'Apostle Michael Wambua Wambua is the Founder and Presiding Bishop of Word Temple Church of God International.',
         'conference': 'He is the convener of the annual Revelation and Power Conference.',
         'international': 'He has ministered in over 23 countries.',
         'education': 'Holds a Diploma in Transformational Church Leadership.',
