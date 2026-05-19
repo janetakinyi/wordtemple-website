@@ -97,18 +97,17 @@
     }
     
     .event-image {
-    height: 250px;
-    width: 100%;
-    background: linear-gradient(135deg, var(--maroon), var(--blue));
-    overflow: hidden;
-}
-
-.event-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
+        height: 250px;
+        width: 100%;
+        background: linear-gradient(135deg, var(--maroon), var(--blue));
+        overflow: hidden;
+    }
+    
+    .event-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
     
     .event-content {
         padding: 20px;
@@ -200,21 +199,16 @@
     }
     
     .service-image {
-    height: 250px;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--maroon), var(--blue));
-}
-
-.service-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
+        height: 200px;
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .service-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
     
     .service-content {
         padding: 20px;
@@ -319,7 +313,7 @@
         <h2 class="section-title" data-aos="fade-up">📅 UPCOMING CONFERENCES</h2>
         <div class="events-grid">
             
-            <!-- Mid-Year Revival Conference -->
+            <!-- 1. MID-YEAR REVIVAL CONFERENCE (JUNE) - FIRST -->
             <div class="event-card" data-aos="fade-up">
                 <div class="event-image">
                     <img src="{{ url_for('static', filename='images/events/juneconf.jpg') }}" alt="Mid-Year Revival Conference">
@@ -327,9 +321,9 @@
                 <div class="event-content">
                     <div class="event-date"><i class="fas fa-calendar-alt"></i> May 31st - June 7th, 2026</div>
                     <h3 class="event-title">🔥 MID-YEAR REVIVAL CONFERENCE</h3>
-                    <p class="event-description"><strong>Theme:</strong> "O Lord, revive Your work!" - Habakkuk 3:2</p>
+                    <p class="event-description"><strong>Theme:</strong> "O Lord, revive Your work in the midst of the years!" - Habakkuk 3:2</p>
                     <p class="event-description"><strong>Host:</strong> Apostle Michael Wambua</p>
-                    <p class="event-description"><strong>Guest:</strong> Apostle Richard Mayanja (Uganda)</p>
+                    <p class="event-description"><strong>Guest Speaker:</strong> Apostle Richard Mayanja (Uganda)</p>
                     <div class="event-buttons">
                         <a href="/conference-register" class="event-btn">REGISTER</a>
                         <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
@@ -337,7 +331,7 @@
                 </div>
             </div>
             
-            <!-- Daughters of the Kingdom -->
+            <!-- 2. DAUGHTERS OF THE KINGDOM (AUGUST) -->
             <div class="event-card" data-aos="fade-up">
                 <div class="event-image">
                     <img src="{{ url_for('static', filename='images/events/daughters-conference.jpg') }}" alt="Daughters of the Kingdom">
@@ -346,7 +340,7 @@
                     <div class="event-date"><i class="fas fa-calendar-alt"></i> August 20th - 21st, 2026</div>
                     <h3 class="event-title">🌸 Daughters of the Kingdom - Ladies Conference</h3>
                     <p class="event-description"><strong>Theme:</strong> "Set Apart for God" (Luke 10:38-42)</p>
-                    <p class="event-description"><strong>Hosts:</strong> Apostle Michael & Rev. Bancy Wambua</p>
+                    <p class="event-description"><strong>Hosts:</strong> Apostle Michael Wambua & Rev. Bancy Wambua</p>
                     <div class="event-buttons">
                         <a href="/conference-register" class="event-btn">REGISTER</a>
                         <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
@@ -354,7 +348,7 @@
                 </div>
             </div>
             
-            <!-- Revelation & Power -->
+            <!-- 3. REVELATION & POWER CONFERENCE (DECEMBER) -->
             <div class="event-card" data-aos="fade-up">
                 <div class="event-image">
                     <img src="{{ url_for('static', filename='images/events/revelation-conference.jpg') }}" alt="Revelation & Power Conference">
@@ -371,7 +365,7 @@
                 </div>
             </div>
             
-            <!-- Youth Conference -->
+            <!-- 4. YOUTH CONFERENCE (NOVEMBER) -->
             <div class="event-card" data-aos="fade-up">
                 <div class="event-image">
                     <img src="{{ url_for('static', filename='images/events/youth-conference.jpg') }}" alt="Youth Conference">
