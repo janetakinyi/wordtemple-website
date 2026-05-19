@@ -119,12 +119,25 @@
     
     .partner-section {
         background: linear-gradient(135deg, var(--maroon), var(--blue));
-        padding: 60px;
+        padding: 40px;
         border-radius: 30px;
         text-align: center;
         color: var(--white);
         margin-top: 50px;
-        animation: fadeInUp 0.8s ease;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .partner-section h3 {
+        font-size: 24px;
+    }
+    
+    .partner-section p {
+        font-size: 14px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     @media (max-width: 768px) {
@@ -139,7 +152,7 @@
 <section class="page-header">
     <div class="container">
         <h1 data-aos="fade-up">OUR FOUNDERS</h1>
-        <p data-aos="fade-up" data-aos-delay="100">Apostle Michael Wambua & Reverend Bancy Wambua</p>
+        <p data-aos="fade-up" data-aos-delay="100">Apostle Michael & Reverend Bancy Wambua</p>
     </div>
 </section>
 
@@ -155,17 +168,17 @@
                 <h2 class="leader-name">{{ church.apostle.name }}</h2>
                 <p class="leader-title">{{ church.apostle.title }} | {{ church.apostle.role }}</p>
                 <div class="leader-bio">
-                    <p><strong>Apostle Michael Wambua</strong> is the Founder and Presiding Bishop of <strong>Word Temple Church of God International</strong>, a dynamic and rapidly growing ministry based in Eastleigh, Nairobi, with over <strong>30 branches and affiliates nationwide</strong>. The ministry is committed to transforming lives through the teaching and preaching of the revealed Word of God.</p>
+                    <p><strong>{{ church.apostle.name }}</strong> is the Founder and Presiding Bishop of <strong>Word Temple Church of God International</strong>, a dynamic and rapidly growing ministry based in Eastleigh, Nairobi, with over <strong>30 branches and affiliates nationwide</strong>. The ministry is committed to transforming lives through the teaching and preaching of the revealed Word of God.</p>
                     
                     <p>He is an <strong>international preacher and teacher</strong>, having ministered in over <strong>23 countries</strong>, impacting lives across nations with profound revelation, clarity, and spiritual authority. His teachings empower believers to walk in faith, power, and divine purpose.</p>
                     
-                    <p><strong>Apostle Michael Wambua</strong> holds a <strong>Diploma in Transformational Church Leadership</strong> from Pan African University and is currently pursuing a <strong>Bachelor's degree in Biblical Studies</strong> from KAG East University, demonstrating his commitment to both spiritual depth and academic excellence.</p>
+                    <p><strong>{{ church.apostle.name }}</strong> holds a <strong>Diploma in Transformational Church Leadership</strong> from Pan African University and is currently pursuing a <strong>Bachelor's degree in Biblical Studies</strong> from KAG East University, demonstrating his commitment to both spiritual depth and academic excellence.</p>
                     
                     <p>He is also a <strong>dedicated writer</strong>, authoring books that equip, inspire, and strengthen individuals in their spiritual journey. His message emphasizes the revelation of Jesus Christ, the power of the Holy Spirit, and the practical application of God's Word in everyday life.</p>
                     
                     <p>As a <strong>visionary leader</strong>, he is passionate about raising leaders, equipping ministers, and advancing the Kingdom of God—even through media platforms such as YouTube and television. Through conferences, teachings, media outreach, and leadership development, he continues to shape a generation that walks in truth, power, and spiritual authority.</p>
                     
-                    <p><strong>Apostle Michael Wambua</strong> is a spiritual son of <strong>Bishop Dr. Wilfred Lai</strong>, under whose guidance and covering he continues to grow and impact lives. He is also a <strong>devoted husband</strong> and a <strong>proud father of two</strong>, faithfully balancing family life with his calling in ministry.</p>
+                    <p><strong>{{ church.apostle.name }}</strong> is a spiritual son of <strong>Bishop Dr. Wilfred Lai</strong>, under whose guidance and covering he continues to grow and impact lives. He is also a <strong>devoted husband</strong> and a <strong>proud father of two</strong>, faithfully balancing family life with his calling in ministry.</p>
                     
                     <!-- THE DIVINE COMMAND / TESTIMONY -->
                     <div style="background: rgba(255,217,102,0.1); padding: 20px; border-radius: 15px; margin: 20px 0; border-left: 4px solid var(--gold);">
@@ -204,10 +217,10 @@
         </div>
 
         <!-- PARTNERSHIP SECTION -->
-                <div class="partner-section" data-aos="zoom-in">
+        <div class="partner-section" data-aos="zoom-in">
             <i class="fas fa-hand-holding-heart" style="font-size: 36px; color: var(--gold); margin-bottom: 15px;"></i>
             <h3 style="font-size: 24px;">Their Partnership in Ministry</h3>
-            <p style="margin-top: 15px; font-size: 14px;">Together, Apostle Michael Wambua and Reverend Bancy have built Word Temple Church from a small wooden kiosk in 2004 to over 30 branches nationwide, impacting thousands of lives across Kenya and beyond.</p>
+            <p style="margin-top: 15px; font-size: 14px;">Together, Apostle Michael and Reverend Bancy have built Word Temple Church from a small wooden kiosk in 2004 to over 30 branches nationwide, impacting thousands of lives across Kenya and beyond.</p>
             <a href="/give" class="btn btn-primary" style="background: var(--gold); color: var(--maroon); margin-top: 20px; padding: 10px 25px; font-size: 14px;">PARTNER WITH US</a>
         </div>
     </div>
