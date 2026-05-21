@@ -82,6 +82,55 @@
         color: var(--text-light);
     }
     
+    /* HIGHLIGHTED CARDS - Like Prophetic Family Blessing */
+    .highlight-card {
+        background: linear-gradient(135deg, var(--maroon), var(--blue));
+        border: 2px solid var(--gold);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .highlight-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,217,102,0.1), transparent);
+        animation: rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .highlight-card .ministry-icon {
+        background: var(--gold);
+        box-shadow: 0 0 20px rgba(255,217,102,0.5);
+    }
+    
+    .highlight-card .ministry-content h3 {
+        color: var(--gold);
+        font-size: 26px;
+    }
+    
+    .highlight-card .ministry-content p {
+        color: var(--white);
+    }
+    
+    .special-badge {
+        display: inline-block;
+        background: var(--gold);
+        color: var(--maroon);
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+    
     .women-ministry {
         background: linear-gradient(135deg, var(--maroon), var(--blue));
         color: var(--white);
@@ -107,18 +156,76 @@
 
 <section class="ministries-section">
     <div class="container">
-        {% for program in church.weekly_programs %}
+        
+        <!-- Morning Meditation - Bird Icon -->
         <div class="ministry-card" data-aos="fade-up">
-            <div class="ministry-icon"><i class="fas {{ program.icon }}"></i></div>
+            <div class="ministry-icon"><i class="fas fa-dove"></i></div>
             <div class="ministry-content">
-                <h3>{{ program.name }}</h3>
-                <div class="ministry-time">{{ program.day }} | {{ program.time }}</div>
-                <p>{{ program.description }}</p>
-                <p><i class="fas fa-map-pin"></i> {{ program.location }}</p>
+                <h3>Morning Meditation</h3>
+                <div class="ministry-time">Monday - Friday | 6:30 AM - 7:30 AM</div>
+                <p>Start your day with God's Word and prayer. A peaceful time of reflection and worship to begin your morning.</p>
+                <p><i class="fas fa-map-pin"></i> Church Auditorium & Online</p>
             </div>
         </div>
-        {% endfor %}
         
+        <!-- Lunch Hour Services - Bible Icon -->
+        <div class="ministry-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="ministry-icon"><i class="fas fa-bible"></i></div>
+            <div class="ministry-content">
+                <h3>Lunch Hour Services</h3>
+                <div class="ministry-time">Monday - Friday | 12:30 PM - 2:00 PM</div>
+                <p>Daily spiritual nourishment during your lunch break. Hear the Word and be refreshed in the middle of your day.</p>
+                <p><i class="fas fa-map-pin"></i> Church Auditorium & Online</p>
+            </div>
+        </div>
+        
+        <!-- Pastors & Leaders Meeting - People Gathering Icon -->
+        <div class="ministry-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="ministry-icon"><i class="fas fa-users"></i></div>
+            <div class="ministry-content">
+                <h3>Pastors & Leaders Meeting</h3>
+                <div class="ministry-time">Tuesday | 9:00 AM - 11:30 AM</div>
+                <p>Leadership training and equipping with Apostle Michael Wambua. A gathering of leaders listening to the Word and being empowered for ministry.</p>
+                <p><i class="fas fa-map-pin"></i> Church Auditorium</p>
+            </div>
+        </div>
+        
+        <!-- WEDNESDAY - HIGHLIGHTED CARD -->
+        <div class="ministry-card highlight-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="ministry-icon"><i class="fas fa-fire"></i></div>
+            <div class="ministry-content">
+                <h3>🔥 WEDNESDAY - GOSPEL MASTER CLASS</h3>
+                <div class="ministry-time">Wednesday | 6:30 PM - 8:00 PM</div>
+                <p>Deep teaching and anointing service. A powerful midweek encounter with the Word of God.</p>
+                <p><i class="fas fa-map-pin"></i> Church Auditorium & Online</p>
+                <span class="special-badge"><i class="fas fa-star"></i> HIGHLIGHTED SERVICE</span>
+            </div>
+        </div>
+        
+        <!-- FIRST FRIDAY - HIGHLIGHTED CARD -->
+        <div class="ministry-card highlight-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="ministry-icon"><i class="fas fa-pray"></i></div>
+            <div class="ministry-content">
+                <h3>📅 FIRST FRIDAY - MINI-KESHA PRAYER SERVICE</h3>
+                <div class="ministry-time">First Friday of Every Month | 6:30 PM - 9:30 PM</div>
+                <p>Powerful prayer service with Apostle Michael Wambua. A night of intercession, worship, and breakthrough.</p>
+                <p><i class="fas fa-map-pin"></i> Church Auditorium</p>
+                <span class="special-badge"><i class="fas fa-fire"></i> HIGHLIGHTED SERVICE</span>
+            </div>
+        </div>
+        
+        <!-- Youth Service -->
+        <div class="ministry-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="ministry-icon"><i class="fas fa-child"></i></div>
+            <div class="ministry-content">
+                <h3>Youth Service - "The Remnant"</h3>
+                <div class="ministry-time">Saturday | 10:00 AM - 12:00 PM</div>
+                <p>Young adults and teens gathering for dynamic worship, relevant teaching, and fellowship.</p>
+                <p><i class="fas fa-map-pin"></i> Church Auditorium</p>
+            </div>
+        </div>
+        
+        <!-- Women's Ministry -->
         <div class="women-ministry" data-aos="zoom-in">
             <i class="fas fa-female" style="font-size: 48px; color: var(--gold); margin-bottom: 20px;"></i>
             <h3 style="font-size: 32px;">Daughters of the Kingdom Women's Conference</h3>
