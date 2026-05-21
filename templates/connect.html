@@ -16,8 +16,12 @@
     }
     
     .page-header h1 { font-size: 56px; font-weight: 900; font-family: 'Playfair Display', serif; }
+    .page-header p { font-size: 18px; opacity: 0.9; margin-top: 15px; }
     
-    .connect-section { padding: 60px 0; background: var(--dark-bg); }
+    .connect-section {
+        padding: 60px 0;
+        background: var(--dark-bg);
+    }
     
     .section-title {
         font-size: 32px;
@@ -30,86 +34,53 @@
     
     .service-card {
         background: var(--card-bg);
-        padding: 25px 30px;
-        border-radius: 20px;
-        margin-bottom: 20px;
-        border-left: 5px solid var(--gold);
+        padding: 20px 25px;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid var(--gold);
         transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        animation: fadeInUp 0.8s ease;
-    }
-    
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
     }
     
     .service-card:hover {
-        transform: translateX(10px);
-        border-color: var(--maroon);
+        transform: translateX(8px);
+        background: var(--card-bg);
     }
     
     .service-day {
         color: var(--gold);
         font-weight: 700;
-        font-size: 14px;
+        font-size: 13px;
         letter-spacing: 2px;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
     }
     
     .service-name {
-        font-size: 22px;
+        font-size: 20px;
         color: var(--white);
-        margin-bottom: 8px;
+        margin-bottom: 5px;
         font-family: 'Playfair Display', serif;
         font-weight: 700;
     }
     
     .service-time {
-        font-size: 18px;
+        font-size: 16px;
         color: var(--blue-bright);
         font-weight: 600;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
     }
     
     .service-location {
         color: var(--text-muted);
-        font-size: 14px;
-    }
-    
-    .online-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(42,157,143,0.2);
-        color: var(--blue-bright);
-        padding: 5px 12px;
-        border-radius: 50px;
-        font-size: 12px;
-        font-weight: 600;
-        margin-top: 10px;
-    }
-    
-    .special-badge {
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        color: var(--dark-bg);
-        display: inline-block;
-        padding: 5px 15px;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 12px;
-        margin-top: 10px;
+        font-size: 13px;
     }
     
     .location-card {
-        background: var(--card-bg);
-        color: var(--text-light);
+        background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
         padding: 40px;
         border-radius: 20px;
         text-align: center;
         margin-top: 40px;
         border: 1px solid rgba(255,217,102,0.3);
-        animation: fadeInUp 0.8s ease;
     }
     
     .location-card h3 {
@@ -117,14 +88,58 @@
     }
     
     .map-container {
-        border-radius: 20px;
+        border-radius: 15px;
         overflow: hidden;
         margin-top: 20px;
+    }
+    
+    .online-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(42,157,143,0.15);
+        color: var(--blue-bright);
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: 8px;
+    }
+    
+    .special-badge {
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--maroon);
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 11px;
+        margin-top: 8px;
+    }
+    
+    .social-links-footer {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 25px;
+    }
+    
+    .social-links-footer a {
+        color: var(--white);
+        font-size: 28px;
+        transition: all 0.3s ease;
+    }
+    
+    .social-links-footer a:hover {
+        color: var(--gold);
+        transform: translateY(-3px);
     }
     
     @media (max-width: 768px) {
         .page-header h1 { font-size: 36px; }
         .section-title { font-size: 24px; }
+        .service-name { font-size: 18px; }
+        .service-time { font-size: 14px; }
     }
 </style>
 
@@ -137,74 +152,122 @@
 
 <section class="connect-section">
     <div class="container">
+        
+        <!-- SUNDAY SERVICES -->
         <h2 class="section-title" data-aos="fade-right">📅 SUNDAY SERVICES</h2>
-        {% for service in church.services %}
+        
         <div class="service-card" data-aos="fade-up">
-            <div class="service-day">{{ service.day }}</div>
-            <div class="service-name">{{ service.name }}</div>
-            <div class="service-time">{{ service.time }}</div>
-            <div class="service-location">{{ church.address }}</div>
+            <div class="service-day">SUNDAY</div>
+            <div class="service-name">1st Service</div>
+            <div class="service-time">5:30 AM - 8:00 AM</div>
+            <div class="service-location">Eastleigh, 1st Avenue, 3rd Street</div>
             <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
         </div>
-        {% endfor %}
         
-        <div class="service-card" data-aos="fade-up" style="background: linear-gradient(135deg, var(--maroon), var(--dark-bg));">
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">SUNDAY</div>
+            <div class="service-name">2nd Service</div>
+            <div class="service-time">8:30 AM - 11:00 AM</div>
+            <div class="service-location">Eastleigh, 1st Avenue, 3rd Street</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">SUNDAY</div>
+            <div class="service-name">3rd Service</div>
+            <div class="service-time">11:00 AM - 2:00 PM</div>
+            <div class="service-location">Eastleigh, 1st Avenue, 3rd Street</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
+        </div>
+        
+        <!-- FIRST SUNDAY SPECIAL -->
+        <div class="service-card" data-aos="fade-up" style="background: linear-gradient(135deg, var(--maroon), var(--dark-bg)); border-left-color: var(--gold);">
             <div class="service-day">🎉 EVERY FIRST SUNDAY</div>
-            <div class="service-name">{{ church.first_sunday }}</div>
+            <div class="service-name">Prophetic Family Blessing Sunday</div>
             <div class="service-time">All Sunday Services</div>
-            <div class="service-location">{{ church.address }}</div>
+            <div class="service-location">Eastleigh, 1st Avenue, 3rd Street</div>
             <span class="special-badge"><i class="fas fa-hands-praying"></i> Special Family Blessing</span>
         </div>
         
+        <!-- WEEKDAY SERVICES -->
         <h2 class="section-title" data-aos="fade-right">⏰ WEEKDAY SERVICES</h2>
         
-        {% for program in church.weekly_programs %}
         <div class="service-card" data-aos="fade-up">
-            <div class="service-day">{{ program.day }}</div>
-            <div class="service-name">{{ program.name }}</div>
-            <div class="service-time">{{ program.time }}</div>
-            <div class="service-location">{{ program.location }}</div>
-            <span class="online-badge"><i class="fab fa-youtube"></i> {{ program.description }}</span>
+            <div class="service-day">MONDAY - FRIDAY</div>
+            <div class="service-name">Morning Breakthrough</div>
+            <div class="service-time">6:30 AM - 7:30 AM</div>
+            <div class="service-location">Church Auditorium & Online</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
         </div>
-        {% endfor %}
         
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">MONDAY - FRIDAY</div>
+            <div class="service-name">Lunch Hour Services</div>
+            <div class="service-time">12:30 PM - 2:00 PM</div>
+            <div class="service-location">Church Auditorium & Online</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">TUESDAY</div>
+            <div class="service-name">Pastors & Leaders Meeting</div>
+            <div class="service-time">9:00 AM - 11:30 AM</div>
+            <div class="service-location">Church Auditorium</div>
+            <span class="online-badge"><i class="fas fa-chalkboard-user"></i> Leadership Training</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">WEDNESDAY</div>
+            <div class="service-name">Gospel Master Class</div>
+            <div class="service-time">6:30 PM - 8:00 PM</div>
+            <div class="service-location">Church Auditorium & Online</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Deep teaching and anointing</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">FIRST FRIDAY OF EVERY MONTH</div>
+            <div class="service-name">Mini-Kesha Prayer Service</div>
+            <div class="service-time">6:30 PM - 9:30 PM</div>
+            <div class="service-location">Church Auditorium</div>
+            <span class="online-badge"><i class="fas fa-pray"></i> Powerful prayer service</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">SATURDAY</div>
+            <div class="service-name">Youth Service - "The Remnant"</div>
+            <div class="service-time">10:00 AM - 12:00 PM</div>
+            <div class="service-location">Church Auditorium</div>
+            <span class="online-badge"><i class="fas fa-child"></i> Young adults and teens</span>
+        </div>
+        
+        <!-- LOCATION CARD -->
         <div class="location-card" data-aos="zoom-in">
             <i class="fas fa-church" style="font-size: 48px; color: var(--gold); margin-bottom: 20px;"></i>
             <h3 style="font-size: 28px;">Word Temple Church of God International</h3>
-            <p style="margin: 20px 0;">{{ church.address }}</p>
+            <p style="margin: 20px 0;">Eastleigh, 1st Avenue, 3rd Street, Next to St. Teresa's Dispensary, Nairobi, Kenya</p>
             <p><i class="fas fa-phone"></i> {{ church.phone }} | <i class="fas fa-envelope"></i> {{ church.email }}</p>
             
+            <!-- Google Maps -->
             <div class="map-container">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.6172!2d36.85!3d-1.283333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d4b5b5b5b5%3A0x0!2zMcKwMTcnMDAuMCJTIDM2wrA1MScwMC4wIkU!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske" 
                     width="100%" 
-                    height="350" 
+                    height="300" 
                     style="border:0; border-radius: 15px;" 
                     allowfullscreen="" 
                     loading="lazy">
                 </iframe>
             </div>
-            <p style="margin-top: 20px;"><i class="fas fa-directions"></i> <a href="https://maps.google.com/?q=PRJX%2BJF2+Nairobi" target="_blank" style="color: var(--gold);">Get Directions</a></p>
+            <p style="margin-top: 15px;"><i class="fas fa-directions"></i> <a href="https://maps.google.com/?q=Eastleigh+1st+Avenue+3rd+Street+Nairobi" target="_blank" style="color: var(--gold);">Get Directions</a></p>
             
-            <div style="margin-top: 25px;">
-                <a href="{{ church.youtube }}" target="_blank" class="btn btn-primary" style="background: var(--gold); color: var(--maroon);">WATCH LIVE ON YOUTUBE</a>
+            <!-- Social Media Links -->
+            <div class="social-links-footer">
+                <a href="{{ church.youtube }}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="{{ church.facebook }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="{{ church.twitter }}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="{{ church.instagram }}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
-     
-
-<!-- SPECIAL ANNOUNCEMENT: MID-YEAR REVIVAL CONFERENCE - JOINT SERVICE -->
-<div class="service-card" data-aos="fade-up" style="background: linear-gradient(135deg, var(--maroon), var(--blue)); border-left: 5px solid var(--gold);">
-    <div class="service-day">🎉 SPECIAL ANNOUNCEMENT</div>
-    <div class="service-name">MID-YEAR REVIVAL CONFERENCE - JOINT SERVICE</div>
-    <div class="service-time"><i class="fas fa-calendar-alt"></i> Sunday, June 7th, 2026 | 4:30 PM - 6:30 PM</div>
-    <div class="service-location">Eastleigh, 1st Avenue, 3rd Street, Next to St. Teresa's Dispensary</div>
-    <div style="margin-top: 15px;">
-        <p><strong style="color: var(--gold);">🔥 Host:</strong> Apostle Michael Wambua</p>
-        <p><strong style="color: var(--gold);">⭐ Guest Speaker:</strong> Apostle Richard Mayanja (Uganda)</p>
-        <p><strong>📖Bible Verse :</strong> "O Lord, revive Your work in the midst of the years!" - Habakkuk 3:2</p>
-    </div>
-    <span class="special-badge" style="margin-top: 15px;"><i class="fas fa-fire"></i> DON'T MISS THIS POWERFUL SERVICE!</span>
-</div>
-   </div>
+        </div>
     </div>
 </section>
 {% endblock %}
