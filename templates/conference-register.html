@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- International Telephone Input CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/css/intlTelInput.css">
+
 <style>
     .page-header {
         background: linear-gradient(135deg, var(--blue), var(--maroon));
@@ -79,14 +82,89 @@
         border-radius: 10px;
         border: 1px solid rgba(255,217,102,0.3);
         background: var(--dark-bg);
-        color: var(--text-light);
+        color: var(--white);
         font-size: 14px;
+    }
+    
+    /* FIX: Make dropdown options clearly visible */
+    .form-group select {
+        background: var(--dark-bg);
+        color: var(--white);
+        cursor: pointer;
+    }
+    
+    .form-group select option {
+        background: var(--navy-light);
+        color: var(--white);
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .form-group select option:hover {
+        background: var(--gold);
+        color: var(--maroon);
+    }
+    
+    /* FIX: Make the dropdown list background visible when opened */
+    select:focus option {
+        background: var(--dark-bg);
+        color: var(--white);
     }
     
     .form-group input:focus,
     .form-group select:focus {
         outline: none;
         border-color: var(--gold);
+    }
+    
+    /* International Telephone Input styling */
+    .iti {
+        width: 100%;
+    }
+    
+    .iti__selected-flag {
+        background: var(--dark-bg) !important;
+        border-radius: 10px 0 0 10px;
+    }
+    
+    .iti input {
+        width: 100%;
+        padding: 12px 15px;
+        padding-left: 55px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,217,102,0.3);
+        background: var(--dark-bg);
+        color: var(--white);
+        font-size: 14px;
+    }
+    
+    .iti input:focus {
+        outline: none;
+        border-color: var(--gold);
+    }
+    
+    /* FIX: Country dropdown visibility */
+    .iti__country-list {
+        background: var(--dark-bg);
+        border: 1px solid var(--gold);
+        border-radius: 10px;
+        color: var(--white);
+    }
+    
+    .iti__country {
+        color: var(--white);
+        padding: 10px;
+    }
+    
+    .iti__country:hover {
+        background: var(--gold);
+        color: var(--maroon);
+    }
+    
+    .iti__search-input {
+        background: var(--dark-bg);
+        color: var(--white);
+        border: 1px solid var(--gold);
     }
     
     .radio-group {
@@ -100,6 +178,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        color: var(--text-light);
     }
     
     .radio-option input {
@@ -218,19 +297,18 @@
                         </div>
                         <div class="form-group">
                             <label>Phone Number <span class="required">*</span></label>
-                            <input type="tel" name="Phone Number" required placeholder="+254 XXX XXX XXX">
+                            <input type="tel" id="phone" name="Phone Number" required>
                         </div>
                     </div>
                     
                     <h3>📅 Select Conference</h3>
                     <div class="form-group">
                         <select name="Conference" required>
-                            <option value="">-- Select a Conference --</option>
-                            <option value="June Conference 2026">June Conference (June 3rd - 7th, 2026)</option>
-                            <option value="Revelation & Power Conference 2026">Revelation & Power Conference (December 2026)</option>
-                            <option value="Daughters of the Kingdom 2026">Daughters of the Kingdom - Ladies Conference (August 2026)</option>
-                            <option value="Youth Conference 2026">Youth Conference - "The Remnant" (April 2026)</option>
-                            <option value="Pastors & Leaders Summit">Pastors & Leaders Summit</option>
+                            <option value="" disabled selected>-- Select a Conference --</option>
+                            <option value="June Conference 2026">🔥 June Conference (May 31st - June 7th, 2026)</option>
+                            <option value="Daughters of the Kingdom 2026">🌸 Daughters of the Kingdom (August 20-21, 2026)</option>
+                            <option value="Youth Conference 2026">👦 Youth Conference (November 2026)</option>
+                            <option value="Revelation & Power Conference 2026">👑 Revelation & Power Conference (December 2026)</option>
                         </select>
                     </div>
                     
@@ -274,10 +352,10 @@
                 
                 <div class="event-detail">
                     <i class="fas fa-calendar-alt"></i> <strong>Upcoming Conferences</strong>
-                    <p>📅 June Conference: May 31st - 7th JUne , 2026<br>
-                    📅 Revelation & Power: December 2026<br>
-                    📅 Daughters of the Kingdom: August 2026<br>
-                    📅 Youth Conference: April 2026</p>
+                    <p>📅 June Conference: May 31st - June 7th, 2026<br>
+                    📅 Daughters of the Kingdom: August 20-21, 2026<br>
+                    📅 Youth Conference: November 2026<br>
+                    📅 Revelation & Power: December 2026</p>
                 </div>
                 
                 <div class="event-detail">
@@ -285,10 +363,29 @@
                     <p>Word Temple Church of God International<br>
                     Eastleigh, 1st Avenue, 3rd Street<br>
                     Next to St. Teresa's Dispensary, Nairobi</p>
-                
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- International Telephone Input JS -->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/intlTelInput.min.js"></script>
+<script>
+    // Initialize international telephone input
+    const input = document.querySelector("#phone");
+    const iti = window.intlTelInput(input, {
+        initialCountry: "ke",
+        preferredCountries: ["ke", "ug", "tz", "us", "gb", "ca", "ng", "za"],
+        separateDialCode: true,
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/utils.js"
+    });
+    
+    // Make sure the full number is submitted
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function() {
+        const fullNumber = iti.getNumber();
+        document.querySelector("#phone").value = fullNumber;
+    });
+</script>
 {% endblock %}

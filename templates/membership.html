@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- International Telephone Input CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/css/intlTelInput.css">
+
 <style>
     .page-header {
         background: linear-gradient(135deg, var(--blue), var(--maroon));
@@ -79,8 +82,14 @@
         border-radius: 10px;
         border: 1px solid rgba(255,217,102,0.3);
         background: var(--dark-bg);
-        color: var(--text-light);
+        color: var(--white);
         font-size: 14px;
+    }
+    
+    .form-group select option {
+        background: var(--dark-bg);
+        color: var(--white);
+        padding: 12px;
     }
     
     .form-group input:focus,
@@ -89,10 +98,78 @@
         border-color: var(--gold);
     }
     
+    /* International Telephone Input styling */
+    .iti {
+        width: 100%;
+    }
+    
+    .iti__selected-flag {
+        background: var(--dark-bg) !important;
+        border-radius: 10px 0 0 10px;
+    }
+    
+    .iti input {
+        width: 100%;
+        padding: 12px 15px;
+        padding-left: 55px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,217,102,0.3);
+        background: var(--dark-bg);
+        color: var(--white);
+        font-size: 14px;
+    }
+    
+    .iti input:focus {
+        outline: none;
+        border-color: var(--gold);
+    }
+    
+    /* Country dropdown visibility */
+    .iti__country-list {
+        background: var(--dark-bg);
+        border: 1px solid var(--gold);
+        border-radius: 10px;
+        color: var(--white);
+    }
+    
+    .iti__country {
+        color: var(--white);
+        padding: 10px;
+    }
+    
+    .iti__country:hover {
+        background: var(--gold);
+        color: var(--maroon);
+    }
+    
+    .iti__search-input {
+        background: var(--dark-bg);
+        color: var(--white);
+        border: 1px solid var(--gold);
+    }
+    
     .row-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 15px;
+    }
+    
+    .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+    }
+    
+    .checkbox-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-light);
+    }
+    
+    .checkbox-option input {
+        width: auto;
     }
     
     .submit-btn {
@@ -186,7 +263,7 @@
     <div class="container">
         <div class="membership-grid">
             
-            <!-- SIMPLIFIED MEMBERSHIP FORM -->
+            <!-- MEMBERSHIP FORM -->
             <div class="form-card" data-aos="fade-right">
                 <h2>📝 Membership Application</h2>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">Fill in your details to become a member.</p>
@@ -212,7 +289,7 @@
                     <div class="row-2">
                         <div class="form-group">
                             <label>Phone Number <span class="required">*</span></label>
-                            <input type="tel" name="Phone Number" required placeholder="+254 XXX XXX XXX">
+                            <input type="tel" id="phone" name="Phone Number" required>
                         </div>
                         <div class="form-group">
                             <label>Location <span class="required">*</span></label>
@@ -237,48 +314,48 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                   
-
-<div class="form-group">
-    <label>Ministry Interest <span style="color: var(--text-muted); font-size: 12px;">(Optional)</span></label>
-    <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px;">
-        <div class="radio-option">
-            <input type="checkbox" name="Ministry Interest" value="Worship Team">
-            <label>Worship Team</label>
-        </div>
-        <div class="radio-option">
-            <input type="checkbox" name="Ministry Interest" value="Ushering">
-            <label>Ushering</label>
-        </div>
-        <div class="radio-option">
-            <input type="checkbox" name="Ministry Interest" value="Youth Ministry">
-            <label>Youth Ministry</label>
-        </div>
-        <div class="radio-option">
-            <input type="checkbox" name="Ministry Interest" value="Children's Ministry">
-            <label>Children's Ministry</label>
-        </div>
-        <div class="radio-option">
-            <input type="checkbox" name="Ministry Interest" value="Media/Technical">
-            <label>Media/Technical</label>
-        </div>
-        <div class="radio-option">
-            <input type="checkbox" name="Ministry Interest" value="Outreach/Evangelism">
-            <label>Outreach/Evangelism</label>
-        </div>
-        <div class="radio-option">
-            <input type="checkbox" name="Ministry Interest" value="Prayer Team">
-            <label>Prayer Team</label>
-        </div>
-    </div>
-</div>
+                    
+                    <h3>🙏 Ministry Interest</h3>
                     <div class="form-group">
-                        <label>Tell us about yourself</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" name="Ministry Interest" value="Worship Team">
+                                <label>Worship Team</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" name="Ministry Interest" value="Ushering">
+                                <label>Ushering</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" name="Ministry Interest" value="Youth Ministry">
+                                <label>Youth Ministry</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" name="Ministry Interest" value="Children's Ministry">
+                                <label>Children's Ministry</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" name="Ministry Interest" value="Media/Technical">
+                                <label>Media/Technical</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" name="Ministry Interest" value="Outreach/Evangelism">
+                                <label>Outreach/Evangelism</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" name="Ministry Interest" value="Prayer Team">
+                                <label>Prayer Team</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>📝 About You</h3>
+                    <div class="form-group">
                         <textarea name="About You" rows="3" placeholder="Share briefly why you want to join Word Temple Church..."></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <div class="radio-option">
+                        <div class="checkbox-option">
                             <input type="checkbox" name="Terms Agreement" value="Agreed" required>
                             <label>I confirm that the information provided is accurate.</label>
                         </div>
@@ -315,4 +392,24 @@
         </div>
     </div>
 </section>
+
+<!-- International Telephone Input JS -->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/intlTelInput.min.js"></script>
+<script>
+    // Initialize international telephone input
+    const input = document.querySelector("#phone");
+    const iti = window.intlTelInput(input, {
+        initialCountry: "ke",
+        preferredCountries: ["ke", "ug", "tz", "us", "gb", "ca", "ng", "za"],
+        separateDialCode: true,
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/utils.js"
+    });
+    
+    // Make sure the full number is submitted
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function() {
+        const fullNumber = iti.getNumber();
+        document.querySelector("#phone").value = fullNumber;
+    });
+</script>
 {% endblock %}

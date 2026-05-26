@@ -2,395 +2,564 @@
 
 {% block content %}
 <style>
+    /* NAVY BLUE THEME */
+    :root {
+        --navy: #0a1a3a;
+        --navy-dark: #050e24;
+        --navy-light: #0f2348;
+        --gold: #D4AF37;
+        --gold-light: #E8C85A;
+        --white: #ffffff;
+        --maroon: #8B1A1A;
+        --text-light: #c9d1d9;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInLeft {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeInRight {
+        from { opacity: 0; transform: translateX(30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    body {
+        background: var(--navy);
+    }
+
     .page-header {
-        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        background: var(--navy-dark);
         padding: 80px 0;
         text-align: center;
         color: var(--white);
-        animation: fadeInDown 1s ease;
+        animation: fadeInUp 0.8s ease;
+        border-bottom: 2px solid var(--gold);
     }
-    
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-30px); }
-        to { opacity: 1; transform: translateY(0); }
+
+    .page-header h1 { 
+        font-size: 56px; 
+        font-weight: 900; 
+        font-family: 'Playfair Display', serif;
+        color: var(--white);
     }
-    
-    .page-header h1 { font-size: 56px; font-weight: 900; font-family: 'Playfair Display', serif; }
-    .page-header p { font-size: 18px; opacity: 0.9; margin-top: 15px; }
-    
+    .page-header h1 span {
+        color: var(--gold);
+    }
+    .page-header p { 
+        font-size: 18px; 
+        opacity: 0.9; 
+        margin-top: 15px;
+        color: var(--text-light);
+    }
+
     .ticker-container {
-        background: linear-gradient(135deg, var(--maroon), var(--blue));
+        background: var(--navy-dark);
         padding: 15px 0;
         overflow: hidden;
         white-space: nowrap;
         position: relative;
-        border-bottom: 2px solid var(--gold);
+        border-bottom: 1px solid var(--gold);
+        border-top: 1px solid var(--gold);
     }
-    
+
     .ticker-content {
         display: inline-block;
         animation: scrollText 25s linear infinite;
     }
-    
+
     @keyframes scrollText {
         0% { transform: translateX(100%); }
         100% { transform: translateX(-100%); }
     }
-    
+
     .ticker-content span {
-        color: white;
+        color: var(--gold);
         margin: 0 40px;
         font-size: 14px;
     }
-    
+
     .ticker-content i {
         color: var(--gold);
         margin-right: 10px;
     }
-    
+
     .events-section {
         padding: 60px 0;
-        background: var(--dark-bg);
+        background: var(--navy);
     }
-    
+
     .section-title {
-        font-size: 36px;
-        color: var(--gold);
+        font-size: 42px;
+        font-weight: 800;
         text-align: center;
         margin-bottom: 50px;
+        color: var(--white);
         font-family: 'Playfair Display', serif;
-        position: relative;
+        animation: fadeInUp 0.8s ease;
     }
-    
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -15px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 3px;
-        background: linear-gradient(90deg, var(--gold), var(--maroon));
+
+    .section-title span {
+        color: var(--gold);
+        border-bottom: 3px solid var(--gold);
+        padding-bottom: 8px;
     }
-    
-    .events-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-        margin-bottom: 80px;
+
+    .regular-title {
+        font-size: 38px;
+        font-weight: 800;
+        text-align: center;
+        margin: 60px 0 40px;
+        color: var(--white);
+        font-family: 'Playfair Display', serif;
+        animation: fadeInUp 0.8s ease;
     }
-    
+
+    .regular-title span {
+        color: var(--gold);
+    }
+
+    .events-list {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
     .event-card {
-        background: var(--card-bg);
+        display: flex;
+        flex-wrap: wrap;
+        background: var(--navy-light);
         border-radius: 20px;
         overflow: hidden;
-        transition: all 0.4s ease;
-        border: 1px solid rgba(255,217,102,0.2);
-        display: flex;
-        flex-direction: column;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        animation: fadeInLeft 0.8s ease;
+        border: 1px solid rgba(212, 175, 55, 0.2);
     }
-    
+
     .event-card:hover {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
         border-color: var(--gold);
-        box-shadow: 0 20px 40px rgba(184,59,94,0.3);
     }
-    
-    .event-image {
-        height: 250px;
-        width: 100%;
-        background: linear-gradient(135deg, var(--maroon), var(--blue));
-        overflow: hidden;
-    }
-    
-    .event-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .event-content {
-        padding: 20px;
+
+    /* IMAGE SIDE - GRADIENT BACKGROUND to fill white space */
+    .event-poster {
         flex: 1;
-        display: flex;
-        flex-direction: column;
+        min-width: 280px;
+        min-height: 380px;
+        background-size: contain, cover;
+        background-repeat: no-repeat, no-repeat;
+        background-position: center, center;
+        background-blend-mode: normal;
     }
-    
-    .event-date {
-        color: var(--gold);
+
+    .poster-revival {
+        background-image: url('{{ url_for('static', filename='images/events/june conference.jpg') }}'), 
+                          linear-gradient(135deg, #1a2a4a, #0a1a3a);
+    }
+
+    .poster-daughters {
+        background-image: url('{{ url_for('static', filename='images/events/daughters-conference.jpg') }}'), 
+                          linear-gradient(135deg, #2a1a3a, #0a1a3a);
+    }
+
+    .poster-youth {
+        background-image: url('{{ url_for('static', filename='images/events/Youth Conf.jpeg') }}'), 
+                          linear-gradient(135deg, #1a3a2a, #0a1a3a);
+    }
+
+    .service-img-sunday {
+        background-image: url('{{ url_for('static', filename='images/events/Sunday Service.jpg') }}'), 
+                          linear-gradient(135deg, #1a2a4a, #0a1a3a);
+        background-size: contain, cover;
+        background-repeat: no-repeat, no-repeat;
+        background-position: center, center;
+    }
+
+    .service-img-praise {
+        background-image: url('{{ url_for('static', filename='images/events/praise.jpg') }}'), 
+                          linear-gradient(135deg, #2a1a3a, #0a1a3a);
+        background-size: contain, cover;
+        background-repeat: no-repeat, no-repeat;
+        background-position: center, center;
+    }
+
+    .event-details {
+        flex: 1.5;
+        padding: 30px 35px;
+        background: var(--navy-light);
+    }
+
+    .event-category {
+        display: inline-block;
+        background: var(--gold);
+        color: var(--navy);
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-size: 12px;
         font-weight: 700;
-        font-size: 13px;
-        letter-spacing: 2px;
-        margin-bottom: 8px;
+        margin-bottom: 15px;
+    }
+
+    .event-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--white);
+        margin-bottom: 15px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .theme-verse {
+        background: rgba(255, 255, 255, 0.08);
+        border-left: 4px solid var(--gold);
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin: 15px 0;
+        color: var(--text-light);
+    }
+
+    .theme-verse strong {
+        color: var(--gold);
+    }
+
+    .host-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 15px 0;
+        padding: 12px 0;
+        border-top: 1px solid rgba(212, 175, 55, 0.3);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .host-info p {
+        margin: 0;
         display: flex;
         align-items: center;
         gap: 8px;
+        color: var(--text-light);
     }
-    
-    .event-title {
-        font-size: 20px;
-        color: var(--white);
-        margin-bottom: 10px;
-        font-family: 'Playfair Display', serif;
-        line-height: 1.3;
-    }
-    
-    .event-description {
-        color: var(--text-muted);
-        font-size: 13px;
-        line-height: 1.5;
-        margin-bottom: 15px;
-        flex: 1;
-    }
-    
-    .event-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-    }
-    
-    .event-btn {
-        display: inline-block;
-        padding: 8px 16px;
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        color: var(--maroon);
-        text-decoration: none;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 12px;
-        transition: all 0.3s ease;
-        text-align: center;
-        flex: 1;
-    }
-    
-    .event-btn-outline {
-        background: transparent;
-        border: 1px solid var(--gold);
+
+    .host-info i {
         color: var(--gold);
+        width: 20px;
     }
-    
-    .event-btn:hover {
+
+    .sessions-box {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin: 15px 0;
+    }
+
+    .sessions-box h4 {
+        color: var(--gold);
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+
+    .sessions-box p {
+        margin: 6px 0;
+        color: var(--text-light);
+        font-size: 14px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .btn-reg {
+        background: var(--gold);
+        color: var(--navy);
+        padding: 10px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn-reg:hover {
+        background: var(--gold-light);
         transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(255,217,102,0.3);
+        animation: pulse 0.5s ease;
     }
-    
-    /* Regular Services Section */
+
+    .btn-gal {
+        background: transparent;
+        color: var(--gold);
+        padding: 10px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        border: 2px solid var(--gold);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+    .btn-gal:hover {
+        background: var(--gold);
+        color: var(--navy);
+        transform: translateY(-3px);
+    }
+
     .services-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
-        margin-top: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
     }
-    
+
     .service-card {
-        background: var(--card-bg);
+        background: var(--navy-light);
         border-radius: 20px;
         overflow: hidden;
-        transition: all 0.4s ease;
-        border: 1px solid rgba(255,217,102,0.2);
-        display: flex;
-        flex-direction: column;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        animation: fadeInRight 0.8s ease;
+        border: 1px solid rgba(212, 175, 55, 0.2);
     }
-    
+
     .service-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
         border-color: var(--gold);
-        box-shadow: 0 20px 40px rgba(184,59,94,0.2);
     }
-    
+
     .service-image {
-        height: 200px;
         width: 100%;
-        overflow: hidden;
+        height: auto;
+        min-height: 280px;
+        background-size: contain, cover;
+        background-repeat: no-repeat, no-repeat;
+        background-position: center, center;
+        background-blend-mode: normal;
     }
-    
-    .service-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
+
     .service-content {
-        padding: 20px;
+        padding: 25px;
         text-align: center;
     }
-    
+
     .service-content h3 {
         color: var(--gold);
         font-size: 22px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
-    
+
     .service-content p {
-        color: var(--text-muted);
-        font-size: 14px;
+        color: var(--text-light);
+        font-size: 13px;
         margin-bottom: 15px;
     }
-    
+
     .service-times {
-        background: rgba(255,217,102,0.1);
+        background: rgba(255, 255, 255, 0.08);
         padding: 12px;
-        border-radius: 10px;
+        border-radius: 12px;
         margin: 15px 0;
     }
-    
+
     .service-times p {
-        margin-bottom: 5px;
+        margin: 5px 0;
         color: var(--text-light);
+        font-weight: 500;
+        font-size: 13px;
     }
-    
+
     .service-buttons {
         display: flex;
-        gap: 10px;
-        margin-top: 10px;
+        gap: 12px;
+        margin-top: 15px;
     }
-    
+
     .service-btn {
         display: inline-block;
-        padding: 8px 16px;
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        color: var(--maroon);
+        padding: 10px 20px;
+        background: var(--gold);
+        color: var(--navy);
         text-decoration: none;
         border-radius: 50px;
         font-weight: 700;
         font-size: 12px;
-        transition: all 0.3s ease;
         flex: 1;
         text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
     }
-    
+
     .service-btn-outline {
         background: transparent;
-        border: 1px solid var(--gold);
+        border: 2px solid var(--gold);
         color: var(--gold);
     }
-    
+
+    .service-btn-outline:hover {
+        background: var(--gold);
+        color: var(--navy);
+    }
+
     .service-btn:hover {
+        background: var(--gold-light);
         transform: translateY(-2px);
     }
-    
-    .regular-title {
-        font-size: 32px;
-        color: var(--gold);
+
+    .join-btn-container {
         text-align: center;
-        margin-bottom: 40px;
-        font-family: 'Playfair Display', serif;
+        margin-top: 50px;
     }
-    
-    @media (max-width: 1024px) {
-        .events-grid { grid-template-columns: 1fr; }
+
+    .join-btn {
+        background: var(--gold);
+        color: var(--navy);
+        padding: 14px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        display: inline-block;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .join-btn:hover {
+        transform: translateY(-3px);
+        animation: pulse 0.5s ease;
+    }
+
+    @media (max-width: 850px) {
+        .event-poster { min-height: 250px; background-size: cover, cover; }
+        .event-details { padding: 25px; }
+        .event-title { font-size: 22px; }
+        .page-header h1 { font-size: 38px; }
         .services-grid { grid-template-columns: 1fr; }
-    }
-    
-    @media (max-width: 768px) {
-        .page-header h1 { font-size: 36px; }
-        .event-image { height: 200px; }
-        .service-image { height: 180px; }
+        .service-image { min-height: 200px; background-size: cover, cover; }
     }
 </style>
 
+<!-- Ticker -->
 <div class="ticker-container">
     <div class="ticker-content">
-        <span><i class="fas fa-bullhorn"></i> <strong>📢 ANNOUNCEMENTS:</strong></span>
-        <span><i class="fas fa-fire"></i> Mid-Year Revival Conference - May 31st to June 7th, 2026!</span>
-        <span><i class="fas fa-female"></i> Daughters of the Kingdom Conference - August 20th-21st, 2026!</span>
-        <span><i class="fas fa-child"></i> November Youth Conference - Register Now!</span>
-        <span><i class="fas fa-church"></i> New Sanctuary Project - Partner with us to build God's house!</span>
-        <span><i class="fas fa-tag"></i> Early Bird Registration for Revelation & Power Conference ends October 31st!</span>
+        <span><i class="fas fa-fire"></i> MID-YEAR REVIVAL: May 31 – June 7, 2026</span>
+        <span><i class="fas fa-crown"></i> DAUGHTERS OF THE KINGDOM: August 20–21, 2026</span>
+        <span><i class="fas fa-child"></i> YOUTH CONFERENCE 2026: Youth and the Digital Space</span>
+        <span><i class="fas fa-bible"></i> "You are the light of the world" - Matthew 5:14</span>
+        <span><i class="fas fa-church"></i> SUNDAY SERVICES: 5:30AM, 8:30AM, 11:00AM</span>
     </div>
 </div>
 
-<section class="page-header">
+<!-- Page Header -->
+<div class="page-header">
     <div class="container">
-        <h1 data-aos="fade-up">EVENTS & CONFERENCES</h1>
-        <p data-aos="fade-up" data-aos-delay="100">Gatherings That Transform Lives</p>
+        <h1>EVENTS & <span>CONFERENCES</span></h1>
+        <p>Gatherings That Transform Lives</p>
     </div>
-</section>
+</div>
 
+<!-- Events Section -->
 <section class="events-section">
     <div class="container">
-        
-        <h2 class="section-title" data-aos="fade-up">📅 UPCOMING CONFERENCES</h2>
-        <div class="events-grid">
-            
-            <!-- 1. MID-YEAR REVIVAL CONFERENCE (JUNE) - FIRST -->
-            <div class="event-card" data-aos="fade-up">
-                <div class="event-image">
-                    <img src="{{ url_for('static', filename='images/events/juneconf.jpg') }}" alt="Mid-Year Revival Conference">
-                </div>
-                <div class="event-content">
-                    <div class="event-date"><i class="fas fa-calendar-alt"></i> May 31st - June 7th, 2026</div>
-                    <h3 class="event-title">🔥 MID-YEAR REVIVAL CONFERENCE</h3>
-                    <p class="event-description"><strong>Theme:</strong> "O Lord, revive Your work in the midst of the years!" - Habakkuk 3:2</p>
-                    <p class="event-description"><strong>Host:</strong> Apostle Michael Wambua Wambua</p>
-                    <p class="event-description"><strong>Guest Speaker:</strong> Apostle Richard Mayanja (Uganda)</p>
-                    <div class="event-buttons">
-                        <a href="/conference-register" class="event-btn">REGISTER</a>
-                        <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+        <h2 class="section-title"><span>📅 UPCOMING CONFERENCES</span></h2>
+
+        <div class="events-list">
+
+            <!-- CONFERENCE 1: MID-YEAR REVIVAL -->
+            <div class="event-card">
+                <div class="event-poster poster-revival"></div>
+                <div class="event-details">
+                    <div class="event-category">🔥 MID-YEAR REVIVAL CONFERENCE 2026</div>
+                    <h2 class="event-title">"O Lord, revive Your work in the midst of the years!"</h2>
+                    <div class="theme-verse">
+                        <strong>📖 Habakkuk 3:2</strong> — "O Lord, revive Your work in the midst of the years! In the midst of the years make it known; in wrath remember mercy."
+                    </div>
+                    <div class="host-info">
+                        <p><i class="fas fa-user-bishop"></i> <strong>Host:</strong> Apostle Michael Wambua Wambua</p>
+                        <p><i class="fas fa-microphone-alt"></i> <strong>Guest Speaker:</strong> Apostle Richard Mayanja (Uganda)</p>
+                    </div>
+                    <div class="sessions-box">
+                        <h4><i class="fas fa-clock"></i> Sessions (Monday - Friday)</h4>
+                        <p><strong>🌅 Morning Service:</strong> 6:00 AM - 7:30 AM</p>
+                        <p><strong>🍽️ Lunch Hour:</strong> 12:30 PM - 2:00 PM</p>
+                        <p><strong>🌙 Evening Service:</strong> 6:00 PM - 8:30 PM</p>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
+                        <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
                     </div>
                 </div>
             </div>
-            
-            <!-- 2. DAUGHTERS OF THE KINGDOM (AUGUST) -->
-            <div class="event-card" data-aos="fade-up">
-                <div class="event-image">
-                    <img src="{{ url_for('static', filename='images/events/daughters-conference.jpg') }}" alt="Daughters of the Kingdom">
-                </div>
-                <div class="event-content">
-                    <div class="event-date"><i class="fas fa-calendar-alt"></i> August 20th - 21st, 2026</div>
-                    <h3 class="event-title">🌸 Daughters of the Kingdom - Ladies Conference</h3>
-                    <p class="event-description"><strong>Theme:</strong> "Set Apart for God" (Luke 10:38-42)</p>
-                    <p class="event-description"><strong>Hosts:</strong> Apostle Michael Wambua Wambua & Rev. Bancy Wambua</p>
-                    <div class="event-buttons">
-                        <a href="/conference-register" class="event-btn">REGISTER</a>
-                        <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+
+            <!-- CONFERENCE 2: DAUGHTERS OF THE KINGDOM -->
+            <div class="event-card">
+                <div class="event-poster poster-daughters"></div>
+                <div class="event-details">
+                    <div class="event-category">🌸 ANNUAL CONFERENCE 2026 · LADIES CONFERENCE</div>
+                    <h2 class="event-title">Daughters of the Kingdom - Ladies Conference</h2>
+                    <div class="theme-verse">
+                        <strong>✨ Theme:</strong> "Set Apart for God" — <strong>Luke 10:38-42</strong><br>
+                        "Mary has chosen the good portion, which will not be taken away from her."
+                    </div>
+                    <div class="host-info">
+                        <p><i class="fas fa-crown"></i> <strong>Hosts:</strong> Apostle Michael Wambua Wambua & Rev. Bancy Wambua</p>
+                        <p><i class="far fa-calendar-alt"></i> <strong>Thursday 20th & Friday 21st August, 2026</strong></p>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
+                        <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
                     </div>
                 </div>
             </div>
-            
-            <!-- 3. REVELATION & POWER CONFERENCE (DECEMBER) -->
-            <div class="event-card" data-aos="fade-up">
-                <div class="event-image">
-                    <img src="{{ url_for('static', filename='images/events/revelation-conference.jpg') }}" alt="Revelation & Power Conference">
-                </div>
-                <div class="event-content">
-                    <div class="event-date"><i class="fas fa-calendar-alt"></i> December 2026</div>
-                    <h3 class="event-title">👑 Revelation & Power Conference</h3>
-                    <p class="event-description"><strong>Theme:</strong> "The Faith of God" - Mark 11:22</p>
-                    <p class="event-description">The 8th Annual National Gospel Camp.</p>
-                    <div class="event-buttons">
-                        <a href="/conference-register" class="event-btn">REGISTER</a>
-                        <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+
+            <!-- CONFERENCE 3: YOUTH CONFERENCE -->
+            <div class="event-card">
+                <div class="event-poster poster-youth"></div>
+                <div class="event-details">
+                    <div class="event-category">👦 ANNUAL YOUTH CONFERENCE 2026</div>
+                    <h2 class="event-title">"Youth and the Digital Space"</h2>
+                    <div class="theme-verse">
+                        <strong>📖 Matthew 5:14</strong> — "You are the light of the world. A city that is set on a hill cannot be hidden."
                     </div>
-                </div>
-            </div>
-            
-            <!-- 4. YOUTH CONFERENCE (NOVEMBER) -->
-            <div class="event-card" data-aos="fade-up">
-                <div class="event-image">
-                    <img src="{{ url_for('static', filename='images/events/youth-conference.jpg') }}" alt="Youth Conference">
-                </div>
-                <div class="event-content">
-                    <div class="event-date"><i class="fas fa-calendar-alt"></i> November 2026</div>
-                    <h3 class="event-title">👦 Annual Youth Conference</h3>
-                    <p class="event-description"><strong>Theme:</strong> "Youth and the Digital Space" - Matthew 5:14</p>
-                    <p class="event-description">Empowering the next generation for Kingdom impact.</p>
-                    <div class="event-buttons">
-                        <a href="/conference-register" class="event-btn">REGISTER</a>
-                        <a href="/gallery" class="event-btn event-btn-outline">GALLERY</a>
+                    <div class="action-buttons">
+                        <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
+                        <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- REGULAR SERVICES SECTION -->
-        <h2 class="regular-title" data-aos="fade-up">📌 REGULAR SERVICES</h2>
+        <h2 class="regular-title"><span>📌 REGULAR SERVICES</span></h2>
         <div class="services-grid">
-            <!-- Sunday Service Card -->
-            <div class="service-card" data-aos="fade-up">
-                <div class="service-image">
-                    <img src="{{ url_for('static', filename='images/events/Sunday Service.jpg') }}" alt="Sunday Service">
-                </div>
+            
+            <!-- Sunday Service -->
+            <div class="service-card">
+                <div class="service-image service-img-sunday"></div>
                 <div class="service-content">
                     <h3>⛪ SUNDAY SERVICE</h3>
                     <p>WITH APOSTLE MICHAEL WAMBUA</p>
@@ -400,37 +569,52 @@
                         <p><strong>3rd Service:</strong> 11:00 AM - 2:00 PM</p>
                     </div>
                     <div class="service-buttons">
-                        <a href="{{ church.youtube }}" target="_blank" class="service-btn">WATCH LIVE</a>
-                        <a href="/connect" class="service-btn service-btn-outline">JOIN IN PERSON</a>
+                        <a href="#" class="service-btn watch-live-btn"><i class="fab fa-youtube"></i> WATCH LIVE</a>
+                        <a href="/connect" class="service-btn service-btn-outline"><i class="fas fa-church"></i> JOIN IN PERSON</a>
                     </div>
                 </div>
             </div>
-            
-            <!-- Word Temple Voices Card -->
-            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-image">
-                    <img src="{{ url_for('static', filename='images/events/praise.jpg') }}" alt="Word Temple Voices">
-                </div>
+
+            <!-- Word Temple Voices -->
+            <div class="service-card">
+                <div class="service-image service-img-praise"></div>
                 <div class="service-content">
-                    <h3>🎵 WORD TEMPLE VOICES</h3>
-                    <p>EXPERIENCE THE PRESENCE</p>
+                    <h3>🎵 EXPERIENCE THE PRESENCE</h3>
+                    <p>WORD TEMPLE CHURCH VOICES</p>
                     <div class="service-times">
                         <p><strong>Morning Breakthrough:</strong> 6:30 AM - 7:30 AM (Mon-Fri)</p>
                         <p><strong>Lunch Hour:</strong> 12:30 PM - 2:00 PM (Mon-Fri)</p>
                         <p><strong>Evening Service:</strong> 6:00 PM - 8:30 PM (Mon-Fri)</p>
                     </div>
                     <div class="service-buttons">
-                        <a href="{{ church.youtube }}" target="_blank" class="service-btn">WATCH LIVE</a>
-                        <a href="/connect" class="service-btn service-btn-outline">VIEW SCHEDULE</a>
+                        <a href="#" class="service-btn watch-live-btn"><i class="fab fa-youtube"></i> WATCH LIVE</a>
+                        <a href="#" class="service-btn service-btn-outline view-schedule-btn"><i class="fas fa-calendar-alt"></i> VIEW SCHEDULE</a>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- JOIN US BUTTON -->
-        <div style="text-align: center; margin-top: 50px;">
-            <a href="{{ church.youtube }}" target="_blank" class="btn btn-primary" style="background: var(--gold); color: var(--maroon); padding: 15px 40px;">JOIN US THIS SUNDAY</a>
+
+        <div class="join-btn-container">
+            <a href="/connect" class="join-btn"><i class="fas fa-church"></i> JOIN US THIS SUNDAY</a>
         </div>
     </div>
 </section>
+
+<script>
+    const youtubeUrl = "https://www.youtube.com/@WordTempleChurchofGod";
+    
+    document.querySelectorAll('.watch-live-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open(youtubeUrl, '_blank');
+        });
+    });
+    
+    document.querySelectorAll('.view-schedule-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = "/";
+        });
+    });
+</script>
 {% endblock %}
