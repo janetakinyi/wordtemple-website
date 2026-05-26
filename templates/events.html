@@ -40,7 +40,7 @@
     }
 
     .page-header {
-        background: var(--navy-dark);
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
         padding: 80px 0;
         text-align: center;
         color: var(--white);
@@ -65,7 +65,7 @@
     }
 
     .ticker-container {
-        background: var(--navy-dark);
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
         padding: 15px 0;
         overflow: hidden;
         white-space: nowrap;
@@ -85,7 +85,7 @@
     }
 
     .ticker-content span {
-        color: var(--gold);
+        color: white;
         margin: 0 40px;
         font-size: 14px;
     }
@@ -139,6 +139,7 @@
         padding: 0 20px;
     }
 
+    /* CARD WITH IMAGE ON LEFT, TEXT ON RIGHT */
     .event-card {
         display: flex;
         flex-wrap: wrap;
@@ -156,48 +157,18 @@
         border-color: var(--gold);
     }
 
-    /* IMAGE SIDE - GRADIENT BACKGROUND to fill white space */
+    /* IMAGE SIDE - USING CONTAIN TO SHOW FULL IMAGE WITHOUT CROPPING */
     .event-poster {
         flex: 1;
-        min-width: 280px;
-        min-height: 380px;
-        background-size: contain, cover;
-        background-repeat: no-repeat, no-repeat;
-        background-position: center, center;
-        background-blend-mode: normal;
+        min-width: 320px;
+        min-height: 400px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: var(--navy-light);
     }
 
-    .poster-revival {
-        background-image: url('{{ url_for('static', filename='images/events/june conference.jpg') }}'), 
-                          linear-gradient(135deg, #1a2a4a, #0a1a3a);
-    }
-
-    .poster-daughters {
-        background-image: url('{{ url_for('static', filename='images/events/daughters-conference.jpg') }}'), 
-                          linear-gradient(135deg, #2a1a3a, #0a1a3a);
-    }
-
-    .poster-youth {
-        background-image: url('{{ url_for('static', filename='images/events/Youth Conf.jpeg') }}'), 
-                          linear-gradient(135deg, #1a3a2a, #0a1a3a);
-    }
-
-    .service-img-sunday {
-        background-image: url('{{ url_for('static', filename='images/events/Sunday Service.jpg') }}'), 
-                          linear-gradient(135deg, #1a2a4a, #0a1a3a);
-        background-size: contain, cover;
-        background-repeat: no-repeat, no-repeat;
-        background-position: center, center;
-    }
-
-    .service-img-praise {
-        background-image: url('{{ url_for('static', filename='images/events/praise.jpg') }}'), 
-                          linear-gradient(135deg, #2a1a3a, #0a1a3a);
-        background-size: contain, cover;
-        background-repeat: no-repeat, no-repeat;
-        background-position: center, center;
-    }
-
+    /* RIGHT SIDE - TEXT CONTENT */
     .event-details {
         flex: 1.5;
         padding: 30px 35px;
@@ -285,6 +256,7 @@
         flex-wrap: wrap;
     }
 
+    /* GOLD BUTTONS */
     .btn-reg {
         background: var(--gold);
         color: var(--navy);
@@ -353,14 +325,14 @@
         border-color: var(--gold);
     }
 
+    /* SERVICE IMAGES - USING CONTAIN TO SHOW FULL IMAGE */
     .service-image {
         width: 100%;
-        height: auto;
-        min-height: 280px;
-        background-size: contain, cover;
-        background-repeat: no-repeat, no-repeat;
-        background-position: center, center;
-        background-blend-mode: normal;
+        height: 220px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: var(--navy-light);
     }
 
     .service-content {
@@ -454,16 +426,16 @@
     }
 
     @media (max-width: 850px) {
-        .event-poster { min-height: 250px; background-size: cover, cover; }
+        .event-poster { min-width: 100%; min-height: 280px; background-size: contain; }
         .event-details { padding: 25px; }
         .event-title { font-size: 22px; }
         .page-header h1 { font-size: 38px; }
         .services-grid { grid-template-columns: 1fr; }
-        .service-image { min-height: 200px; background-size: cover, cover; }
+        .service-image { height: 180px; background-size: contain; }
     }
 </style>
 
-<!-- Ticker -->
+<!-- Ticker with BLUE to MAROON gradient -->
 <div class="ticker-container">
     <div class="ticker-content">
         <span><i class="fas fa-fire"></i> MID-YEAR REVIVAL: May 31 – June 7, 2026</span>
@@ -474,7 +446,7 @@
     </div>
 </div>
 
-<!-- Page Header -->
+<!-- Page Header with BLUE to MAROON gradient -->
 <div class="page-header">
     <div class="container">
         <h1>EVENTS & <span>CONFERENCES</span></h1>
@@ -491,7 +463,8 @@
 
             <!-- CONFERENCE 1: MID-YEAR REVIVAL -->
             <div class="event-card">
-                <div class="event-poster poster-revival"></div>
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/june conference.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
                 <div class="event-details">
                     <div class="event-category">🔥 MID-YEAR REVIVAL CONFERENCE 2026</div>
                     <h2 class="event-title">"O Lord, revive Your work in the midst of the years!"</h2>
@@ -517,7 +490,8 @@
 
             <!-- CONFERENCE 2: DAUGHTERS OF THE KINGDOM -->
             <div class="event-card">
-                <div class="event-poster poster-daughters"></div>
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/daughters-conference.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
                 <div class="event-details">
                     <div class="event-category">🌸 ANNUAL CONFERENCE 2026 · LADIES CONFERENCE</div>
                     <h2 class="event-title">Daughters of the Kingdom - Ladies Conference</h2>
@@ -538,7 +512,8 @@
 
             <!-- CONFERENCE 3: YOUTH CONFERENCE -->
             <div class="event-card">
-                <div class="event-poster poster-youth"></div>
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/Youth Conf.jpeg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
                 <div class="event-details">
                     <div class="event-category">👦 ANNUAL YOUTH CONFERENCE 2026</div>
                     <h2 class="event-title">"Youth and the Digital Space"</h2>
@@ -559,7 +534,8 @@
             
             <!-- Sunday Service -->
             <div class="service-card">
-                <div class="service-image service-img-sunday"></div>
+                <div class="service-image" style="background-image: url('{{ url_for('static', filename='images/events/Sunday Service.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
                 <div class="service-content">
                     <h3>⛪ SUNDAY SERVICE</h3>
                     <p>WITH APOSTLE MICHAEL WAMBUA</p>
@@ -577,7 +553,8 @@
 
             <!-- Word Temple Voices -->
             <div class="service-card">
-                <div class="service-image service-img-praise"></div>
+                <div class="service-image" style="background-image: url('{{ url_for('static', filename='images/events/praise.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
                 <div class="service-content">
                     <h3>🎵 EXPERIENCE THE PRESENCE</h3>
                     <p>WORD TEMPLE CHURCH VOICES</p>
