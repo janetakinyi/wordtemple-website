@@ -2,7 +2,7 @@
 # Copyright (c) 2026 Word Temple Church of God International
 # All rights reserved.
 
-from flask import Flask, render_template, session, redirect, url_for, request, flash, send_from_directory
+from flask import Flask, render_template, session, redirect, url_for, request, flash, send_from_directory , jsonify
 from functools import wraps
 import os
 import json
@@ -115,15 +115,25 @@ def serve_static(filename):
 # Gallery API
 @app.route('/get-gallery-images')
 def get_gallery_images():
-    gallery_path = 'static/images/gallery/'
+    import os
+    gallery_path = 'static/images/gallery'
     images = []
     if os.path.exists(gallery_path):
-        for f in os.listdir(gallery_path):
-            if f.lower().endswith(('.jpg', '.jpeg', '.JPG', '.png', '.gif')):
-                images.append(f)
-        images.sort()
-    return {'images': images}
-
+        # Get all image files with their modification times
+        for filename in os.listdir(gallery_path):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
+                filepath = os.path.join(gallery_path, filename)
+                mtime = os.path.getmtime(filepath)
+                images.append({
+                    'filename': filename,
+                    'mtime': mtime
+                })
+        # Sort by modification time (newest first)
+        images.sort(key=lambda x: x['mtime'], reverse=True)
+        # Extract just filenames
+        images = [img['filename'] for img in images]
+    
+    return jsonify({'images': images})
 # Page routes
 @app.route('/')
 def home():
@@ -266,9 +276,17 @@ def admin_upload_photo():
             file.save(os.path.join('static/images/gallery/', filename))
             flash(f'Photo {filename} uploaded successfully!', 'success')
             return redirect(url_for('admin_upload_photo'))
+    
+    # Get photos sorted by modification time (newest first)
     photos = []
     if os.path.exists('static/images/gallery/'):
-        photos = os.listdir('static/images/gallery/')
+        import glob
+        image_files = glob.glob('static/images/gallery/*.jpg') + glob.glob('static/images/gallery/*.jpeg') + glob.glob('static/images/gallery/*.png')
+        # Sort by file modification time (newest first)
+        image_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+        # Extract just filenames
+        photos = [os.path.basename(f) for f in image_files]
+    
     return render_template('admin_upload.html', photos=photos)
 
 @app.route('/admin/delete-photo/<filename>')
@@ -298,3 +316,4 @@ def register():
 
 if __name__ == '__main__':
     app.run(debug=True)
+ 
