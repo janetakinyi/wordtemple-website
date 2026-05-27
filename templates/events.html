@@ -139,7 +139,6 @@
         padding: 0 20px;
     }
 
-    /* CARD WITH IMAGE ON LEFT, TEXT ON RIGHT */
     .event-card {
         display: flex;
         flex-wrap: wrap;
@@ -157,7 +156,6 @@
         border-color: var(--gold);
     }
 
-    /* IMAGE SIDE - USING CONTAIN TO SHOW FULL IMAGE WITHOUT CROPPING */
     .event-poster {
         flex: 1;
         min-width: 320px;
@@ -168,7 +166,6 @@
         background-color: var(--navy-light);
     }
 
-    /* RIGHT SIDE - TEXT CONTENT */
     .event-details {
         flex: 1.5;
         padding: 30px 35px;
@@ -249,6 +246,31 @@
         font-size: 14px;
     }
 
+    .timetable-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 15px 0;
+    }
+
+    .timetable-item {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .timetable-item strong {
+        color: var(--gold);
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .timetable-item span {
+        color: var(--text-light);
+        font-size: 13px;
+    }
+
     .action-buttons {
         display: flex;
         gap: 15px;
@@ -256,7 +278,6 @@
         flex-wrap: wrap;
     }
 
-    /* GOLD BUTTONS */
     .btn-reg {
         background: var(--gold);
         color: var(--navy);
@@ -325,7 +346,6 @@
         border-color: var(--gold);
     }
 
-    /* SERVICE IMAGES - USING CONTAIN TO SHOW FULL IMAGE */
     .service-image {
         width: 100%;
         height: 220px;
@@ -432,10 +452,11 @@
         .page-header h1 { font-size: 38px; }
         .services-grid { grid-template-columns: 1fr; }
         .service-image { height: 180px; background-size: contain; }
+        .timetable-grid { grid-template-columns: 1fr; }
     }
 </style>
 
-<!-- Ticker with BLUE to MAROON gradient -->
+<!-- Ticker -->
 <div class="ticker-container">
     <div class="ticker-content">
         <span><i class="fas fa-fire"></i> MID-YEAR REVIVAL: May 31 – June 7, 2026</span>
@@ -446,7 +467,7 @@
     </div>
 </div>
 
-<!-- Page Header with BLUE to MAROON gradient -->
+<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1>EVENTS & <span>CONFERENCES</span></h1>
@@ -461,7 +482,7 @@
 
         <div class="events-list">
 
-            <!-- CONFERENCE 1: MID-YEAR REVIVAL -->
+            <!-- CONFERENCE 1: MID-YEAR REVIVAL (JUNE CONFERENCE) -->
             <div class="event-card">
                 <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/june conference.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
                 </div>
@@ -481,14 +502,66 @@
                         <p><strong>🍽️ Lunch Hour:</strong> 12:30 PM - 2:00 PM</p>
                         <p><strong>🌙 Evening Service:</strong> 6:00 PM - 8:30 PM</p>
                     </div>
-                    <div class="action-buttons">
+
+                   <div class="action-buttons">
                         <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
                         <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
                     </div>
+                 </div>
+            </div>
+
+            <!-- CONFERENCE 2: MID-YEAR REVIVAL TIMETABLE (NEW CARD) -->
+            <div class="event-card">
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/mid year flyer.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
+                <div class="event-details">
+                    <div class="event-category">📅 MID-YEAR REVIVAL 2026 · TIMETABLE</div>
+                    <h2 class="event-title">WORD TEMPLE CHURCH OF GOD INTERNATIONAL</h2>
+                    
+                    <div class="timetable-grid">
+                        <div class="timetable-item">
+                            <strong>🌅 MORNING BREAKTHROUGH</strong>
+                            <span>Mon-Fri: 6:00 AM - 7:30 AM</span>
+                        </div>
+                        <div class="timetable-item">
+                            <strong>🍽️ LUNCH HOUR SERVICE</strong>
+                            <span>Mon-Fri: 12:30 PM - 2:00 PM</span>
+                        </div>
+                        <div class="timetable-item">
+                            <strong>👥 PASTORS & LEADERS</strong>
+                            <span>Tuesday: 9:30 AM - 11:30 AM</span>
+                        </div>
+                        <div class="timetable-item">
+                            <strong>🔥 EVENING REVIVAL</strong>
+                            <span>Wed-Fri: 6:30 PM - 9:00 PM</span>
+                        </div>
+                        <div class="timetable-item">
+                            <strong>⛪ 1ST SUNDAY SERVICE</strong>
+                            <span>5:30 AM - 8:30 AM</span>
+                        </div>
+                        <div class="timetable-item">
+                            <strong>⛪ 2ND SUNDAY SERVICE</strong>
+                            <span>8:30 AM - 11:30 AM</span>
+                        </div>
+                        <div class="timetable-item">
+                            <strong>⛪ 3RD SUNDAY SERVICE</strong>
+                            <span>11:30 AM - 2:00 PM</span>
+                        </div>
+                        <div class="timetable-item">
+                            <strong>🤝 EVENING UNITY SERVICE</strong>
+                            <span>4:30 PM - 6:30 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="host-info">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Eastleigh, 1st Avenue, 3rd Street, Next to St. Teresa's Dispensary</p>
+                        <p><i class="fas fa-calendar-alt"></i> <strong>Dates:</strong> May 31st - June 7th, 2026</p>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- CONFERENCE 2: DAUGHTERS OF THE KINGDOM -->
+            <!-- CONFERENCE 3: DAUGHTERS OF THE KINGDOM -->
             <div class="event-card">
                 <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/daughters-conference.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
                 </div>
@@ -510,7 +583,7 @@
                 </div>
             </div>
 
-            <!-- CONFERENCE 3: YOUTH CONFERENCE -->
+            <!-- CONFERENCE 4: YOUTH CONFERENCE -->
             <div class="event-card">
                 <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/Youth Conf.jpeg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
                 </div>
@@ -565,7 +638,7 @@
                     </div>
                     <div class="service-buttons">
                         <a href="#" class="service-btn watch-live-btn"><i class="fab fa-youtube"></i> WATCH LIVE</a>
-                        <a href="/gallery" class="service-btn service-btn-outline gallery-btn"><i class="fas fa-calendar-alt"></i> GALLERY</a>
+                        <a href="/gallery" class="service-btn service-btn-outline"><i class="fas fa-images"></i> GALLERY</a>
                     </div>
                 </div>
             </div>
@@ -586,12 +659,6 @@
             window.open(youtubeUrl, '_blank');
         });
     });
-    
-    document.querySelectorAll('.view-schedule-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = "/";
-        });
-    });
 </script>
 {% endblock %}
+
