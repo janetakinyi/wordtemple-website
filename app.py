@@ -2,10 +2,11 @@
 # Copyright (c) 2026 Word Temple Church of God International
 # All rights reserved.
 
-from flask import Flask, render_template, session, redirect, url_for, request, flash, send_from_directory , jsonify
+from flask import Flask, render_template, session, redirect, url_for, request, flash, send_from_directory, jsonify
 from functools import wraps
 import os
 import json
+import time
 from werkzeug.utils import secure_filename
 from admin import verify_admin, save_registration, get_registrations, get_quotes, get_events, get_settings, save_settings, update_quotes
 
@@ -31,7 +32,6 @@ church_info = {
     'phone': '+254 719 306011',
     'phone_alt': '+254 720 313 832',
     'email': 'wordtemple@hotmail.com',
-    
     'apostle': {
         'name': 'Apostle Michael Wambua',
         'title': 'Apostle Over The Commission',
@@ -47,7 +47,6 @@ church_info = {
         'commission_word': '"I am sending you for a Worldwide Mission"',
         'mission': 'From Vision to Revelation: The Gospel on Television'
     },
-    
     'rev_bancy': {
         'name': 'Reverend Bancy Wambua',
         'title': 'Co-Founder, Worship Leader, Women\'s Ministry Director',
@@ -57,21 +56,17 @@ church_info = {
         'co_founder': 'Co-founder of Word Temple Church of God International.',
         'mission': 'Spreading His Word and transforming lives through worship.'
     },
-    
     'vision': 'Restoration of the Full Gospel and planting churches worldwide',
     'mission': 'To teach and preach the whole council of God\'s word worldwide',
     'core_values': ['Integrity', 'Credibility', 'Holiness', 'Humility', 'Determination', 'Seizing opportunities', 'Exemplary living', 'Team player'],
-    
     'theme_2026': 'Our Year of SUPERNATURAL BREAKTHROUGHS',
     'theme_scripture': '2 Samuel 5:20 (NKJV)',
     'theme_verse': '"like a breakthrough of water?"',
-    
     'services': [
         {'name': '1st Service', 'time': '5:30 AM - 8:00 AM', 'day': 'Sunday', 'type': 'Morning Glory'},
         {'name': '2nd Service', 'time': '8:30 AM - 11:00 AM', 'day': 'Sunday', 'type': 'Family Service'},
         {'name': '3rd Service', 'time': '11:00 AM - 2:00 PM', 'day': 'Sunday', 'type': 'Prophetic Blessing'}
     ],
-    
     'weekly_programs': [
         {'day': 'Monday - Friday', 'name': 'Morning Breakthrough', 'time': '6:30 AM - 7:30 AM', 'location': 'Church Auditorium & Online', 'icon': 'fa-sun', 'description': 'Start your day with God\'s Word'},
         {'day': 'Monday - Friday', 'name': 'Lunch Hour Services', 'time': '12:30 PM - 2:00 PM', 'location': 'Church Auditorium & Online', 'icon': 'fa-utensils', 'description': 'Daily spiritual nourishment'},
@@ -80,9 +75,7 @@ church_info = {
         {'day': 'First Friday', 'name': 'Mini-Kesha Prayer Service', 'time': '6:30 PM - 9:30 PM', 'location': 'Church Auditorium', 'icon': 'fa-pray', 'description': 'Powerful prayer service'},
         {'day': 'Saturday', 'name': 'Youth Service', 'time': '10:00 AM - 12:00 PM', 'location': 'Church Auditorium', 'icon': 'fa-child', 'description': 'Young adults and teens'}
     ],
-    
     'first_sunday': 'Prophetic Family Blessing Sunday',
-    
     'giving': {
         'mpesa_till': '841690',
         'mpesa_account': 'WORD TEMPLE CHURCH OF GOD',
@@ -98,7 +91,6 @@ church_info = {
         'kcb_account': '7544081',
         'kcb_cheque': '1325540706'
     },
-    
     'youtube': 'https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw',
     'youtube_channel': '@WordTempleChurchofGod',
     'youtube_subs': '4.49K',
@@ -115,25 +107,18 @@ def serve_static(filename):
 # Gallery API
 @app.route('/get-gallery-images')
 def get_gallery_images():
-    import os
     gallery_path = 'static/images/gallery'
     images = []
     if os.path.exists(gallery_path):
-        # Get all image files with their modification times
         for filename in os.listdir(gallery_path):
             if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
                 filepath = os.path.join(gallery_path, filename)
                 mtime = os.path.getmtime(filepath)
-                images.append({
-                    'filename': filename,
-                    'mtime': mtime
-                })
-        # Sort by modification time (newest first)
+                images.append({'filename': filename, 'mtime': mtime})
         images.sort(key=lambda x: x['mtime'], reverse=True)
-        # Extract just filenames
         images = [img['filename'] for img in images]
-    
     return jsonify({'images': images})
+
 # Page routes
 @app.route('/')
 def home():
@@ -200,7 +185,7 @@ def admin_login():
             return redirect(url_for('admin_dashboard'))
         else:
             flash('Invalid username or password', 'error')
-    return render_template('admin_login.html')
+    return render_template('admin_login.html', church=church_info)
 
 @app.route('/admin/logout')
 def admin_logout():
@@ -214,13 +199,28 @@ def admin_dashboard():
     registrations = get_registrations()
     settings = get_settings()
     quotes = get_quotes()
-    return render_template('admin_dashboard.html', registrations=registrations, settings=settings, quotes=quotes, church=church_info)
+    gallery_count = 0
+    if os.path.exists('static/images/gallery/'):
+        gallery_count = len([f for f in os.listdir('static/images/gallery/') if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
+    events = []
+    if os.path.exists('events_data.json'):
+        with open('events_data.json', 'r') as f:
+            events = json.load(f)
+    return render_template('admin_dashboard.html', 
+                         registrations=registrations, 
+                         settings=settings, 
+                         quotes=quotes,
+                         gallery_count=gallery_count,
+                         events_count=len(events),
+                         registrations_count=len(registrations),
+                         quotes_count=len(quotes),
+                         church=church_info)
 
 @app.route('/admin/registrations')
 @login_required
 def admin_registrations():
     registrations = get_registrations()
-    return render_template('admin_registrations.html', registrations=registrations)
+    return render_template('admin_registrations.html', registrations=registrations, church=church_info)
 
 @app.route('/admin/quotes', methods=['GET', 'POST'])
 @login_required
@@ -233,13 +233,7 @@ def admin_quotes():
             quotes.append({'text': new_quote, 'source': author})
             update_quotes(quotes)
             flash('Quote added successfully!', 'success')
-    return render_template('admin_quotes.html', quotes=quotes)
-
-@app.route('/admin/events')
-@login_required
-def admin_events():
-    events = get_events()
-    return render_template('admin_events.html', events=events)
+    return render_template('admin_quotes.html', quotes=quotes, church=church_info)
 
 @app.route('/admin/settings', methods=['GET', 'POST'])
 @login_required
@@ -258,7 +252,7 @@ def admin_settings():
         save_settings(settings)
         flash('Settings saved successfully!', 'success')
         return redirect(url_for('admin_settings'))
-    return render_template('admin_settings.html', settings=settings)
+    return render_template('admin_settings.html', settings=settings, church=church_info)
 
 @app.route('/admin/upload-photo', methods=['GET', 'POST'])
 @login_required
@@ -273,21 +267,17 @@ def admin_upload_photo():
             return redirect(url_for('admin_upload_photo'))
         if file:
             filename = secure_filename(file.filename)
+            os.makedirs('static/images/gallery/', exist_ok=True)
             file.save(os.path.join('static/images/gallery/', filename))
             flash(f'Photo {filename} uploaded successfully!', 'success')
             return redirect(url_for('admin_upload_photo'))
-    
-    # Get photos sorted by modification time (newest first)
     photos = []
     if os.path.exists('static/images/gallery/'):
         import glob
         image_files = glob.glob('static/images/gallery/*.jpg') + glob.glob('static/images/gallery/*.jpeg') + glob.glob('static/images/gallery/*.png')
-        # Sort by file modification time (newest first)
         image_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
-        # Extract just filenames
         photos = [os.path.basename(f) for f in image_files]
-    
-    return render_template('admin_upload.html', photos=photos)
+    return render_template('admin_upload.html', photos=photos, church=church_info)
 
 @app.route('/admin/delete-photo/<filename>')
 @login_required
@@ -314,6 +304,86 @@ def register():
         return redirect(url_for('register'))
     return render_template('register.html', church=church_info)
 
+# Events data file
+EVENTS_DATA_FILE = 'events_data.json'
+
+def load_events_data():
+    if os.path.exists(EVENTS_DATA_FILE):
+        with open(EVENTS_DATA_FILE, 'r') as f:
+            return json.load(f)
+    return []
+
+def save_events_data(events):
+    with open(EVENTS_DATA_FILE, 'w') as f:
+        json.dump(events, f, indent=2)
+
+@app.route('/admin/events')
+@login_required
+def admin_events():
+    events = load_events_data()
+    return render_template('admin_events_management.html', events=events, church=church_info)
+
+@app.route('/admin/add-event', methods=['POST'])
+@login_required
+def admin_add_event():
+    if 'event_image' not in request.files:
+        flash('No image file selected', 'error')
+        return redirect(url_for('admin_events'))
+    
+    file = request.files['event_image']
+    if file.filename == '':
+        flash('No image selected', 'error')
+        return redirect(url_for('admin_events'))
+    
+    if file:
+        filename = secure_filename(file.filename)
+        name, ext = os.path.splitext(filename)
+        timestamp = int(time.time())
+        unique_filename = f"{name}_{timestamp}{ext}"
+        os.makedirs('static/images/events/', exist_ok=True)
+        file.save(os.path.join('static/images/events/', unique_filename))
+        
+        session_names = request.form.getlist('session_name[]')
+        session_times = request.form.getlist('session_time[]')
+        sessions = []
+        for i in range(len(session_names)):
+            if session_names[i] and session_times[i]:
+                sessions.append({'name': session_names[i], 'time': session_times[i]})
+        
+        event_data = {
+            'filename': unique_filename,
+            'image': unique_filename,
+            'category': request.form.get('category'),
+            'title': request.form.get('title'),
+            'scripture': request.form.get('scripture'),
+            'verse_text': request.form.get('verse_text'),
+            'dates': request.form.get('dates'),
+            'host': request.form.get('host'),
+            'guest_speaker': request.form.get('guest_speaker'),
+            'sessions': sessions,
+            'location': request.form.get('location')
+        }
+        
+        events = load_events_data()
+        events.append(event_data)
+        save_events_data(events)
+        
+        flash(f'Event "{event_data["title"]}" added successfully!', 'success')
+        return redirect(url_for('admin_events'))
+
+@app.route('/admin/delete-event/<filename>', methods=['POST'])
+@login_required
+def admin_delete_event(filename):
+    image_path = os.path.join('static/images/events/', filename)
+    if os.path.exists(image_path):
+        os.remove(image_path)
+    
+    events = load_events_data()
+    events = [e for e in events if e.get('filename') != filename]
+    save_events_data(events)
+    
+    flash('Event deleted successfully!', 'success')
+    return redirect(url_for('admin_events'))
+
 if __name__ == '__main__':
     app.run(debug=True)
- 

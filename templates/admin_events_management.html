@@ -1,0 +1,509 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .admin-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 60px 0;
+        text-align: center;
+        color: var(--white);
+    }
+    .admin-header h1 { font-size: 48px; }
+    .admin-container {
+        max-width: 1400px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+    .form-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 40px;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    .form-card h2 {
+        color: #FFD700;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #FFD700;
+        padding-bottom: 10px;
+    }
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    .image-upload-area {
+        background: rgba(255,255,255,0.05);
+        border: 2px dashed #FFD700;
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .image-upload-area:hover {
+        background: rgba(255, 215, 0, 0.1);
+    }
+    .image-preview {
+        width: 100%;
+        height: 300px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-top: 15px;
+        border-radius: 10px;
+    }
+    .size-guide {
+        background: rgba(255, 215, 0, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 15px;
+    }
+    .size-guide h4 {
+        color: #FFD700;
+        margin-bottom: 10px;
+    }
+    .size-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        font-size: 12px;
+    }
+    .size-grid div {
+        padding: 5px;
+        background: rgba(0,0,0,0.3);
+        border-radius: 5px;
+        color: #FFD700;
+    }
+    .warning-box {
+        background: rgba(220, 53, 69, 0.2);
+        border-left: 4px solid #dc3545;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        color: #ff9999;
+    }
+    .success-box {
+        background: rgba(40, 167, 69, 0.2);
+        border-left: 4px solid #28a745;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        color: #90EE90;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        color: #FFD700;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        background: var(--dark-bg);
+        color: var(--white);
+    }
+    .category-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .category-row select {
+        flex: 1;
+    }
+    .btn-add-category {
+        background: #FFD700;
+        color: #1a2b4a;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .session-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .session-row input {
+        flex: 1;
+    }
+    .btn-add, .btn-submit, .btn-preview {
+        background: #FFD700;
+        color: #1a2b4a;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 50px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .btn-submit {
+        width: 100%;
+        background: linear-gradient(135deg, #FFD700, #F0B429);
+    }
+    .btn-preview {
+        background: #2A9D8F;
+        color: white;
+        margin-right: 10px;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .events-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .event-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+    .event-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+    .event-info {
+        padding: 15px;
+    }
+    .event-info h4 {
+        color: #FFD700;
+        font-size: 16px;
+    }
+    .delete-btn {
+        background: #dc3545;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 50px;
+        width: 100%;
+        cursor: pointer;
+    }
+    .flash-message {
+        background: #FFD700;
+        color: #1a2b4a;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: 600;
+    }
+    .preview-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+    .preview-content {
+        max-width: 800px;
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 30px;
+    }
+    @media (max-width: 768px) {
+        .form-grid { grid-template-columns: 1fr; }
+        .size-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+</style>
+
+<div class="admin-header">
+    <div class="container">
+        <h1>📅 Professional Events Management</h1>
+        <p>Create, Edit, and Publish Conference Events</p>
+    </div>
+</div>
+
+<div class="admin-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <!-- ADD/EDIT EVENT FORM -->
+    <div class="form-card">
+        <h2>📝 Event Details</h2>
+        <form action="/admin/add-event" method="POST" enctype="multipart/form-data" id="eventForm">
+            
+            <div class="form-grid">
+                <!-- LEFT COLUMN: IMAGE UPLOAD -->
+                <div>
+                    <div class="form-group">
+                        <label>📸 Event Banner / Poster</label>
+                        <div class="image-upload-area" onclick="document.getElementById('event_image').click()">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #FFD700;"></i>
+                            <p>Click to upload image</p>
+                            <p style="font-size: 12px;">Drag & drop or click to select</p>
+                        </div>
+                        <input type="file" id="event_image" name="event_image" accept="image/*" style="display:none" onchange="analyzeImage(this)">
+                        <div id="imagePreview" class="image-preview"></div>
+                        <div id="imageAnalysis" class="size-guide" style="display:none;"></div>
+                        
+                        <!-- Size Guide -->
+                        <div class="size-guide">
+                            <h4>📐 Recommended Image Sizes</h4>
+                            <div class="size-grid">
+                                <div>🎯 Banner: 1920×1080px</div>
+                                <div>📱 Card: 1200×628px</div>
+                                <div>🖼️ Square: 1080×1080px</div>
+                                <div>📄 Flyer: 1080×1350px</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RIGHT COLUMN: EVENT INFO -->
+                <div>
+                    <div class="form-group">
+                        <label>🏷️ Event Category</label>
+                        <div class="category-row">
+                            <select name="category" id="category" required>
+                                <option value="">-- Select Category --</option>
+                                <option value="MID-YEAR REVIVAL CONFERENCE">🔥 MID-YEAR REVIVAL CONFERENCE</option>
+                                <option value="ANNUAL LADIES CONFERENCE">🌸 ANNUAL LADIES CONFERENCE</option>
+                                <option value="YOUTH CONFERENCE">👦 YOUTH CONFERENCE</option>
+                                <option value="REVELATION & POWER CONFERENCE">👑 REVELATION & POWER CONFERENCE</option>
+                                <option value="PASTORS & LEADERS SUMMIT">👥 PASTORS & LEADERS SUMMIT</option>
+                                <option value="SPECIAL SERVICE">⛪ SPECIAL SERVICE</option>
+                            </select>
+                            <button type="button" class="btn-add-category" onclick="addNewCategory()">+ New</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>📌 Event Title</label>
+                        <input type="text" name="title" id="title" required placeholder="e.g., O Lord, revive Your work in the midst of the years!">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>📖 Theme Scripture</label>
+                        <input type="text" name="scripture" id="scripture" required placeholder="e.g., Habakkuk 3:2">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>📜 Scripture Verse</label>
+                        <textarea name="verse_text" id="verse_text" rows="3" placeholder="Enter the full scripture verse..."></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-grid">
+                <div>
+                    <div class="form-group">
+                        <label>📅 Event Date & Venue</label>
+                        <input type="text" name="dates" id="dates" required placeholder="e.g., May 31st - June 7th, 2026">
+                        <input type="text" name="location" id="location" style="margin-top:10px;" value="Eastleigh, 1st Avenue, 3rd Street, Nairobi" required>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label>👤 Host/Speaker</label>
+                        <input type="text" name="host" id="host" required placeholder="Apostle Michael Wambua & Rev. Bancy Wambua">
+                    </div>
+                    <div class="form-group">
+                        <label>🎙️ Guest Speaker (Optional)</label>
+                        <input type="text" name="guest_speaker" id="guest_speaker" placeholder="e.g., Apostle Richard Mayanja (Uganda)">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>🕐 Daily Schedule / Sessions</label>
+                <div id="sessions-container">
+                    <div class="session-row">
+                        <input type="text" name="session_name[]" placeholder="Session name" value="Morning Service">
+                        <input type="text" name="session_time[]" placeholder="Time" value="6:00 AM - 7:30 AM">
+                    </div>
+                    <div class="session-row">
+                        <input type="text" name="session_name[]" placeholder="Session name" value="Lunch Hour">
+                        <input type="text" name="session_time[]" placeholder="Time" value="12:30 PM - 2:00 PM">
+                    </div>
+                    <div class="session-row">
+                        <input type="text" name="session_name[]" placeholder="Session name" value="Evening Service">
+                        <input type="text" name="session_time[]" placeholder="Time" value="6:00 PM - 8:30 PM">
+                    </div>
+                </div>
+                <button type="button" class="btn-add" onclick="addSession()">+ Add Session</button>
+            </div>
+            
+            <!-- ACTION BUTTONS -->
+            <div class="action-buttons">
+                <button type="button" class="btn-preview" onclick="previewEvent()">👁️ Preview Event</button>
+                <button type="submit" class="btn-submit">📌 PUBLISH EVENT</button>
+            </div>
+        </form>
+    </div>
+    
+    <!-- EXISTING EVENTS LIST -->
+    <div class="form-card">
+        <h2>📋 Published Events ({{ events|length }})</h2>
+        <div class="events-list">
+            {% for event in events %}
+            <div class="event-card">
+                <img src="{{ url_for('static', filename='images/events/' + event.image) }}" alt="{{ event.title }}">
+                <div class="event-info">
+                    <h4>{{ event.title[:40] }}{% if event.title|length > 40 %}...{% endif %}</h4>
+                    <p style="font-size: 12px; color: #ccc;"><i class="fas fa-calendar"></i> {{ event.dates }}</p>
+                    <p style="font-size: 11px; color: #FFD700;">{{ event.category }}</p>
+                    <form action="/admin/delete-event/{{ event.filename }}" method="POST">
+                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this event?')">🗑️ Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Preview Modal -->
+<div id="previewModal" class="preview-modal">
+    <div class="preview-content">
+        <h2 style="color: #FFD700;">📅 Event Preview</h2>
+        <div id="previewContent"></div>
+        <button onclick="closePreview()" style="background: #FFD700; padding: 10px 20px; border: none; border-radius: 50px; margin-top: 20px; font-weight: 600;">Close</button>
+    </div>
+</div>
+
+<script>
+    let currentImage = null;
+    
+    function analyzeImage(input) {
+        const preview = document.getElementById('imagePreview');
+        const analysisDiv = document.getElementById('imageAnalysis');
+        
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            const img = new Image();
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                img.src = e.target.result;
+                preview.style.backgroundImage = "url('" + e.target.result + "')";
+                preview.style.display = 'block';
+                preview.style.backgroundSize = 'contain';
+                preview.style.backgroundRepeat = 'no-repeat';
+                preview.style.backgroundPosition = 'center';
+                currentImage = e.target.result;
+            }
+            reader.readAsDataURL(file);
+            
+            img.onload = function() {
+                const width = img.width;
+                const height = img.height;
+                const ratio = width / height;
+                const fileSizeKB = file.size / 1024;
+                
+                let bestFor = '';
+                if (ratio > 1.7 && ratio < 1.8) {
+                    bestFor = '✅ Best for Banner / Hero image (16:9)';
+                } else if (ratio > 0.56 && ratio < 0.6) {
+                    bestFor = '✅ Best for Flyer / Poster (9:16)';
+                } else if (Math.abs(ratio - 1) < 0.1) {
+                    bestFor = '✅ Best for Square post (1:1)';
+                } else {
+                    bestFor = '⚠️ Consider cropping to 16:9 (banner) or 9:16 (flyer)';
+                }
+                
+                let sizeWarning = '';
+                if (fileSizeKB > 500) {
+                    sizeWarning = '⚠️ Image is large (' + (fileSizeKB/1024).toFixed(1) + 'MB). Consider compressing for faster loading.';
+                } else {
+                    sizeWarning = '✅ Image size is good (' + (fileSizeKB).toFixed(1) + 'KB)';
+                }
+                
+                analysisDiv.innerHTML = `
+                    <h4>📊 Image Analysis</h4>
+                    <div>📏 Dimensions: ${width} × ${height} px</div>
+                    <div>📐 Aspect Ratio: ${ratio.toFixed(2)}</div>
+                    <div>💾 File Size: ${(fileSizeKB/1024).toFixed(1)} MB</div>
+                    <div class="success-box">${bestFor}</div>
+                    <div class="${fileSizeKB > 500 ? 'warning-box' : 'success-box'}">${sizeWarning}</div>
+                `;
+                analysisDiv.style.display = 'block';
+            }
+        }
+    }
+    
+    function previewEvent() {
+        const modal = document.getElementById('previewModal');
+        const previewContent = document.getElementById('previewContent');
+        const category = document.getElementById('category').value || 'CONFERENCE';
+        const title = document.getElementById('title').value || 'Event Title';
+        const scripture = document.getElementById('scripture').value || 'Scripture Reference';
+        const verseText = document.getElementById('verse_text').value || 'Scripture verse text...';
+        const dates = document.getElementById('dates').value || 'Event Dates';
+        const host = document.getElementById('host').value || 'Host Name';
+        const guestSpeaker = document.getElementById('guest_speaker').value || '';
+        
+        previewContent.innerHTML = `
+            <div style="background: #0f2348; border-radius: 15px; overflow: hidden;">
+                ${currentImage ? `<img src="${currentImage}" style="width: 100%; max-height: 300px; object-fit: contain; background: #0a1a3a;">` : '<div style="height: 200px; background: #0a1a3a; display: flex; align-items: center; justify-content: center; color: #FFD700;">No Image Selected</div>'}
+                <div style="padding: 20px;">
+                    <div style="display: inline-block; background: #FFD700; color: #1a2b4a; padding: 5px 15px; border-radius: 30px; font-size: 12px; font-weight: 600;">${category}</div>
+                    <h3 style="color: #FFD700; margin: 15px 0 10px;">${title}</h3>
+                    <div style="background: rgba(255,255,255,0.08); border-left: 4px solid #FFD700; padding: 10px; border-radius: 8px;">
+                        <strong style="color: #FFD700;">📖 ${scripture}</strong>
+                        <p style="margin-top: 8px; color: #ccc;">${verseText}</p>
+                    </div>
+                    <div style="margin: 15px 0; color: #ccc;">
+                        <p><i class="fas fa-calendar" style="color: #FFD700;"></i> ${dates}</p>
+                        <p><i class="fas fa-user-bishop" style="color: #FFD700;"></i> ${host}</p>
+                        ${guestSpeaker ? `<p><i class="fas fa-microphone-alt" style="color: #FFD700;"></i> ${guestSpeaker}</p>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+        modal.style.display = 'flex';
+    }
+    
+    function closePreview() {
+        document.getElementById('previewModal').style.display = 'none';
+    }
+    
+    function addSession() {
+        const container = document.getElementById('sessions-container');
+        const div = document.createElement('div');
+        div.className = 'session-row';
+        div.innerHTML = '<input type="text" name="session_name[]" placeholder="Session name"><input type="text" name="session_time[]" placeholder="Time">';
+        container.appendChild(div);
+    }
+    
+    function addNewCategory() {
+        const newCat = prompt('Enter new category name:');
+        if (newCat) {
+            const select = document.getElementById('category');
+            const option = document.createElement('option');
+            option.value = newCat;
+            option.textContent = newCat;
+            select.appendChild(option);
+            select.value = newCat;
+        }
+    }
+    
+    window.onclick = function(event) {
+        const modal = document.getElementById('previewModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}

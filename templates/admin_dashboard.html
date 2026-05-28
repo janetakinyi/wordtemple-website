@@ -22,6 +22,7 @@
         border-radius: 20px;
         text-align: center;
         border: 1px solid var(--gold);
+        transition: transform 0.3s ease;
     }
     .stat-card:hover { transform: translateY(-5px); }
     .stat-number { font-size: 48px; font-weight: 800; color: var(--gold); }
@@ -41,6 +42,7 @@
         text-decoration: none;
         border: 1px solid rgba(255,217,102,0.2);
         display: block;
+        transition: transform 0.3s ease;
     }
     .menu-card:hover { transform: translateY(-5px); border-color: var(--gold); }
     .menu-card i { font-size: 48px; color: var(--gold); margin-bottom: 15px; }
@@ -54,6 +56,10 @@
         text-decoration: none;
         display: inline-block;
         margin-top: 20px;
+        transition: background 0.3s ease;
+    }
+    .logout-btn:hover {
+        background: #c0392b;
     }
     @media (max-width: 768px) {
         .admin-stats, .admin-menu { grid-template-columns: 1fr; }
@@ -63,26 +69,26 @@
 <section class="admin-header">
     <div class="container">
         <h1><i class="fas fa-crown"></i> Admin Dashboard</h1>
-        <p>Welcome back, {{ session.username }}!</p>
+        <p>Welcome back, {{ session.admin_username or username }}!</p>
         <a href="/admin/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 </section>
 
 <div class="admin-stats">
     <div class="stat-card">
-        <div class="stat-number">{{ registrations|length }}</div>
+        <div class="stat-number">{{ registrations_count }}</div>
         <div class="stat-label">Total Registrations</div>
     </div>
     <div class="stat-card">
-        <div class="stat-number">{{ quotes|length }}</div>
+        <div class="stat-number">{{ quotes_count }}</div>
         <div class="stat-label">Quotes</div>
     </div>
     <div class="stat-card">
-        <div class="stat-number">6</div>
+        <div class="stat-number">{{ events_count }}</div>
         <div class="stat-label">Events</div>
     </div>
     <div class="stat-card">
-        <div class="stat-number">160+</div>
+        <div class="stat-number">{{ gallery_count }}+</div>
         <div class="stat-label">Gallery Photos</div>
     </div>
 </div>
@@ -98,11 +104,6 @@
         <h3>Manage Quotes</h3>
         <p>Add or edit apostolic quotes</p>
     </a>
-    <a href="/admin/settings" class="menu-card">
-        <i class="fas fa-sliders-h"></i>
-        <h3>Website Settings</h3>
-        <p>Change theme, service times, announcements</p>
-    </a>
     <a href="/admin/upload-photo" class="menu-card">
         <i class="fas fa-upload"></i>
         <h3>Upload Photos</h3>
@@ -111,7 +112,12 @@
     <a href="/admin/events" class="menu-card">
         <i class="fas fa-calendar-alt"></i>
         <h3>Manage Events</h3>
-        <p>Update conference information</p>
+        <p>Add or edit conference events</p>
+    </a>
+    <a href="/admin/settings" class="menu-card">
+        <i class="fas fa-sliders-h"></i>
+        <h3>Website Settings</h3>
+        <p>Change theme, service times, announcements</p>
     </a>
 </div>
 {% endblock %}
