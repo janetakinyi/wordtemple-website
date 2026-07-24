@@ -16,81 +16,51 @@
     }
     
     .page-header h1 { font-size: 56px; font-weight: 900; font-family: 'Playfair Display', serif; }
+    .page-header p { font-size: 18px; opacity: 0.9; margin-top: 15px; }
     
-    .ministries-section { padding: 60px 0; background: var(--dark-bg); }
+    .ministries-section {
+        padding: 80px 0;
+        background: var(--dark-bg);
+    }
+    
+    .section-title {
+        font-size: 42px;
+        color: var(--gold);
+        text-align: center;
+        margin-bottom: 50px;
+        font-family: 'Playfair Display', serif;
+    }
+    
+    .ministries-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
     
     .ministry-card {
         background: var(--card-bg);
-        padding: 30px;
+        padding: 30px 25px;
         border-radius: 20px;
-        margin-bottom: 25px;
+        text-align: center;
         transition: all 0.4s ease;
         border: 1px solid rgba(255,217,102,0.2);
-        display: flex;
-        gap: 25px;
-        align-items: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        animation: fadeInUp 0.8s ease;
-    }
-    
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
     }
     
     .ministry-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-10px);
         border-color: var(--gold);
         box-shadow: 0 20px 40px rgba(184,59,94,0.2);
     }
     
-    .ministry-icon {
-        width: 70px;
-        height: 70px;
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-    
-    .ministry-card:hover .ministry-icon {
-        transform: scale(1.1);
-    }
-    
-    .ministry-icon i {
-        font-size: 28px;
-        color: var(--dark-bg);
-    }
-    
-    .ministry-content h3 {
-        font-size: 24px;
-        color: var(--gold);
-        margin-bottom: 5px;
-        font-family: 'Playfair Display', serif;
-    }
-    
-    .ministry-time {
-        color: var(--blue-bright);
-        font-weight: 600;
-        margin: 8px 0;
-        font-size: 14px;
-    }
-    
-    .ministry-content p {
-        color: var(--text-light);
-    }
-    
     /* HIGHLIGHTED CARDS - Like Prophetic Family Blessing */
-    .highlight-card {
+    .ministry-card.highlight {
         background: linear-gradient(135deg, var(--maroon), var(--blue));
         border: 2px solid var(--gold);
         position: relative;
         overflow: hidden;
     }
     
-    .highlight-card::before {
+    .ministry-card.highlight::before {
         content: '';
         position: absolute;
         top: -50%;
@@ -106,18 +76,22 @@
         to { transform: rotate(360deg); }
     }
     
-    .highlight-card .ministry-icon {
+    .ministry-card.highlight .ministry-icon {
         background: var(--gold);
         box-shadow: 0 0 20px rgba(255,217,102,0.5);
     }
     
-    .highlight-card .ministry-content h3 {
+    .ministry-card.highlight .ministry-name {
         color: var(--gold);
-        font-size: 26px;
+        font-size: 24px;
     }
     
-    .highlight-card .ministry-content p {
+    .ministry-card.highlight .ministry-description {
         color: var(--white);
+    }
+    
+    .ministry-card.highlight .ministry-leader {
+        color: var(--gold);
     }
     
     .special-badge {
@@ -131,106 +105,194 @@
         margin-top: 10px;
     }
     
-    .women-ministry {
-        background: linear-gradient(135deg, var(--maroon), var(--blue));
+    .ministry-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        transition: transform 0.3s ease;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .ministry-card:hover .ministry-icon {
+        transform: scale(1.1);
+    }
+    
+    .ministry-icon i {
+        font-size: 28px;
+        color: var(--dark-bg);
+    }
+    
+    .ministry-name {
+        font-size: 22px;
+        color: var(--gold);
+        margin-bottom: 5px;
+        font-family: 'Playfair Display', serif;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .ministry-leader {
+        color: var(--blue-bright);
+        font-weight: 600;
+        margin: 8px 0;
+        font-size: 14px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .ministry-description {
+        color: var(--text-light);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .learn-more {
+        display: inline-block;
+        color: var(--gold);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .learn-more:hover {
         color: var(--white);
-        padding: 40px;
-        border-radius: 20px;
-        margin-top: 40px;
-        text-align: center;
-        animation: fadeInUp 0.8s ease;
+    }
+    
+    /* Highlighted Learn More button */
+    .ministry-card.highlight .learn-more {
+        color: var(--gold);
+        background: rgba(0,0,0,0.2);
+        padding: 8px 20px;
+        border-radius: 50px;
+    }
+    
+    .ministry-card.highlight .learn-more:hover {
+        background: var(--gold);
+        color: var(--maroon);
+    }
+    
+    @media (max-width: 992px) {
+        .ministries-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
     
     @media (max-width: 768px) {
-        .ministry-card { flex-direction: column; text-align: center; }
         .page-header h1 { font-size: 36px; }
+        .ministries-grid {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 
 <section class="page-header">
     <div class="container">
-        <h1 data-aos="fade-up">OUR MINISTRIES</h1>
+        <h1 data-aos="fade-up">OUR <span style="color: var(--gold);">MINISTRIES</span></h1>
         <p data-aos="fade-up" data-aos-delay="100">Find your place to serve and grow</p>
     </div>
 </section>
 
 <section class="ministries-section">
     <div class="container">
+        <h2 class="section-title" data-aos="fade-up">🙏 MINISTRY AREAS</h2>
         
-        <!-- Morning Meditation - Bird Icon -->
-        <div class="ministry-card" data-aos="fade-up">
-            <div class="ministry-icon"><i class="fas fa-dove"></i></div>
-            <div class="ministry-content">
-                <h3>Morning Meditation</h3>
-                <div class="ministry-time">Monday - Friday | 6:30 AM - 7:30 AM</div>
-                <p>Start your day with God's Word and prayer. A peaceful time of reflection and worship to begin your morning.</p>
-                <p><i class="fas fa-map-pin"></i> Church Auditorium & Online</p>
+        <div class="ministries-grid">
+            
+            <!-- 1. Worship Ministry -->
+            <div class="ministry-card" data-aos="fade-up">
+                <div class="ministry-icon"><i class="fas fa-music"></i></div>
+                <h3 class="ministry-name">Worship Ministry</h3>
+                <p class="ministry-leader"><i class="fas fa-user"></i> Leader: Rev. Bancy Wambua</p>
+                <p class="ministry-description">Leading the church in praise and worship through music, song, and the anointing of the Holy Spirit.</p>
+                <a href="/connect" class="learn-more">LEARN MORE →</a>
             </div>
-        </div>
-        
-        <!-- Lunch Hour Services - Bible Icon -->
-        <div class="ministry-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="ministry-icon"><i class="fas fa-bible"></i></div>
-            <div class="ministry-content">
-                <h3>Lunch Hour Services</h3>
-                <div class="ministry-time">Monday - Friday | 12:30 PM - 2:00 PM</div>
-                <p>Daily spiritual nourishment during your lunch break. Hear the Word and be refreshed in the middle of your day.</p>
-                <p><i class="fas fa-map-pin"></i> Church Auditorium & Online</p>
+
+            <!-- 2. Intercession & Prayer Ministry -->
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="ministry-icon"><i class="fas fa-pray"></i></div>
+                <h3 class="ministry-name">Intercession & Prayer</h3>
+                <p class="ministry-leader"><i class="fas fa-user"></i> Leader: Pastor Mary Wanjiku</p>
+                <p class="ministry-description">Standing in the gap through prayer and intercession for the church, nation, and the world.</p>
+                <a href="/connect" class="learn-more">LEARN MORE →</a>
             </div>
-        </div>
-        
-        <!-- Pastors & Leaders Meeting - People Gathering Icon -->
-        <div class="ministry-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="ministry-icon"><i class="fas fa-users"></i></div>
-            <div class="ministry-content">
-                <h3>Pastors & Leaders Meeting</h3>
-                <div class="ministry-time">Tuesday | 9:00 AM - 11:30 AM</div>
-                <p>Leadership training and equipping with Apostle Michael Wambua. A gathering of leaders listening to the Word and being empowered for ministry.</p>
-                <p><i class="fas fa-map-pin"></i> Church Auditorium</p>
+
+            <!-- 3. Discipleship & Teaching -->
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="ministry-icon"><i class="fas fa-bible"></i></div>
+                <h3 class="ministry-name">Discipleship & Teaching</h3>
+                <p class="ministry-leader"><i class="fas fa-user"></i> Leader: Apostle Michael Wambua</p>
+                <p class="ministry-description">Equipping believers with the Word of God through Bible study, classes, and mentorship.</p>
+                <a href="/about" class="learn-more">LEARN MORE →</a>
             </div>
-        </div>
-        
-        <!-- WEDNESDAY - HIGHLIGHTED CARD -->
-        <div class="ministry-card highlight-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="ministry-icon"><i class="fas fa-fire"></i></div>
-            <div class="ministry-content">
-                <h3>🔥 WEDNESDAY - GOSPEL MASTER CLASS</h3>
-                <div class="ministry-time">Wednesday | 6:30 PM - 8:00 PM</div>
-                <p>Deep teaching and anointing service. A powerful midweek encounter with the Word of God.</p>
-                <p><i class="fas fa-map-pin"></i> Church Auditorium & Online</p>
-                <span class="special-badge"><i class="fas fa-star"></i> HIGHLIGHTED SERVICE</span>
+
+            <!-- 4. Youth Ministry - HIGHLIGHTED -->
+            <div class="ministry-card highlight" data-aos="fade-up" data-aos-delay="300">
+                <div class="ministry-icon"><i class="fas fa-fire"></i></div>
+                <h3 class="ministry-name">🔥 YOUTH MINISTRY</h3>
+                <p class="ministry-leader"><i class="fas fa-user"></i> Leader: Rev. Bancy Wambua</p>
+                <p class="ministry-description">Helping young people develop a strong relationship with God and discover their purpose.</p>
+                <a href="/leaders" class="learn-more">LEARN MORE →</a>
+                <span class="special-badge"><i class="fas fa-star"></i> HIGHLIGHTED MINISTRY</span>
             </div>
-        </div>
-        
-        <!-- FIRST FRIDAY - HIGHLIGHTED CARD -->
-        <div class="ministry-card highlight-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="ministry-icon"><i class="fas fa-pray"></i></div>
-            <div class="ministry-content">
-                <h3>📅 FIRST FRIDAY - MINI-KESHA PRAYER SERVICE</h3>
-                <div class="ministry-time">First Friday of Every Month | 6:30 PM - 9:30 PM</div>
-                <p>Powerful prayer service with Apostle Michael Wambua. A night of intercession, worship, and breakthrough.</p>
-                <p><i class="fas fa-map-pin"></i> Church Auditorium</p>
-                <span class="special-badge"><i class="fas fa-fire"></i> HIGHLIGHTED SERVICE</span>
+
+            <!-- 5. Sunday School -->
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="ministry-icon"><i class="fas fa-school"></i></div>
+                <h3 class="ministry-name">Sunday School</h3>
+                <p class="ministry-leader"><i class="fas fa-users"></i> Children's Ministry Team</p>
+                <p class="ministry-description">Teaching children God's Word through age-appropriate lessons, activities, and worship.</p>
+                <a href="/connect" class="learn-more">LEARN MORE →</a>
             </div>
-        </div>
-        
-        <!-- Youth Service -->
-        <div class="ministry-card" data-aos="fade-up" data-aos-delay="500">
-            <div class="ministry-icon"><i class="fas fa-child"></i></div>
-            <div class="ministry-content">
-                <h3>Youth Service - "The Remnant"</h3>
-                <div class="ministry-time">Saturday | 10:00 AM - 12:00 PM</div>
-                <p>Young adults and teens gathering for dynamic worship, relevant teaching, and fellowship.</p>
-                <p><i class="fas fa-map-pin"></i> Church Auditorium</p>
+
+            <!-- 6. Media Ministry - HIGHLIGHTED -->
+            <div class="ministry-card highlight" data-aos="fade-up" data-aos-delay="500">
+                <div class="ministry-icon"><i class="fas fa-video"></i></div>
+                <h3 class="ministry-name">📺 MEDIA MINISTRY</h3>
+                <p class="ministry-leader"><i class="fas fa-user"></i> Leader: Samuel Molo</p>
+                <p class="ministry-description">Supporting church communication, livestreaming, photography, videography, and digital outreach.</p>
+                <a href="/gallery" class="learn-more">LEARN MORE →</a>
+                <span class="special-badge"><i class="fas fa-star"></i> HIGHLIGHTED MINISTRY</span>
             </div>
-        </div>
-        
-        <!-- Women's Ministry -->
-        <div class="women-ministry" data-aos="zoom-in">
-            <i class="fas fa-female" style="font-size: 48px; color: var(--gold); margin-bottom: 20px;"></i>
-            <h3 style="font-size: 32px;">Daughters of the Kingdom Women's Conference</h3>
-            <p style="margin: 20px 0;">Led by Reverend Bancy Wambua - Annual conference empowering women to rise into their God-given calling</p>
-            <a href="/leaders" class="btn btn-primary" style="background: var(--gold); color: var(--maroon);">LEARN MORE</a>
+
+            <!-- 7. Protocol Ministry -->
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="ministry-icon"><i class="fas fa-handshake"></i></div>
+                <h3 class="ministry-name">Protocol Ministry</h3>
+                <p class="ministry-leader"><i class="fas fa-users"></i> Church Leadership Team</p>
+                <p class="ministry-description">Ensuring proper coordination, order, and support during church services and events.</p>
+                <a href="/connect" class="learn-more">LEARN MORE →</a>
+            </div>
+
+            <!-- 8. Hospitality Ministry - HIGHLIGHTED -->
+            <div class="ministry-card highlight" data-aos="fade-up" data-aos-delay="700">
+                <div class="ministry-icon"><i class="fas fa-utensils"></i></div>
+                <h3 class="ministry-name">🍽️ HOSPITALITY MINISTRY</h3>
+                <p class="ministry-leader"><i class="fas fa-user"></i> Leader: Rev. Bancy Wambua</p>
+                <p class="ministry-description">Welcoming guests and creating a warm, friendly environment for everyone.</p>
+                <a href="/founders" class="learn-more">LEARN MORE →</a>
+                <span class="special-badge"><i class="fas fa-star"></i> HIGHLIGHTED MINISTRY</span>
+            </div>
+
+            <!-- 9. Ushering Ministry -->
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="800">
+                <div class="ministry-icon"><i class="fas fa-door-open"></i></div>
+                <h3 class="ministry-name">Ushering Ministry</h3>
+                <p class="ministry-leader"><i class="fas fa-users"></i> Church Leadership Team</p>
+                <p class="ministry-description">Assisting congregants during services, seating visitors, and maintaining order in the sanctuary.</p>
+                <a href="/connect" class="learn-more">LEARN MORE →</a>
+            </div>
+
         </div>
     </div>
 </section>
