@@ -25,7 +25,7 @@
     
     .leader-card {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         background: var(--card-bg);
         border-radius: 30px;
         overflow: hidden;
@@ -41,10 +41,8 @@
     }
     
     .leader-image {
-        flex: 0.8;
-        min-width: 280px;
-        max-width: 400px;
-        min-height: 350px;
+        width: 100%;
+        height: 320px;
         background: linear-gradient(135deg, var(--maroon), var(--blue));
         display: flex;
         align-items: center;
@@ -64,15 +62,14 @@
     }
     
     .leader-content {
-        flex: 1.5;
-        padding: 40px 45px;
+        padding: 35px 40px;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
     
     .leader-name {
-        font-size: 38px;
+        font-size: 34px;
         font-weight: 900;
         color: var(--gold);
         margin-bottom: 5px;
@@ -80,18 +77,18 @@
     }
     
     .leader-title {
-        font-size: 18px;
+        font-size: 16px;
         color: var(--blue-bright);
         font-weight: 600;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         letter-spacing: 1px;
     }
     
     .leader-bio {
         color: var(--text-light);
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.8;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
     
     .leader-bio strong {
@@ -101,12 +98,13 @@
     .leader-quote {
         background: rgba(255,217,102,0.08);
         border-left: 4px solid var(--gold);
-        padding: 20px 25px;
+        padding: 18px 22px;
         border-radius: 12px;
         margin-top: 15px;
         color: var(--text-light);
         font-style: italic;
         line-height: 1.8;
+        font-size: 14px;
     }
     
     .leader-quote i {
@@ -119,26 +117,20 @@
         font-style: normal;
     }
     
-    .leader-quote .highlight {
-        color: var(--gold);
-        font-style: normal;
-        font-weight: 700;
-    }
-    
     .rgtv-logo {
         text-align: center;
-        margin: 20px 0 15px;
-        padding: 20px;
+        margin: 15px 0;
+        padding: 15px;
         background: rgba(255,217,102,0.05);
         border-radius: 15px;
         border: 1px solid rgba(255,217,102,0.2);
     }
     
     .rgtv-logo img {
-        max-width: 180px;
+        max-width: 150px;
         border-radius: 15px;
         border: 2px solid var(--gold);
-        padding: 10px;
+        padding: 8px;
         background: var(--dark-bg);
         transition: transform 0.3s ease;
     }
@@ -150,21 +142,21 @@
     .rgtv-logo p {
         color: var(--gold);
         font-weight: bold;
-        margin-top: 10px;
-        font-size: 16px;
+        margin-top: 8px;
+        font-size: 14px;
         letter-spacing: 2px;
     }
     
     .divider {
         text-align: center;
-        padding: 20px 0;
+        padding: 15px 0;
         color: var(--gold);
-        font-size: 24px;
+        font-size: 20px;
     }
     
     .scripture-verse {
-        margin-top: 15px;
-        padding: 15px 20px;
+        margin-top: 12px;
+        padding: 12px 18px;
         background: rgba(255,217,102,0.05);
         border-radius: 10px;
         border-left: 3px solid var(--gold);
@@ -177,15 +169,96 @@
     .scripture-verse span {
         color: var(--text-light);
         font-style: italic;
+        font-size: 14px;
+    }
+    
+    .partnership-section {
+        background: linear-gradient(135deg, var(--maroon), var(--blue));
+        border-radius: 30px;
+        padding: 50px;
+        text-align: center;
+        border: 2px solid var(--gold);
+        margin-bottom: 60px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .partnership-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,217,102,0.08), transparent);
+        animation: rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .partnership-section h2 {
+        color: var(--gold);
+        font-size: 34px;
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .partnership-section p {
+        color: var(--white);
+        font-size: 17px;
+        line-height: 1.8;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .partnership-section p strong {
+        color: var(--gold);
+    }
+    
+    .btn-gold {
+        display: inline-block;
+        padding: 14px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 17px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: none;
+        color: #1a2b4a !important;
+        background: linear-gradient(135deg, #FFD966, #F0B429);
+        box-shadow: 0 4px 20px rgba(255, 217, 102, 0.4);
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .btn-gold:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(255, 217, 102, 0.6);
+        background: linear-gradient(135deg, #FFE88A, #F5C842);
     }
     
     @media (max-width: 768px) {
-        .leader-image { min-height: 250px; max-width: 100%; }
-        .leader-content { padding: 25px; }
-        .leader-name { font-size: 28px; }
+        .leader-image { height: 220px; }
+        .leader-content { padding: 20px; }
+        .leader-name { font-size: 24px; }
         .page-header h1 { font-size: 36px; }
-        .rgtv-logo img { max-width: 140px; }
-        .leader-image { flex: 1; }
+        .rgtv-logo img { max-width: 120px; }
+        .partnership-section { padding: 25px; }
+        .partnership-section h2 { font-size: 24px; }
+        .partnership-section p { font-size: 15px; }
+        .btn-gold { padding: 12px 25px; font-size: 14px; }
+        .leader-title { font-size: 14px; }
+        .leader-bio { font-size: 13px; }
+        .leader-quote { font-size: 13px; padding: 15px; }
     }
 </style>
 
@@ -201,7 +274,7 @@
 <section class="leaders-section">
     <div class="container">
         
-        <!-- APOSTLE MICHAEL WAMBUA -->
+        <!-- APOSTLE MICHAEL WAMBUA - Image on TOP -->
         <div class="leader-card" data-aos="fade-up">
             <div class="leader-image">
                 <img src="{{ url_for('static', filename='images/Apostle1.png') }}" alt="Apostle Michael Wambua">
@@ -210,17 +283,17 @@
                 <h2 class="leader-name">Apostle Michael Wambua</h2>
                 <div class="leader-title">Apostle Over The Commission | Founder & Presiding Bishop</div>
                 
-                <p class="leader-bio">Apostle Michael Wambua is the Founder and Presiding Bishop of Word Temple Church of God International, a dynamic and rapidly growing ministry based in Eastleigh, Nairobi, with over 30 branches and affiliates nationwide. The ministry is committed to transforming lives through the teaching and preaching of the revealed Word of God.</p>
+                <p class="leader-bio">Apostle Michael Wambua is the Founder and Presiding Bishop of Word Temple Church of God International, a dynamic and rapidly growing ministry based in Eastleigh, Nairobi, with over <strong>30 branches and affiliates nationwide</strong>. The ministry is committed to transforming lives through the teaching and preaching of the revealed Word of God.</p>
                 
-                <p class="leader-bio">He is an international preacher and teacher, having ministered in over 23 countries, impacting lives across nations with profound revelation, clarity, and spiritual authority. His teachings empower believers to walk in faith, power, and divine purpose.</p>
+                <p class="leader-bio">He is an <strong>international preacher and teacher</strong>, having ministered in over <strong>23 countries</strong>, impacting lives across nations with profound revelation, clarity, and spiritual authority.</p>
                 
-                <p class="leader-bio">Apostle Michael Wambua holds a Diploma in Transformational Church Leadership from Pan African University and is currently pursuing a Bachelor's degree in Biblical Studies from KAG East University, demonstrating his commitment to both spiritual depth and academic excellence.</p>
+                <p class="leader-bio">Apostle Michael Wambua holds a Diploma in Transformational Church Leadership from Pan African University and is currently pursuing a Bachelor's degree in Biblical Studies from KAG East University.</p>
                 
                 <p class="leader-bio">He is also a dedicated writer, authoring books that equip, inspire, and strengthen individuals in their spiritual journey. His message emphasizes the revelation of Jesus Christ, the power of the Holy Spirit, and the practical application of God's Word in everyday life.</p>
                 
-                <p class="leader-bio">As a visionary leader, he is passionate about raising leaders, equipping ministers, and advancing the Kingdom of God—even through media platforms such as YouTube and television. Through conferences, teachings, media outreach, and leadership development, he continues to shape a generation that walks in truth, power, and spiritual authority.</p>
+                <p class="leader-bio">As a visionary leader, he is passionate about raising leaders, equipping ministers, and advancing the Kingdom of God—even through media platforms such as YouTube and television.</p>
                 
-                <p class="leader-bio">Apostle Michael Wambua is a spiritual son of Bishop Dr. Wilfred Lai, under whose guidance and covering he continues to grow and impact lives. He is also a devoted husband and a proud father of two, faithfully balancing family life with his calling in ministry.</p>
+                <p class="leader-bio">Apostle Michael Wambua is a spiritual son of Bishop Dr. Wilfred Lai. He is also a devoted husband and a proud father of two.</p>
                 
                 <div class="leader-quote">
                     <i class="fas fa-quote-left"></i>
@@ -230,7 +303,7 @@
                     <br><br>
                     Straightaway I knew it was from <strong>Zechariah 4:6</strong>. At God's command, on the <strong>18th January 2004</strong>, WORD TEMPLE CHURCH took off in Eastleigh, following Lunch Hour Fellowships of teaching of the Word and prayer. Today the church is thriving powerfully.
                     <br><br>
-                    <strong style="color: var(--gold);">Exodus 34:10 (NKJV)</strong> — "Behold, I make a covenant. Before all your people I will do marvels such as have not been done in all the earth, nor in any nation. And all the people among whom you are shall see the work of the LORD. For it is an awesome thing that I will do with you."
+                    <strong style="color: var(--gold);">Exodus 34:10 (NKJV)</strong> — "Behold, I make a covenant. Before all your people I will do marvels such as have not been done in all the earth, nor in any nation."
                     <br><br>
                     <strong style="color: var(--gold);">"From Vision to Revelation: The Gospel on Television"</strong>
                     <br><br>
@@ -238,11 +311,9 @@
                     <br><br>
                     <strong style="color: var(--gold); font-size: 1.1rem;">"This is the time and hour for this ministry to be on television."</strong>
                     <br><br>
-                    For years, this divine vision remained before us. In <strong>2020</strong>, the ministry expanded into the online space, taking another step in fulfilling what God Himself had revealed.
+                    For years, this divine vision remained before us. In <strong>2020</strong>, the ministry expanded into the online space. In <strong>January 2026</strong>, we began upgrading the online ministry and acquired new equipment for <strong>Revealed Gospel Television</strong>.
                     <br><br>
-                    In <strong>January 2026</strong>, we began upgrading the online ministry and acquired new equipment for <strong>Revealed Gospel Television</strong>, preparing for the fulfillment of God's promise.
-                    <br><br>
-                    By the grace and faithfulness of God, <strong>Revealed Gospel Television (RG TV) was officially launched on 1st July 2026 and is now on air on Signet TV</strong>, proclaiming the Gospel of Jesus Christ to the nations. What began as a word from God has become a living testimony of His faithfulness.
+                    By the grace and faithfulness of God, <strong>Revealed Gospel Television (RG TV) was officially launched on 1st July 2026 and is now on air on Signet TV</strong>, proclaiming the Gospel of Jesus Christ to the nations.
                 </div>
                 
                 <!-- RG TV LOGO -->
@@ -263,24 +334,37 @@
             <i class="fas fa-heart"></i>
         </div>
         
-        <!-- REVEREND BANCY WAMBUA -->
+        <!-- REVEREND BANCY WAMBUA - Image on TOP -->
         <div class="leader-card" data-aos="fade-up" data-aos-delay="100">
             <div class="leader-image">
                 <img src="{{ url_for('static', filename='images/Reverend1.png') }}" alt="Reverend Bancy Wambua">
             </div>
             <div class="leader-content">
-                <h2 class="leader-name">{{ church.rev_bancy.name }}</h2>
-                <div class="leader-title">{{ church.rev_bancy.title }}</div>
-                <p class="leader-bio">{{ church.rev_bancy.bio }}</p>
-                <p class="leader-bio"><strong>👑 Conference:</strong> {{ church.rev_bancy.conference }}</p>
-                <p class="leader-bio"><strong>👦 Youth Patron:</strong> {{ church.rev_bancy.youth }}</p>
-                <p class="leader-bio"><strong>🤝 Co-Founder:</strong> {{ church.rev_bancy.co_founder }}</p>
-                <p class="leader-bio"><strong>🎯 Mission:</strong> {{ church.rev_bancy.mission }}</p>
+                <h2 class="leader-name">Reverend Bancy Wambua</h2>
+                <div class="leader-title">Co-Founder, Worship Leader, Women's Ministry Director</div>
+                
+                <p class="leader-bio">Reverend Bancy is a devoted servant of God, a passionate worshiper, and a committed preacher of the Gospel. As a mother of two, she beautifully balances family life with her calling in ministry.</p>
+                
+                <p class="leader-bio">She is the leader of the annual <strong>Daughters of the Kingdom Women Conference</strong>, where she inspires and equips women to rise into their God-given calling.</p>
+                
+                <p class="leader-bio">Reverend Bancy also serves as a <strong>youth patron</strong>, mentoring and guiding the younger generation in their spiritual journey.</p>
+                
+                <p class="leader-bio">She is the <strong>co-founder</strong> of Word Temple Church of God International, where she continues to impact lives through worship, teaching, and leadership.</p>
+                
                 <div class="leader-quote">
                     <i class="fas fa-quote-left"></i>
                     Her life reflects a heart fully surrendered to God, dedicated to spreading His Word and transforming lives through worship and teaching.
                 </div>
             </div>
+        </div>
+        
+        <!-- PARTNERSHIP SECTION - GRADIENT BACKGROUND -->
+        <div class="partnership-section" data-aos="fade-up">
+            <h2>🤝 Their Partnership in Ministry</h2>
+            <p>
+                Together, Apostle Michael and Reverend Bancy Wambua have built Word Temple Church from a small wooden kiosk in <strong>2004</strong> to over <strong>30 branches nationwide</strong>, impacting thousands of lives across Kenya and beyond.
+            </p>
+            <a href="/give" class="btn-gold">💰 PARTNER WITH US</a>
         </div>
         
     </div>
