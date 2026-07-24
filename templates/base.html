@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>{{ church.name }} | {{ church.theme_2026 }}</title>
+    <title>Word Temple Church of God International</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -24,96 +24,35 @@
             --text-muted: #a0a0a0;
             --light-bg: #1a1a2e;
         }
-        
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--dark-bg);
             color: var(--text-light);
             overflow-x: hidden;
         }
-        
+
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 800;
         }
-        
-        /* ===== GLOBAL SPACING IMPROVEMENTS ===== */
-        
-        /* Main content spacing */
-        main {
-            min-height: 70vh;
-            padding: 40px 0;
-        }
-        
-        /* Section spacing */
-        section {
-            padding: 80px 0;
-        }
-        
-        /* Headers spacing */
-        h1 {
-            font-size: 56px;
-            margin-bottom: 25px;
-            line-height: 1.2;
-        }
-        
-        h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-        
-        h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-        
-        h4 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        
-        /* Paragraph spacing */
-        p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        
+
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 30px;
         }
-        
-        /* Button spacing */
-        .btn, .event-btn, .give-btn {
-            margin: 5px;
-        }
-        
-        /* Card spacing */
-        .event-card, .service-card, .quote-card, .give-card {
-            margin-bottom: 30px;
-        }
-        
-        /* Grid gaps */
-        .events-grid, .services-grid, .quote-grid, .video-grid, .image-grid {
-            gap: 30px;
-        }
-        
+
         /* ===== TOP BAR ===== */
         .top-bar {
             background: linear-gradient(135deg, var(--blue), var(--maroon));
             color: var(--white);
             padding: 12px 0;
             font-size: 14px;
-            position: relative;
-            overflow: hidden;
         }
-        
+
         .top-bar .container {
             display: flex;
             justify-content: space-between;
@@ -121,49 +60,48 @@
             flex-wrap: wrap;
             gap: 15px;
         }
-        
+
         .contact-info {
             display: flex;
             gap: 30px;
             flex-wrap: wrap;
         }
-        
+
         .contact-info span {
             display: flex;
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
         }
-        
+
         .contact-info span:hover {
             color: var(--gold);
             transform: translateY(-2px);
         }
-        
+
         .contact-info i {
             color: var(--gold);
         }
-        
+
         .social-links {
             display: flex;
             gap: 20px;
         }
-        
+
         .social-links a {
             color: var(--white);
             font-size: 18px;
             transition: all 0.3s ease;
         }
-        
+
         .social-links a:hover {
             color: var(--gold);
             transform: translateY(-3px) scale(1.2);
         }
-        
+
         /* ===== NAVIGATION ===== */
         .navbar {
             background: var(--nav-bg);
-            backdrop-filter: blur(10px);
             padding: 20px 0;
             position: sticky;
             top: 0;
@@ -171,56 +109,51 @@
             border-bottom: 3px solid var(--gold);
             transition: all 0.4s ease;
         }
-        
-        .navbar.scrolled {
-            padding: 12px 0;
-            background: rgba(26,26,46,0.98);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
+
         .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
+
         .logo-img {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
         }
-        
+
         .logo-img img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             border-radius: 10px;
         }
-        
+
         .logo-text h1 {
             background: linear-gradient(135deg, var(--gold), var(--blue-bright));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            font-size: 24px;
-            font-weight: 800;
+            font-size: 28px;
+            font-weight: 900;
             line-height: 1;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
+            letter-spacing: 2px;
         }
-        
+
         .logo-text p {
             color: var(--gold-dark);
-            font-size: 10px;
+            font-size: 12px;
             letter-spacing: 3px;
             text-transform: uppercase;
+            font-weight: 700;
         }
-        
-        /* Mobile Menu Toggle */
+
         .mobile-menu-toggle {
             display: none;
             font-size: 28px;
@@ -228,172 +161,95 @@
             color: var(--gold);
             background: none;
             border: none;
+            padding: 5px 10px;
+            z-index: 1001;
         }
-        
+
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 8px;
             align-items: center;
         }
-        
+
         .nav-menu a {
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 16px;
-            position: relative;
-            padding: 8px 0;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--maroon-bright));
-            transition: width 0.3s ease;
-        }
-        
-        .nav-menu a:hover {
-            color: var(--gold);
-        }
-        
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        
-        .give-btn {
-            background: linear-gradient(135deg, #FFD966, #F0B429);
-            color: #1a2b4a !important;
-            padding: 8px 25px !important;
-            border-radius: 50px;
-            font-weight: 700 !important;
-            font-size: 16px !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 4px 15px rgba(255,217,102,0.4);
-            border: none;
             display: inline-block;
-            text-align: center;
-        }
-        
-        .give-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255,217,102,0.5);
-        }
-        
-        /* ===== BUTTONS ===== */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
+            padding: 8px 18px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 12px;
             transition: all 0.3s ease;
-            cursor: pointer;
+            color: #1a2b4a !important;
+            background: linear-gradient(135deg, #FFD966, #F0B429);
+            box-shadow: 0 4px 15px rgba(255, 217, 102, 0.4);
             border: none;
+            cursor: pointer;
+            white-space: nowrap;
         }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--maroon);
-            font-weight: 800;
+
+        .nav-menu a:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 217, 102, 0.5);
+            background: linear-gradient(135deg, #FFE88A, #F5C842);
         }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255,217,102,0.4);
+
+        .give-btn {
+            background: linear-gradient(135deg, #FFD966, #F0B429) !important;
+            color: #1a2b4a !important;
+            padding: 8px 22px !important;
+            border-radius: 50px !important;
+            font-weight: 700 !important;
+            font-size: 12px !important;
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(255, 217, 102, 0.4) !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer;
         }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
+
+        .give-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 217, 102, 0.5) !important;
+            background: linear-gradient(135deg, #FFE88A, #F5C842) !important;
         }
-        
-        .btn-secondary:hover {
-            background: var(--white);
-            color: var(--maroon);
-            transform: translateY(-3px);
-        }
-        
+
         /* ===== FOOTER ===== */
         footer {
             background: linear-gradient(135deg, #0a0a14, #12122a);
             color: var(--text-light);
             padding: 60px 0 30px;
-            position: relative;
-            overflow: hidden;
             margin-top: 60px;
         }
-        
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--gold), var(--maroon), var(--blue), var(--gold));
-            animation: gradientMove 3s linear infinite;
-            background-size: 200% 100%;
-        }
-        
-        @keyframes gradientMove {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 200% 0%; }
-        }
-        
+
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 40px;
             margin-bottom: 40px;
         }
-        
+
         .footer-grid h3 {
             color: var(--gold);
             font-size: 18px;
             margin-bottom: 20px;
-            position: relative;
         }
-        
-        .footer-grid h3::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: var(--gold);
-        }
-        
+
         .footer-grid p {
             opacity: 0.7;
             line-height: 1.6;
             margin-bottom: 8px;
             font-size: 14px;
-            transition: all 0.3s ease;
         }
-        
-        .footer-grid p:hover {
-            opacity: 1;
-            transform: translateX(5px);
-        }
-        
+
         .footer-grid a {
             color: var(--text-light);
             text-decoration: none;
         }
-        
+
         .footer-grid a:hover {
             color: var(--gold);
         }
-        
+
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
@@ -401,240 +257,90 @@
             font-size: 12px;
             opacity: 0.6;
         }
-        
-        /* ===== RESPONSIVE BREAKPOINTS ===== */
-        
-        /* Tablet */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 0 20px;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-            
-            main {
-                padding: 30px 0;
-            }
-            
-            h1 {
-                font-size: 44px;
-            }
-            
-            h2 {
-                font-size: 34px;
-            }
-            
-            h3 {
-                font-size: 24px;
-            }
-            
-            .nav-menu {
-                gap: 15px;
-            }
-            
-            .nav-menu a {
-                font-size: 14px;
-            }
-            
-            .give-btn {
-                padding: 6px 15px !important;
-                font-size: 14px !important;
-            }
-            
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-            }
-            
-            .events-grid, .services-grid, .quote-grid, .video-grid, .image-grid {
-                gap: 20px;
-            }
-        }
-        
-        /* Mobile */
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
+            .container { padding: 0 15px; }
+            .contact-info { flex-direction: column; gap: 8px; text-align: center; }
+            .social-links { justify-content: center; }
             
-            section {
-                padding: 50px 0;
-            }
+            .logo-img { width: 50px; height: 50px; }
+            .logo-text h1 { font-size: 22px; }
+            .logo-text p { font-size: 10px; }
             
-            main {
-                padding: 20px 0;
-            }
-            
-            h1 {
-                font-size: 32px;
-            }
-            
-            h2 {
-                font-size: 26px;
-            }
-            
-            h3 {
-                font-size: 20px;
-            }
-            
-            /* Top Bar */
-            .top-bar .container {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 8px;
-                justify-content: center;
-            }
-            
-            .social-links {
-                justify-content: center;
-            }
-            
-            /* Logo */
-            .logo-img {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .logo-text h1 {
-                font-size: 18px;
-            }
-            
-            .logo-text p {
-                font-size: 8px;
-                letter-spacing: 2px;
-            }
-            
-            /* Mobile Menu */
-            .mobile-menu-toggle {
-                display: block;
-            }
+            .mobile-menu-toggle { display: block; }
             
             .nav-menu {
                 display: none;
-                position: absolute;
-                top: 70px;
+                position: fixed;
+                top: 0;
                 left: 0;
                 right: 0;
-                background: var(--nav-bg);
+                bottom: 0;
+                background: rgba(10, 10, 20, 0.98);
                 flex-direction: column;
-                padding: 20px;
+                justify-content: center;
+                align-items: center;
                 gap: 15px;
-                border-bottom: 3px solid var(--gold);
+                padding: 20px;
                 z-index: 1000;
             }
             
-            .nav-menu.active {
-                display: flex;
-            }
+            .nav-menu.active { display: flex; }
+            .nav-menu a { width: 80%; text-align: center; font-size: 18px !important; padding: 12px 20px !important; }
             
-            .nav-menu li {
-                width: 100%;
-                text-align: center;
-            }
-            
-            .nav-menu a {
-                display: block;
-                padding: 10px;
-                font-size: 16px;
-            }
-            
-            .give-btn {
-                display: inline-block !important;
-                margin-top: 5px;
-            }
-            
-            /* Footer */
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-                text-align: center;
-            }
-            
-            .footer-grid h3::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            
-            .footer-grid .social-links {
-                justify-content: center;
-            }
-            
-            /* Grids */
-            .events-grid, .services-grid, .quote-grid, .video-grid, .image-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
         }
-        
-        /* Small Mobile */
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 12px;
-            }
-            
-            section {
-                padding: 40px 0;
-            }
-            
-            h1 {
-                font-size: 28px;
-            }
-            
-            h2 {
-                font-size: 22px;
-            }
-            
-            h3 {
-                font-size: 18px;
-            }
-            
-            .contact-info span {
-                font-size: 11px;
-            }
-            
-            .social-links a {
-                font-size: 14px;
-            }
-            
-            .logo-text h1 {
-                font-size: 16px;
-            }
-            
-            .nav-menu {
-                top: 65px;
-            }
-            
-            .btn, .event-btn {
-                padding: 8px 16px;
-                font-size: 12px;
-            }
-        }
+ 
+    /* Gold Button */
+    .btn-gold {
+        display: inline-block;
+        padding: 14px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: none;
+        color: #1a2b4a !important;
+        background: linear-gradient(135deg, #FFD966, #F0B429);
+        box-shadow: 0 4px 20px rgba(255, 217, 102, 0.4);
+        letter-spacing: 1px;
+    }
+    
+    .btn-gold:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(255, 217, 102, 0.6);
+        background: linear-gradient(135deg, #FFE88A, #F5C842);
+    }
+    
+    .btn-gold:active {
+        transform: scale(0.95);
+    }
+
     </style>
 </head>
 <body>
+    <!-- TOP BAR -->
     <div class="top-bar">
         <div class="container">
             <div class="contact-info">
-                <span><i class="fas fa-phone-alt"></i> {{ church.phone }}</span>
-                <span><i class="fas fa-phone-alt"></i> {{ church.phone_alt }} (Sendwave)</span>
-                <span><i class="fas fa-envelope"></i> {{ church.email }}</span>
-                <span><i class="fas fa-map-marker-alt"></i> {{ church.address }}</span>
+                <span><i class="fas fa-phone-alt"></i> +254 719 306011</span>
+                <span><i class="fas fa-phone-alt"></i> +254 720 313 832 (Sendwave)</span>
+                <span><i class="fas fa-envelope"></i> wordtemple@hotmail.com</span>
+                <span><i class="fas fa-map-marker-alt"></i> PRJX+JF2, Nairobi, Kenya</span>
             </div>
             <div class="social-links">
-                <a href="{{ church.youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="{{ church.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="{{ church.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="{{ church.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://web.facebook.com/WTCOFGOD" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/WordTempleofGod" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/wordtemplechurchofgod/" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </div>
 
+    <!-- NAVIGATION -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="logo">
@@ -646,12 +352,11 @@
                     <p>CHURCH OF GOD INTERNATIONAL</p>
                 </div>
             </div>
-            
-            <!-- Mobile Menu Toggle Button -->
-            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
-            
+
             <ul class="nav-menu" id="navMenu">
                 <li><a href="/">HOME</a></li>
                 <li><a href="/about">ABOUT</a></li>
@@ -661,23 +366,25 @@
                 <li><a href="/ministries">MINISTRIES</a></li>
                 <li><a href="/gallery">GALLERY</a></li>
                 <li><a href="/quotes">QUOTES</a></li>
-                <li><a href="/give" class="give-btn"> GIVE</a></li>
+                <li><a href="/give" class="give-btn">💲 GIVE</a></li>
             </ul>
         </div>
     </nav>
 
+    <!-- MAIN CONTENT -->
     <main>
         {% block content %}{% endblock %}
     </main>
 
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div>
                     <h3>WORD TEMPLE</h3>
-                    <p>{{ church.address }}</p>
+                    <p>PRJX+JF2, Nairobi, Kenya</p>
                     <div style="margin-top: 15px;">
-                        <i class="fas fa-phone"></i> {{ church.phone }}
+                        <i class="fas fa-phone"></i> +254 719 306011
                     </div>
                 </div>
                 <div>
@@ -686,6 +393,7 @@
                     <p><a href="/about">About</a></p>
                     <p><a href="/founders">Founders</a></p>
                     <p><a href="/connect">Connect</a></p>
+                    <p><a href="/gallery">Gallery</a></p>
                     <p><a href="/give">Give</a></p>
                 </div>
                 <div>
@@ -697,15 +405,15 @@
                 <div>
                     <h3>FOLLOW US</h3>
                     <div class="social-links" style="justify-content: flex-start; margin-top: 10px;">
-                        <a href="{{ church.youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
-                        <a href="{{ church.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="{{ church.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="{{ church.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://web.facebook.com/WTCOFGOD" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/WordTempleofGod" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/wordtemplechurchofgod/" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 WORD TEMPLE CHURCH OF GOD INTERNATIONAL | {{ church.theme_2026 }}</p>
+                <p>© 2026 WORD TEMPLE CHURCH OF GOD INTERNATIONAL | Our Year of SUPERNATURAL BREAKTHROUGHS</p>
             </div>
         </div>
     </footer>
@@ -713,38 +421,41 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: false, mirror: true, offset: 80 });
-        
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        
+
         // Mobile menu toggle
         const toggle = document.getElementById('mobileMenuToggle');
-        const menu = document.getElementById('navMenu');
-        
-        if (toggle && menu) {
+        const navMenu = document.getElementById('navMenu');
+
+        if (toggle && navMenu) {
             toggle.addEventListener('click', function(e) {
                 e.stopPropagation();
-                menu.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                const icon = this.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
             });
-            
-            // Close menu when clicking a link
-            menu.querySelectorAll('a').forEach(link => {
+
+            navMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
-                    menu.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    const icon = toggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                    }
                 });
             });
-            
-            // Close menu when clicking outside
+
             document.addEventListener('click', function(event) {
                 if (!navbar.contains(event.target)) {
-                    menu.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    const icon = toggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                    }
                 }
             });
         }
