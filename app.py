@@ -7,6 +7,8 @@ from functools import wraps
 import os
 import json
 import time
+from datetime import datetime
+import re
 from werkzeug.utils import secure_filename
 from admin import verify_admin, save_registration, get_registrations, get_quotes, get_events, get_settings, save_settings, update_quotes
 
@@ -21,6 +23,39 @@ def login_required(f):
             return redirect(url_for('admin_login'))
         return f(*args, **kwargs)
     return decorated_function
+
+def is_event_past(event_date_str):
+    """
+    Check if an event date is in the past.
+    """
+    if not event_date_str:
+        return False
+    
+    current_year = datetime.now().year
+    current_month = datetime.now().month
+    current_day = datetime.now().day
+    
+    # Try to extract year from the date string
+    year_match = re.search(r'(\d{4})', event_date_str)
+    if year_match:
+        event_year = int(year_match.group(1))
+        if event_year < current_year:
+            return True
+        elif event_year > current_year:
+            return False
+    
+    # Check for specific month names
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 
+              'July', 'August', 'September', 'October', 'November', 'December']
+    
+    for month in months:
+        if month in event_date_str:
+            month_index = months.index(month) + 1
+            if month_index < current_month and year_match and int(year_match.group(1)) <= current_year:
+                return True
+            break
+    
+    return False
 
 # Church information
 church_info = {
@@ -61,7 +96,7 @@ church_info = {
     'core_values': ['Integrity', 'Credibility', 'Holiness', 'Humility', 'Determination', 'Seizing opportunities', 'Exemplary living', 'Team player'],
     'theme_2026': 'Our Year of SUPERNATURAL BREAKTHROUGHS',
     'theme_scripture': '2 Samuel 5:20 (NKJV)',
-    'theme_verse': '"like a breakthrough of water?"',
+    'theme_verse': 'So David came to Baal Perazim, and David defeated them there; and he said, "The LORD has broken through my enemies before me, like a breakthrough of water." Therefore he called the name of that place Baal Perazim.',
     'services': [
         {'name': '1st Service', 'time': '5:30 AM - 8:00 AM', 'day': 'Sunday', 'type': 'Morning Glory'},
         {'name': '2nd Service', 'time': '8:30 AM - 11:00 AM', 'day': 'Sunday', 'type': 'Family Service'},
@@ -107,22 +142,24 @@ def serve_static(filename):
 # Gallery API
 @app.route('/get-gallery-images')
 def get_gallery_images():
-    gallery_path = 'static/images/gallery'
+    gallery_path = 'static/images/gallery/'
     images = []
     if os.path.exists(gallery_path):
-        for filename in os.listdir(gallery_path):
-            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
-                filepath = os.path.join(gallery_path, filename)
-                mtime = os.path.getmtime(filepath)
-                images.append({'filename': filename, 'mtime': mtime})
-        images.sort(key=lambda x: x['mtime'], reverse=True)
-        images = [img['filename'] for img in images]
-    return jsonify({'images': images})
+        for f in os.listdir(gallery_path):
+            if f.lower().endswith(('.jpg', '.jpeg', '.JPG', '.png', '.gif')):
+                file_path = os.path.join(gallery_path, f)
+                mod_time = os.path.getmtime(file_path)
+                images.append({'name': f, 'time': mod_time})
+        # Sort by modification time (newest first)
+        images.sort(key=lambda x: x['time'], reverse=True)
+        images = [img['name'] for img in images]
+    return {'images': images}
 
 # Page routes
 @app.route('/')
 def home():
-    return render_template('index.html', church=church_info)
+    settings = get_settings()
+    return render_template('index.html', church=church_info, settings=settings)
 
 @app.route('/about')
 def about():
@@ -138,7 +175,17 @@ def leaders():
 
 @app.route('/events')
 def events():
-    return render_template('events.html', church=church_info)
+    # Load all events
+    all_events = load_events_data()
+    
+    # Filter out past events
+    upcoming_events = []
+    for event in all_events:
+        event_date = event.get('dates', '')
+        if not is_event_past(event_date):
+            upcoming_events.append(event)
+    
+    return render_template('events.html', events=upcoming_events, church=church_info)
 
 @app.route('/connect')
 def connect():
@@ -233,6 +280,7 @@ def admin_quotes():
             quotes.append({'text': new_quote, 'source': author})
             update_quotes(quotes)
             flash('Quote added successfully!', 'success')
+            return redirect(url_for('admin_quotes'))
     return render_template('admin_quotes.html', quotes=quotes, church=church_info)
 
 @app.route('/admin/settings', methods=['GET', 'POST'])
@@ -240,9 +288,16 @@ def admin_quotes():
 def admin_settings():
     settings = get_settings()
     if request.method == 'POST':
+        # Yearly Theme
         settings['theme_2026'] = request.form.get('theme_2026')
         settings['theme_scripture'] = request.form.get('theme_scripture')
         settings['theme_verse'] = request.form.get('theme_verse')
+        
+        # Monthly Theme
+        settings['theme_month'] = request.form.get('theme_month')
+        settings['theme_month_scripture'] = request.form.get('theme_month_scripture')
+        settings['theme_month_verse'] = request.form.get('theme_month_verse')
+        
         announcements = request.form.getlist('announcements')
         settings['announcements'] = [a for a in announcements if a.strip()]
         for i in range(3):
@@ -355,11 +410,11 @@ def admin_add_event():
             'image': unique_filename,
             'category': request.form.get('category'),
             'title': request.form.get('title'),
-            'scripture': request.form.get('scripture'),
-            'verse_text': request.form.get('verse_text'),
+            'scripture': request.form.get('scripture') or '',
+            'verse_text': request.form.get('verse_text') or '',
             'dates': request.form.get('dates'),
             'host': request.form.get('host'),
-            'guest_speaker': request.form.get('guest_speaker'),
+            'guest_speaker': request.form.get('guest_speaker') or '',
             'sessions': sessions,
             'location': request.form.get('location')
         }
@@ -384,6 +439,30 @@ def admin_delete_event(filename):
     
     flash('Event deleted successfully!', 'success')
     return redirect(url_for('admin_events'))
+
+@app.route('/admin/theme-settings', methods=['GET', 'POST'])
+@login_required
+def admin_theme_settings():
+    if request.method == 'POST':
+        theme_data = {
+            'theme_month': request.form.get('theme_month'),
+            'theme_month_scripture': request.form.get('theme_month_scripture'),
+            'theme_month_verse': request.form.get('theme_month_verse'),
+            'theme_2026': request.form.get('theme_2026'),
+            'theme_scripture': request.form.get('theme_scripture'),
+            'theme_verse': request.form.get('theme_verse')
+        }
+        with open('theme_settings.json', 'w') as f:
+            json.dump(theme_data, f, indent=2)
+        flash('Theme settings saved successfully!', 'success')
+        return redirect(url_for('admin_theme_settings'))
+    
+    theme_data = {}
+    if os.path.exists('theme_settings.json'):
+        with open('theme_settings.json', 'r') as f:
+            theme_data = json.load(f)
+    
+    return render_template('admin_theme_settings.html', theme=theme_data, church=church_info)
 
 if __name__ == '__main__':
     app.run(debug=True)
