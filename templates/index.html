@@ -208,40 +208,64 @@
         border: 1px solid rgba(255,217,102,0.2);
     }
     
+    /* Theme boxes responsive */
+    .theme-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+    
     @media (max-width: 768px) {
         .hero h1 { font-size: 40px; }
         .quick-links { grid-template-columns: 1fr; }
         .section-title { font-size: 32px; }
         .about-preview { grid-template-columns: 1fr; }
         .hero-buttons { flex-direction: column; align-items: center; }
+        .theme-grid { grid-template-columns: 1fr; gap: 20px; }
     }
 </style>
 
 <!-- HERO SECTION WITH BACKGROUND VIDEO -->
 <section class="hero">
-    <video autoplay loop muted playsinline class="hero-video">
-        <source src="{{ url_for('static', filename='videos/Revealed.mp4') }}" type="video/mp4">
-        <source src="{{ url_for('static', filename='videos/Revealed 1.mp4') }}" type="video/mp4">
-        Your browser does not support the video tag.
+                    <video autoplay muted playsinline preload="auto" class="hero-video" id="heroVideo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; min-height: 100vh;">
+        <source src="/static/videos/Revealed.mp4" type="video/mp4">
+        <source src="/static/videos/Revealed_1.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
     
     <div class="container hero-content">
-       <div class="series-badge" data-aos="fade-down">
-    <i class="fas fa-fire"></i> THEME: JULY 2026 | HAVE DOMINION | Genesis 1:26
-    <br><span style="font-size: 14px;">"Let Us make man in Our image, according to Our likeness; let them have dominion......"</span>
-</div>
-        <h1 data-aos="fade-up">
-            <span>I HAVE DOMINION</span>
-        </h1>
-        <p class="scripture" data-aos="fade-up" data-aos-delay="100">Genesis 1:26</p>
-        <p class="verse" data-aos="fade-up" data-aos-delay="200">"Let Us make man in Our image, according to Our likeness; let them have dominion over the fish of the sea, over the birds of the air, and over the cattle, over all the earth and over every creeping thing that creeps on the earth."</p>
-        
-        <!-- SPACE AFTER VERSE - BUTTONS SECTION -->
-        <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
-            <a href="/connect" class="btn btn-primary" style="background: linear-gradient(135deg, #FFD966, #F0B429); color: #1a2b4a; padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 16px; transition: all 0.3s ease; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(255, 217, 102, 0.4); letter-spacing: 1px;">JOIN US THIS AND EVERY SUNDAY</a>
-            <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank" class="btn btn-secondary" style="display: inline-block; padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; transition: all 0.3s ease; cursor: pointer; border: 2px solid #FFD966; background: transparent; color: var(--white);"><i class="fab fa-youtube"></i> WATCH LIVE</a>
+        <div class="series-badge" data-aos="fade-down" style="background: linear-gradient(135deg, rgba(42,157,143,0.3), rgba(184,59,94,0.3)); border: 2px solid var(--gold); padding: 20px 30px; border-radius: 15px; margin-bottom: 30px; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,0.4);">
+            <i class="fas fa-calendar-alt" style="color: var(--gold); font-size: 20px;"></i>
+            <span style="color: var(--white); font-size: 22px; font-weight: 700; display: block; margin-top: 5px;">THEME: JULY 2026 | HAVE DOMINION | Genesis 1:26</span>
+            <span style="color: var(--gold); font-size: 18px; font-style: italic; display: block; margin-top: 8px;">"Let Us make man in Our image, according to Our likeness; let them have dominion......"</span>
         </div>
+        
+        <h1 data-aos="fade-up">YEAR OF<br><span>SUPERNATURAL<br>BREAKTHROUGHS</span></h1>
+
+        <p class="scripture" data-aos="fade-up" data-aos-delay="100" style="font-size: 28px; margin-bottom: 15px; font-style: italic; font-family: 'Playfair Display', serif; color: #FFD966; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); font-weight: 700;">2 Samuel 5:20 (NKJV)</p>
+
+        <div style="background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); padding: 25px 30px; border-radius: 15px; margin: 20px auto; max-width: 850px; border-left: 4px solid var(--gold);">
+            <p class="lead" data-aos="fade-up" data-aos-delay="200" style="font-size: 20px; line-height: 1.8; color: var(--white); margin: 0; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
+                <i class="fas fa-quote-left" style="color: var(--gold); font-size: 24px; margin-right: 10px;"></i>
+                "So David went to Baal Perazim, and David defeated them there; and he said, "The LORD has broken through my enemies before me, like a breakthrough of water." Therefore he called the name of that place Baal Perazim."
+                <i class="fas fa-quote-right" style="color: var(--gold); font-size: 24px; margin-left: 10px;"></i>
+            </p>
+        </div>
+
+        <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300" style="margin-top: 30px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="/connect" class="btn btn-primary" style="background: linear-gradient(135deg, #FFD966, #F0B429); color: #1a2b4a; padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 18px; transition: all 0.3s ease; border: none; cursor: pointer; box-shadow: 0 4px 25px rgba(255, 217, 102, 0.4); letter-spacing: 1px; display: inline-block;">
+                <i class="fas fa-church" style="margin-right: 10px;"></i> JOIN US THIS AND EVERY SUNDAY
+            </a>
+            <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank" class="btn btn-secondary" style="display: inline-block; padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 18px; transition: all 0.3s ease; cursor: pointer; border: 2px solid #FFD966; background: rgba(255,217,102,0.1); color: var(--white); backdrop-filter: blur(5px);">
+                <i class="fab fa-youtube" style="color: #FF0000; margin-right: 10px;"></i> WATCH LIVE
+            </a>
+        </div>
+    </div>
+</section>
+        <!-- SPACE AFTER VERSE - BUTTONS SECTION -->
     </div>
 </section>
 
@@ -288,10 +312,12 @@
             <p>6:30 PM - 9:30 PM | Powerful prayer with Apostle Michael Wambua</p>
         </div>
         <div class="event-card" data-aos="fade-up">
-            <h3>🎉 Annual Events</h3>
-            <p><strong style="color: var(--gold);">Revelation & Power Conference</strong> (December)</p>
-            <p><strong style="color: var(--gold);">Daughters of the Kingdom Women Conference</strong> (Led by Rev. Bancy)</p>
-        </div>
+        
+     <h3>🎉 Annual Events</h3>
+            <p><strong style="color: var(--gold);">Mid-Year Revival Conference</strong> – Revival, prayer, worship, and God's Word.</p>
+            <p><strong style="color: var(--gold);">Daughters of the Kingdom Women Conference</strong> (August) – Empowering women through biblical teaching and prayer.</p>
+            <p><strong style="color: var(--gold);">Annual Men's Conference</strong> – Strengthening men to lead with integrity and purpose.</p>
+            <p><strong style="color: var(--gold);">Revelation & Power Conference</strong> (December) – Experiencing God's power and fresh revelation.</p></div>
     </div>
 </section>
 
@@ -314,4 +340,50 @@
         </div>
     </div>
 </section>
+
+<script>
+// Video playlist - auto-switch between two videos
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('heroVideo');
+    if (!video) {
+        console.log('Video element not found');
+        return;
+    }
+    
+    const videos = [
+        '/static/videos/Revealed.mp4',
+        '/static/videos/Revealed_1.mp4'
+    ];
+    
+    let currentIndex = 0;
+    console.log('Video switcher started with 2 videos');
+    
+    // When video ends, switch to next
+    video.addEventListener('ended', function() {
+        currentIndex = (currentIndex + 1) % videos.length;
+        video.src = videos[currentIndex];
+        video.load();
+        video.play();
+        console.log('Now playing:', videos[currentIndex]);
+    });
+    
+    // If video errors, try next
+    video.addEventListener('error', function(e) {
+        console.log('Video error:', e);
+        currentIndex = (currentIndex + 1) % videos.length;
+        video.src = videos[currentIndex];
+        video.load();
+        video.play();
+    });
+    
+    // Start with first video
+    video.src = videos[0];
+    video.load();
+    video.play().catch(function(e) {
+        console.log('Autoplay prevented:', e);
+    });
+});
+</script>
+
 {% endblock %}
+

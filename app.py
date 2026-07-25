@@ -97,18 +97,17 @@ church_info = {
     'theme_2026': 'Our Year of SUPERNATURAL BREAKTHROUGHS',
     'theme_scripture': '2 Samuel 5:20 (NKJV)',
     'theme_verse': 'So David came to Baal Perazim, and David defeated them there; and he said, "The LORD has broken through my enemies before me, like a breakthrough of water." Therefore he called the name of that place Baal Perazim.',
+    # Theme of the Month
+    'theme_month': 'JULY 2026 | HAVE DOMINION',
+    'theme_month_scripture': 'Genesis 1:26',
+    'theme_month_verse': '"Let Us make man in Our image, according to Our likeness; let them have dominion......"',
     'services': [
         {'name': '1st Service', 'time': '5:30 AM - 8:00 AM', 'day': 'Sunday', 'type': 'Morning Glory'},
         {'name': '2nd Service', 'time': '8:30 AM - 11:00 AM', 'day': 'Sunday', 'type': 'Family Service'},
         {'name': '3rd Service', 'time': '11:00 AM - 2:00 PM', 'day': 'Sunday', 'type': 'Prophetic Blessing'}
     ],
     'weekly_programs': [
-        {'day': 'Monday - Friday', 'name': 'Morning Breakthrough', 'time': '6:30 AM - 7:30 AM', 'location': 'Church Auditorium & Online', 'icon': 'fa-sun', 'description': 'Start your day with God\'s Word'},
-        {'day': 'Monday - Friday', 'name': 'Lunch Hour Services', 'time': '12:30 PM - 2:00 PM', 'location': 'Church Auditorium & Online', 'icon': 'fa-utensils', 'description': 'Daily spiritual nourishment'},
-        {'day': 'Tuesday', 'name': 'Pastors & Leaders Meeting', 'time': '9:00 AM - 11:30 AM', 'location': 'Church Auditorium', 'icon': 'fa-chalkboard-user', 'description': 'Leadership training'},
-        {'day': 'Wednesday', 'name': 'Gospel Master Class', 'time': '6:30 PM - 8:00 PM', 'location': 'Church Auditorium & Online', 'icon': 'fa-fire', 'description': 'Deep teaching and anointing'},
-        {'day': 'First Friday', 'name': 'Mini-Kesha Prayer Service', 'time': '6:30 PM - 9:30 PM', 'location': 'Church Auditorium', 'icon': 'fa-pray', 'description': 'Powerful prayer service'},
-        {'day': 'Saturday', 'name': 'Youth Service', 'time': '10:00 AM - 12:00 PM', 'location': 'Church Auditorium', 'icon': 'fa-child', 'description': 'Young adults and teens'}
+        {'day': 'Monday - Friday', 'name': 'Morning Breakthrough', 'time': '6:30 AM - 7:30 AM', 'location': 'Church Auditorium & Online', 'icon': 'fa-sun', 'description': 'Start your day with God\'s Word'}
     ],
     'first_sunday': 'Prophetic Family Blessing Sunday',
     'giving': {

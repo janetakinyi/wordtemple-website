@@ -19,12 +19,12 @@
         border-radius: 20px;
         padding: 30px;
         margin-bottom: 40px;
-        border: 1px solid rgba(212, 175, 55, 0.2);
+        border: 1px solid rgba(197, 165, 90, 0.2);
     }
     .form-card h2 {
-        color: #FFD700;
+        color: #C5A55A;
         margin-bottom: 20px;
-        border-bottom: 2px solid #FFD700;
+        border-bottom: 2px solid #C5A55A;
         padding-bottom: 10px;
     }
     .form-grid {
@@ -33,8 +33,8 @@
         gap: 30px;
     }
     .image-upload-area {
-        background: rgba(255,255,255,0.05);
-        border: 2px dashed #FFD700;
+        background: var(--navy-light);
+        border: 2px dashed #C5A55A;
         border-radius: 20px;
         padding: 40px;
         text-align: center;
@@ -42,7 +42,7 @@
         transition: all 0.3s ease;
     }
     .image-upload-area:hover {
-        background: rgba(255, 215, 0, 0.1);
+        background: rgba(197, 165, 90, 0.1);
     }
     .image-preview {
         width: 100%;
@@ -52,15 +52,17 @@
         background-position: center;
         margin-top: 15px;
         border-radius: 10px;
+        background-color: var(--navy);
     }
     .size-guide {
-        background: rgba(255, 215, 0, 0.1);
+        background: var(--navy-light);
         padding: 15px;
         border-radius: 10px;
         margin-top: 15px;
+        border: 1px solid rgba(197, 165, 90, 0.2);
     }
     .size-guide h4 {
-        color: #FFD700;
+        color: #C5A55A;
         margin-bottom: 10px;
     }
     .size-grid {
@@ -71,41 +73,34 @@
     }
     .size-grid div {
         padding: 5px;
-        background: rgba(0,0,0,0.3);
+        background: var(--navy);
         border-radius: 5px;
-        color: #FFD700;
-    }
-    .warning-box {
-        background: rgba(220, 53, 69, 0.2);
-        border-left: 4px solid #dc3545;
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 5px;
-        color: #ff9999;
-    }
-    .success-box {
-        background: rgba(40, 167, 69, 0.2);
-        border-left: 4px solid #28a745;
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 5px;
-        color: #90EE90;
+        color: #C5A55A;
     }
     .form-group {
         margin-bottom: 20px;
     }
     .form-group label {
         display: block;
-        color: #FFD700;
+        color: #C5A55A;
         margin-bottom: 8px;
         font-weight: 600;
+    }
+    .form-group label .optional {
+        color: var(--text-muted);
+        font-weight: 400;
+        font-size: 12px;
     }
     .form-group input, .form-group textarea, .form-group select {
         width: 100%;
         padding: 12px;
         border-radius: 10px;
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        background: var(--dark-bg);
+        border: 1px solid rgba(197, 165, 90, 0.3);
+        background: var(--navy);
+        color: var(--white);
+    }
+    .form-group select option {
+        background: var(--navy);
         color: var(--white);
     }
     .category-row {
@@ -117,8 +112,8 @@
         flex: 1;
     }
     .btn-add-category {
-        background: #FFD700;
-        color: #1a2b4a;
+        background: #C5A55A;
+        color: var(--navy);
         padding: 12px 20px;
         border: none;
         border-radius: 10px;
@@ -133,9 +128,19 @@
     .session-row input {
         flex: 1;
     }
-    .btn-add, .btn-submit, .btn-preview {
-        background: #FFD700;
-        color: #1a2b4a;
+    .btn-add {
+        background: #C5A55A;
+        color: var(--navy);
+        padding: 8px 20px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-weight: 600;
+    }
+    .btn-submit, .btn-preview {
+        background: #C5A55A;
+        color: var(--navy);
         padding: 12px 25px;
         border: none;
         border-radius: 50px;
@@ -143,12 +148,8 @@
         cursor: pointer;
         margin-top: 10px;
     }
-    .btn-submit {
-        width: 100%;
-        background: linear-gradient(135deg, #FFD700, #F0B429);
-    }
     .btn-preview {
-        background: #2A9D8F;
+        background: var(--blue);
         color: white;
         margin-right: 10px;
     }
@@ -167,7 +168,7 @@
         background: var(--card-bg);
         border-radius: 15px;
         overflow: hidden;
-        border: 1px solid rgba(255, 215, 0, 0.2);
+        border: 1px solid rgba(197, 165, 90, 0.2);
     }
     .event-card img {
         width: 100%;
@@ -178,7 +179,7 @@
         padding: 15px;
     }
     .event-info h4 {
-        color: #FFD700;
+        color: #C5A55A;
         font-size: 16px;
     }
     .delete-btn {
@@ -191,8 +192,8 @@
         cursor: pointer;
     }
     .flash-message {
-        background: #FFD700;
-        color: #1a2b4a;
+        background: #C5A55A;
+        color: var(--navy);
         padding: 15px;
         border-radius: 10px;
         margin-bottom: 20px;
@@ -220,6 +221,8 @@
     @media (max-width: 768px) {
         .form-grid { grid-template-columns: 1fr; }
         .size-grid { grid-template-columns: repeat(2, 1fr); }
+        .category-row { flex-direction: column; }
+        .btn-add-category { width: 100%; }
     }
 </style>
 
@@ -239,26 +242,20 @@
         {% endif %}
     {% endwith %}
     
-    <!-- ADD/EDIT EVENT FORM -->
     <div class="form-card">
         <h2>📝 Event Details</h2>
         <form action="/admin/add-event" method="POST" enctype="multipart/form-data" id="eventForm">
-            
             <div class="form-grid">
-                <!-- LEFT COLUMN: IMAGE UPLOAD -->
                 <div>
                     <div class="form-group">
-                        <label>📸 Event Banner / Poster</label>
+                        <label>📸 Event Poster (Left Side)</label>
                         <div class="image-upload-area" onclick="document.getElementById('event_image').click()">
-                            <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #FFD700;"></i>
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #C5A55A;"></i>
                             <p>Click to upload image</p>
-                            <p style="font-size: 12px;">Drag & drop or click to select</p>
+                            <p style="font-size: 12px;">Max file size: 5MB | Recommended: 800x1000px</p>
                         </div>
-                        <input type="file" id="event_image" name="event_image" accept="image/*" style="display:none" onchange="analyzeImage(this)">
+                        <input type="file" id="event_image" name="event_image" accept="image/*" style="display:none" onchange="previewImage(this)">
                         <div id="imagePreview" class="image-preview"></div>
-                        <div id="imageAnalysis" class="size-guide" style="display:none;"></div>
-                        
-                        <!-- Size Guide -->
                         <div class="size-guide">
                             <h4>📐 Recommended Image Sizes</h4>
                             <div class="size-grid">
@@ -270,8 +267,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- RIGHT COLUMN: EVENT INFO -->
                 <div>
                     <div class="form-group">
                         <label>🏷️ Event Category</label>
@@ -282,26 +277,25 @@
                                 <option value="ANNUAL LADIES CONFERENCE">🌸 ANNUAL LADIES CONFERENCE</option>
                                 <option value="YOUTH CONFERENCE">👦 YOUTH CONFERENCE</option>
                                 <option value="REVELATION & POWER CONFERENCE">👑 REVELATION & POWER CONFERENCE</option>
-                                <option value="PASTORS & LEADERS SUMMIT">👥 PASTORS & LEADERS SUMMIT</option>
-                                <option value="SPECIAL SERVICE">⛪ SPECIAL SERVICE</option>
                             </select>
                             <button type="button" class="btn-add-category" onclick="addNewCategory()">+ New</button>
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label>📌 Event Title</label>
-                        <input type="text" name="title" id="title" required placeholder="e.g., O Lord, revive Your work in the midst of the years!">
+                        <input type="text" name="title" id="title" required placeholder="e.g., The Faith of God">
                     </div>
-                    
                     <div class="form-group">
-                        <label>📖 Theme Scripture</label>
-                        <input type="text" name="scripture" id="scripture" required placeholder="e.g., Habakkuk 3:2">
+                        <label>📖 Theme Scripture <span class="optional">(Optional)</span></label>
+                        <input type="text" name="scripture" id="scripture" placeholder="e.g., Habakkuk 3:2">
                     </div>
-                    
                     <div class="form-group">
-                        <label>📜 Scripture Verse</label>
-                        <textarea name="verse_text" id="verse_text" rows="3" placeholder="Enter the full scripture verse..."></textarea>
+                        <label>📜 Scripture Text / Theme <span class="optional">(Optional)</span></label>
+                        <textarea name="verse_text" id="verse_text" rows="3" placeholder="Enter the scripture verse or theme..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>📅 Event Dates</label>
+                        <input type="text" name="dates" id="dates" required placeholder="e.g., May 31st - June 7th, 2026">
                     </div>
                 </div>
             </div>
@@ -309,43 +303,34 @@
             <div class="form-grid">
                 <div>
                     <div class="form-group">
-                        <label>📅 Event Date & Venue</label>
-                        <input type="text" name="dates" id="dates" required placeholder="e.g., May 31st - June 7th, 2026">
-                        <input type="text" name="location" id="location" style="margin-top:10px;" value="Eastleigh, 1st Avenue, 3rd Street, Nairobi" required>
+                        <label>👤 Host/Speaker</label>
+                        <input type="text" name="host" id="host" required placeholder="Apostle Michael Wambua">
                     </div>
                 </div>
                 <div>
                     <div class="form-group">
-                        <label>👤 Host/Speaker</label>
-                        <input type="text" name="host" id="host" required placeholder="Apostle Michael Wambua & Rev. Bancy Wambua">
-                    </div>
-                    <div class="form-group">
-                        <label>🎙️ Guest Speaker (Optional)</label>
-                        <input type="text" name="guest_speaker" id="guest_speaker" placeholder="e.g., Apostle Richard Mayanja (Uganda)">
+                        <label>🎙️ Guest Speaker <span class="optional">(Optional)</span></label>
+                        <input type="text" name="guest_speaker" id="guest_speaker" placeholder="e.g., Apostle Richard Mayanja">
                     </div>
                 </div>
             </div>
             
             <div class="form-group">
-                <label>🕐 Daily Schedule / Sessions</label>
+                <label>🕐 Daily Sessions <span class="optional">(Optional)</span></label>
                 <div id="sessions-container">
                     <div class="session-row">
-                        <input type="text" name="session_name[]" placeholder="Session name" value="Morning Service">
-                        <input type="text" name="session_time[]" placeholder="Time" value="6:00 AM - 7:30 AM">
-                    </div>
-                    <div class="session-row">
-                        <input type="text" name="session_name[]" placeholder="Session name" value="Lunch Hour">
-                        <input type="text" name="session_time[]" placeholder="Time" value="12:30 PM - 2:00 PM">
-                    </div>
-                    <div class="session-row">
-                        <input type="text" name="session_name[]" placeholder="Session name" value="Evening Service">
-                        <input type="text" name="session_time[]" placeholder="Time" value="6:00 PM - 8:30 PM">
+                        <input type="text" name="session_name[]" placeholder="Session name" value="">
+                        <input type="text" name="session_time[]" placeholder="Time" value="">
                     </div>
                 </div>
                 <button type="button" class="btn-add" onclick="addSession()">+ Add Session</button>
             </div>
             
-            <!-- ACTION BUTTONS -->
+            <div class="form-group">
+                <label>📍 Location</label>
+                <input type="text" name="location" value="Eastleigh, 1st Avenue, 3rd Street, Nairobi" required>
+            </div>
+            
             <div class="action-buttons">
                 <button type="button" class="btn-preview" onclick="previewEvent()">👁️ Preview Event</button>
                 <button type="submit" class="btn-submit">📌 PUBLISH EVENT</button>
@@ -353,7 +338,6 @@
         </form>
     </div>
     
-    <!-- EXISTING EVENTS LIST -->
     <div class="form-card">
         <h2>📋 Published Events ({{ events|length }})</h2>
         <div class="events-list">
@@ -361,11 +345,10 @@
             <div class="event-card">
                 <img src="{{ url_for('static', filename='images/events/' + event.image) }}" alt="{{ event.title }}">
                 <div class="event-info">
-                    <h4>{{ event.title[:40] }}{% if event.title|length > 40 %}...{% endif %}</h4>
-                    <p style="font-size: 12px; color: #ccc;"><i class="fas fa-calendar"></i> {{ event.dates }}</p>
-                    <p style="font-size: 11px; color: #FFD700;">{{ event.category }}</p>
+                    <h4>{{ event.title[:40] }}</h4>
+                    <p>{{ event.dates }}</p>
                     <form action="/admin/delete-event/{{ event.filename }}" method="POST">
-                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this event?')">🗑️ Delete</button>
+                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this event?')">Delete</button>
                     </form>
                 </div>
             </div>
@@ -374,29 +357,22 @@
     </div>
 </div>
 
-<!-- Preview Modal -->
 <div id="previewModal" class="preview-modal">
     <div class="preview-content">
-        <h2 style="color: #FFD700;">📅 Event Preview</h2>
+        <h2 style="color: #C5A55A;">📅 Event Preview</h2>
         <div id="previewContent"></div>
-        <button onclick="closePreview()" style="background: #FFD700; padding: 10px 20px; border: none; border-radius: 50px; margin-top: 20px; font-weight: 600;">Close</button>
+        <button onclick="closePreview()" style="background: #C5A55A; padding: 10px 20px; border: none; border-radius: 50px; margin-top: 20px; font-weight: 600; color: var(--navy);">Close</button>
     </div>
 </div>
 
 <script>
     let currentImage = null;
     
-    function analyzeImage(input) {
+    function previewImage(input) {
         const preview = document.getElementById('imagePreview');
-        const analysisDiv = document.getElementById('imageAnalysis');
-        
         if (input.files && input.files[0]) {
-            const file = input.files[0];
-            const img = new Image();
             const reader = new FileReader();
-            
             reader.onload = function(e) {
-                img.src = e.target.result;
                 preview.style.backgroundImage = "url('" + e.target.result + "')";
                 preview.style.display = 'block';
                 preview.style.backgroundSize = 'contain';
@@ -404,42 +380,7 @@
                 preview.style.backgroundPosition = 'center';
                 currentImage = e.target.result;
             }
-            reader.readAsDataURL(file);
-            
-            img.onload = function() {
-                const width = img.width;
-                const height = img.height;
-                const ratio = width / height;
-                const fileSizeKB = file.size / 1024;
-                
-                let bestFor = '';
-                if (ratio > 1.7 && ratio < 1.8) {
-                    bestFor = '✅ Best for Banner / Hero image (16:9)';
-                } else if (ratio > 0.56 && ratio < 0.6) {
-                    bestFor = '✅ Best for Flyer / Poster (9:16)';
-                } else if (Math.abs(ratio - 1) < 0.1) {
-                    bestFor = '✅ Best for Square post (1:1)';
-                } else {
-                    bestFor = '⚠️ Consider cropping to 16:9 (banner) or 9:16 (flyer)';
-                }
-                
-                let sizeWarning = '';
-                if (fileSizeKB > 500) {
-                    sizeWarning = '⚠️ Image is large (' + (fileSizeKB/1024).toFixed(1) + 'MB). Consider compressing for faster loading.';
-                } else {
-                    sizeWarning = '✅ Image size is good (' + (fileSizeKB).toFixed(1) + 'KB)';
-                }
-                
-                analysisDiv.innerHTML = `
-                    <h4>📊 Image Analysis</h4>
-                    <div>📏 Dimensions: ${width} × ${height} px</div>
-                    <div>📐 Aspect Ratio: ${ratio.toFixed(2)}</div>
-                    <div>💾 File Size: ${(fileSizeKB/1024).toFixed(1)} MB</div>
-                    <div class="success-box">${bestFor}</div>
-                    <div class="${fileSizeKB > 500 ? 'warning-box' : 'success-box'}">${sizeWarning}</div>
-                `;
-                analysisDiv.style.display = 'block';
-            }
+            reader.readAsDataURL(input.files[0]);
         }
     }
     
@@ -448,33 +389,40 @@
         const previewContent = document.getElementById('previewContent');
         const category = document.getElementById('category').value || 'CONFERENCE';
         const title = document.getElementById('title').value || 'Event Title';
-        const scripture = document.getElementById('scripture').value || 'Scripture Reference';
-        const verseText = document.getElementById('verse_text').value || 'Scripture verse text...';
+        const scripture = document.getElementById('scripture').value || '';
+        const verseText = document.getElementById('verse_text').value || '';
         const dates = document.getElementById('dates').value || 'Event Dates';
-        const host = document.getElementById('host').value || 'Host Name';
+        const host = document.getElementById('host').value || 'Host';
         const guestSpeaker = document.getElementById('guest_speaker').value || '';
         
+        let verseHtml = '';
+        if (scripture || verseText) {
+            verseHtml = `
+                <div style="background: rgba(255,255,255,0.08); border-left: 4px solid #C5A55A; padding: 10px; border-radius: 8px;">
+                    ${scripture ? `<strong style="color: #C5A55A;">📖 ${scripture}</strong>` : ''}
+                    ${verseText ? `<p style="margin-top: 8px; color: var(--text-light);">${verseText}</p>` : ''}
+                </div>
+            `;
+        }
+        
         previewContent.innerHTML = `
-            <div style="background: #0f2348; border-radius: 15px; overflow: hidden;">
-                ${currentImage ? `<img src="${currentImage}" style="width: 100%; max-height: 300px; object-fit: contain; background: #0a1a3a;">` : '<div style="height: 200px; background: #0a1a3a; display: flex; align-items: center; justify-content: center; color: #FFD700;">No Image Selected</div>'}
+            <div style="background: var(--navy); border-radius: 15px; overflow: hidden;">
+                ${currentImage ? `<img src="${currentImage}" style="width: 100%; max-height: 300px; object-fit: contain; background: var(--navy);">` : '<div style="height: 200px; background: var(--navy); display: flex; align-items: center; justify-content: center; color: #C5A55A;">No Image Selected</div>'}
                 <div style="padding: 20px;">
-                    <div style="display: inline-block; background: #FFD700; color: #1a2b4a; padding: 5px 15px; border-radius: 30px; font-size: 12px; font-weight: 600;">${category}</div>
-                    <h3 style="color: #FFD700; margin: 15px 0 10px;">${title}</h3>
-                    <div style="background: rgba(255,255,255,0.08); border-left: 4px solid #FFD700; padding: 10px; border-radius: 8px;">
-                        <strong style="color: #FFD700;">📖 ${scripture}</strong>
-                        <p style="margin-top: 8px; color: #ccc;">${verseText}</p>
-                    </div>
-                    <div style="margin: 15px 0; color: #ccc;">
-                        <p><i class="fas fa-calendar" style="color: #FFD700;"></i> ${dates}</p>
-                        <p><i class="fas fa-user-bishop" style="color: #FFD700;"></i> ${host}</p>
-                        ${guestSpeaker ? `<p><i class="fas fa-microphone-alt" style="color: #FFD700;"></i> ${guestSpeaker}</p>` : ''}
+                    <div style="display: inline-block; background: #C5A55A; color: var(--navy); padding: 5px 15px; border-radius: 30px; font-weight: 600;">${category}</div>
+                    <h3 style="color: #C5A55A; margin: 15px 0;">${title}</h3>
+                    ${verseHtml}
+                    <div style="margin: 15px 0; color: var(--text-light);">
+                        <p><i class="fas fa-calendar" style="color: #C5A55A;"></i> ${dates}</p>
+                        <p><i class="fas fa-user-bishop" style="color: #C5A55A;"></i> ${host}</p>
+                        ${guestSpeaker ? `<p><i class="fas fa-microphone-alt" style="color: #C5A55A;"></i> ${guestSpeaker}</p>` : ''}
                     </div>
                 </div>
             </div>
         `;
         modal.style.display = 'flex';
     }
-    
+   x 
     function closePreview() {
         document.getElementById('previewModal').style.display = 'none';
     }
