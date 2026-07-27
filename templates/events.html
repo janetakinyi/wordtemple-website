@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 <style>
     /* NAVY BLUE THEME */
@@ -13,32 +12,26 @@
         --maroon: #8B1A1A;
         --text-light: #c9d1d9;
     }
-
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes fadeInLeft {
         from { opacity: 0; transform: translateX(-30px); }
         to { opacity: 1; transform: translateX(0); }
     }
-
     @keyframes fadeInRight {
         from { opacity: 0; transform: translateX(30px); }
         to { opacity: 1; transform: translateX(0); }
     }
-
     @keyframes pulse {
         0% { transform: scale(1); }
         50% { transform: scale(1.05); }
         100% { transform: scale(1); }
     }
-
     body {
         background: var(--navy);
     }
-
     .page-header {
         background: linear-gradient(135deg, var(--blue), var(--maroon));
         padding: 80px 0;
@@ -47,7 +40,6 @@
         animation: fadeInUp 0.8s ease;
         border-bottom: 2px solid var(--gold);
     }
-
     .page-header h1 { 
         font-size: 56px; 
         font-weight: 900; 
@@ -63,7 +55,6 @@
         margin-top: 15px;
         color: var(--text-light);
     }
-
     .ticker-container {
         background: linear-gradient(135deg, var(--blue), var(--maroon));
         padding: 15px 0;
@@ -73,33 +64,27 @@
         border-bottom: 1px solid var(--gold);
         border-top: 1px solid var(--gold);
     }
-
     .ticker-content {
         display: inline-block;
         animation: scrollText 25s linear infinite;
     }
-
     @keyframes scrollText {
         0% { transform: translateX(100%); }
         100% { transform: translateX(-100%); }
     }
-
     .ticker-content span {
         color: white;
         margin: 0 40px;
         font-size: 14px;
     }
-
     .ticker-content i {
         color: var(--gold);
         margin-right: 10px;
     }
-
     .events-section {
         padding: 60px 0;
         background: var(--navy);
     }
-
     .section-title {
         font-size: 42px;
         font-weight: 800;
@@ -109,13 +94,11 @@
         font-family: 'Playfair Display', serif;
         animation: fadeInUp 0.8s ease;
     }
-
     .section-title span {
         color: var(--gold);
         border-bottom: 3px solid var(--gold);
         padding-bottom: 8px;
     }
-
     .regular-title {
         font-size: 38px;
         font-weight: 800;
@@ -125,11 +108,9 @@
         font-family: 'Playfair Display', serif;
         animation: fadeInUp 0.8s ease;
     }
-
     .regular-title span {
         color: var(--gold);
     }
-
     .events-list {
         display: flex;
         flex-direction: column;
@@ -138,7 +119,6 @@
         margin: 0 auto;
         padding: 0 20px;
     }
-
     .event-card {
         display: flex;
         flex-wrap: wrap;
@@ -150,12 +130,10 @@
         animation: fadeInLeft 0.8s ease;
         border: 1px solid rgba(212, 175, 55, 0.2);
     }
-
     .event-card:hover {
         transform: translateY(-5px);
         border-color: var(--gold);
     }
-
     .event-poster {
         flex: 1;
         min-width: 320px;
@@ -165,13 +143,11 @@
         background-position: center;
         background-color: var(--navy-light);
     }
-
     .event-details {
         flex: 1.5;
         padding: 30px 35px;
         background: var(--navy-light);
     }
-
     .event-category {
         display: inline-block;
         background: var(--gold);
@@ -182,7 +158,6 @@
         font-weight: 700;
         margin-bottom: 15px;
     }
-
     .event-title {
         font-size: 26px;
         font-weight: 800;
@@ -190,7 +165,6 @@
         margin-bottom: 15px;
         font-family: 'Playfair Display', serif;
     }
-
     .theme-verse {
         background: rgba(255, 255, 255, 0.08);
         border-left: 4px solid var(--gold);
@@ -199,11 +173,9 @@
         margin: 15px 0;
         color: var(--text-light);
     }
-
     .theme-verse strong {
         color: var(--gold);
     }
-
     .host-info {
         display: flex;
         flex-wrap: wrap;
@@ -213,7 +185,6 @@
         border-top: 1px solid rgba(212, 175, 55, 0.3);
         border-bottom: 1px solid rgba(212, 175, 55, 0.3);
     }
-
     .host-info p {
         margin: 0;
         display: flex;
@@ -221,63 +192,53 @@
         gap: 8px;
         color: var(--text-light);
     }
-
     .host-info i {
         color: var(--gold);
         width: 20px;
     }
-
     .sessions-box {
         background: rgba(255, 255, 255, 0.08);
         padding: 15px 20px;
         border-radius: 12px;
         margin: 15px 0;
     }
-
     .sessions-box h4 {
         color: var(--gold);
         margin-bottom: 10px;
         font-size: 15px;
     }
-
     .sessions-box p {
         margin: 6px 0;
         color: var(--text-light);
         font-size: 14px;
     }
-
     .timetable-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
         margin: 15px 0;
     }
-
     .timetable-item {
         background: rgba(255, 255, 255, 0.08);
         padding: 10px;
         border-radius: 10px;
         text-align: center;
     }
-
     .timetable-item strong {
         color: var(--gold);
         display: block;
         margin-bottom: 5px;
     }
-
     .timetable-item span {
         color: var(--text-light);
         font-size: 13px;
     }
-
     .action-buttons {
         display: flex;
         gap: 15px;
         margin-top: 20px;
         flex-wrap: wrap;
     }
-
     .btn-reg {
         background: var(--gold);
         color: var(--navy);
@@ -293,13 +254,11 @@
         cursor: pointer;
         border: none;
     }
-
     .btn-reg:hover {
         background: var(--gold-light);
         transform: translateY(-3px);
         animation: pulse 0.5s ease;
     }
-
     .btn-gal {
         background: transparent;
         color: var(--gold);
@@ -315,13 +274,11 @@
         gap: 8px;
         cursor: pointer;
     }
-
     .btn-gal:hover {
         background: var(--gold);
         color: var(--navy);
         transform: translateY(-3px);
     }
-
     .services-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -330,7 +287,6 @@
         margin: 0 auto;
         padding: 0 20px;
     }
-
     .service-card {
         background: var(--navy-light);
         border-radius: 20px;
@@ -340,12 +296,10 @@
         animation: fadeInRight 0.8s ease;
         border: 1px solid rgba(212, 175, 55, 0.2);
     }
-
     .service-card:hover {
         transform: translateY(-8px);
         border-color: var(--gold);
     }
-
     .service-image {
         width: 100%;
         height: 220px;
@@ -354,44 +308,37 @@
         background-position: center;
         background-color: var(--navy-light);
     }
-
     .service-content {
         padding: 25px;
         text-align: center;
     }
-
     .service-content h3 {
         color: var(--gold);
         font-size: 22px;
         margin-bottom: 5px;
     }
-
     .service-content p {
         color: var(--text-light);
         font-size: 13px;
         margin-bottom: 15px;
     }
-
     .service-times {
         background: rgba(255, 255, 255, 0.08);
         padding: 12px;
         border-radius: 12px;
         margin: 15px 0;
     }
-
     .service-times p {
         margin: 5px 0;
         color: var(--text-light);
         font-weight: 500;
         font-size: 13px;
     }
-
     .service-buttons {
         display: flex;
         gap: 12px;
         margin-top: 15px;
     }
-
     .service-btn {
         display: inline-block;
         padding: 10px 20px;
@@ -406,28 +353,23 @@
         transition: all 0.3s ease;
         cursor: pointer;
     }
-
     .service-btn-outline {
         background: transparent;
         border: 2px solid var(--gold);
         color: var(--gold);
     }
-
     .service-btn-outline:hover {
         background: var(--gold);
         color: var(--navy);
     }
-
     .service-btn:hover {
         background: var(--gold-light);
         transform: translateY(-2px);
     }
-
     .join-btn-container {
         text-align: center;
         margin-top: 50px;
     }
-
     .join-btn {
         background: var(--gold);
         color: var(--navy);
@@ -439,12 +381,10 @@
         transition: all 0.3s ease;
         cursor: pointer;
     }
-
     .join-btn:hover {
         transform: translateY(-3px);
         animation: pulse 0.5s ease;
     }
-
     @media (max-width: 850px) {
         .event-poster { min-width: 100%; min-height: 280px; background-size: contain; }
         .event-details { padding: 25px; }
@@ -455,7 +395,6 @@
         .timetable-grid { grid-template-columns: 1fr; }
     }
 </style>
-
 <!-- Ticker -->
 <div class="ticker-container">
     <div class="ticker-content">
@@ -465,7 +404,6 @@
         <span><i class="fas fa-church"></i> SUNDAY SERVICES: 5:30AM, 8:30AM, 11:00AM</span>
     </div>
 </div>
-
 <!-- Page Header -->
 <div class="page-header">
     <div class="container">
@@ -473,17 +411,14 @@
         <p>Gatherings That Transform Lives</p>
     </div>
 </div>
-
 <!-- Events Section -->
 <section class="events-section">
     <div class="container">
         <h2 class="section-title"><span>📅 UPCOMING CONFERENCES</span></h2>
-
         <div class="events-list">
-
-                        <!-- CONFERENCE 1: DAUGHTERS OF THE KINGDOM -->
+                                                                        <!-- CONFERENCE 1: DAUGHTERS OF THE KINGDOM -->
             <div class="event-card">
-                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/daughters-conference.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/ladies conference.jpeg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
                 </div>
                 <div class="event-details">
                     <div class="event-category">🌸 LADIES CONFERENCE 2026</div>
@@ -494,21 +429,58 @@
                     </div>
                     <div class="host-info">
                         <p><i class="fas fa-crown"></i> <strong>Hosts:</strong> Apostle Michael & Rev. Bancy Wambua</p>
+                        <p><i class="fas fa-microphone-alt"></i> <strong>Guests:</strong> Rev. Blessed Kakala & Rev. Serah Mkala</p>
                         <p><i class="fas fa-calendar-alt"></i> <strong>Dates:</strong> 20th - 21st August 2026</p>
                         <p><i class="fas fa-clock"></i> <strong>Time:</strong> 9:00 AM - 7:30 PM</p>
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> Eastleigh, 1st Avenue, 3rd Street, Next to St. Teresa's Dispensary</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> Eastleigh, 1st Avenue, 3rd Street</p>
                         <p><i class="fas fa-ticket-alt"></i> <strong>Entry:</strong> FREE ENTRY</p>
                     </div>
-                    <div class="sessions-box">
-                        <h4><i class="fas fa-info-circle"></i> Conference Details</h4>
-                        <p><strong>📖 Theme:</strong> From Shame to Honor</p>
-                        <p><strong>📖 Scripture:</strong> Isaiah 61:7</p>
-                        <p><strong>📡 Watch Live:</strong> Signet Revealed Gospel TV</p>
-                        <p><strong>📱 Follow:</strong> @WordTempleChurchofGod</p>
+                    <div class="sessions-box" style="margin-top: 10px; padding: 12px 15px;">
+                        <p style="margin: 0;"><strong>📡 Watch Live:</strong> Signet Revealed Gospel TV</p>
+                        <p style="margin: 5px 0 0 0;"><strong>📱 Follow Us:</strong>
+                            <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank" style="color: #FF0000; font-size: 16px; margin-left: 3px;" title="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="https://web.facebook.com/WTCOFGOD" target="_blank" style="color: #1877F2; font-size: 16px; margin-left: 3px;" title="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/WordTempleofGod" target="_blank" style="color: #1DA1F2; font-size: 16px; margin-left: 3px;" title="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/wordtemplechurchofgod/" target="_blank" style="color: #E4405F; font-size: 16px; margin-left: 3px;" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@wordtemplechurchofgod" target="_blank" style="color: #000000; font-size: 16px; margin-left: 3px;" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        </p>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
+                        <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
+                        <a href="#" class="btn-gal" onclick="window.open('https://maps.app.goo.gl/pfPTnGYwt1u4mLXMA', '_blank')"><i class="fas fa-map-marker-alt"></i> GET DIRECTIONS</a>
                     </div>
                 </div>
             </div>
-
+                                    <!-- CONFERENCE 4: ANNUAL CONFERENCE - REVELATION & POWER -->
+            <div class="event-card">
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/Revelation.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
+                <div class="event-details">
+                    <div class="event-category">👑 8TH ANNUAL CONFERENCE – DECEMBER 2026</div>
+                    <h2 class="event-title">Revelation & Power Conference</h2>
+                    <div class="host-info">
+                        <p><i class="fas fa-crown"></i> <strong>Hosts:</strong> Apostle Michael & Rev. Bancy Wambua</p>
+                        <p><i class="fas fa-calendar-alt"></i> <strong>Dates:</strong> December 2026 (Exact dates to be announced)</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> Eastleigh, 1st Avenue, 3rd Street, Next to St. Teresa's Dispensary</p>
+                    </div>
+                    <div class="sessions-box" style="margin-top: 10px; padding: 12px 15px;">
+                        <p style="margin: 0;"><strong>📡 Watch Live:</strong> Signet Revealed Gospel TV</p>
+                        <p style="margin: 5px 0 0 0;"><strong>📱 Follow Us:</strong>
+                            <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank" style="color: #FF0000; font-size: 16px; margin-left: 3px;" title="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="https://web.facebook.com/WTCOFGOD" target="_blank" style="color: #1877F2; font-size: 16px; margin-left: 3px;" title="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/WordTempleofGod" target="_blank" style="color: #1DA1F2; font-size: 16px; margin-left: 3px;" title="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/wordtemplechurchofgod/" target="_blank" style="color: #E4405F; font-size: 16px; margin-left: 3px;" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@wordtemplechurchofgod" target="_blank" style="color: #000000; font-size: 16px; margin-left: 3px;" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        </p>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
+                        <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
+                        <a href="#" class="btn-gal" onclick="window.open('https://maps.app.goo.gl/pfPTnGYwt1u4mLXMA', '_blank')"><i class="fas fa-map-marker-alt"></i> GET DIRECTIONS</a>
+                    </div>
+                </div>
+            </div>
             <!-- CONFERENCE 3: YOUTH CONFERENCE -->
             <div class="event-card">
                 <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/Youth Conf.jpeg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
@@ -522,15 +494,14 @@
                     <div class="action-buttons">
                         <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
                         <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
+                        <a href="#" class="btn-gal" onclick="window.open('https://maps.app.goo.gl/pfPTnGYwt1u4mLXMA', '_blank')"><i class="fas fa-map-marker-alt"></i> GET DIRECTIONS</a>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- REGULAR SERVICES SECTION -->
         <h2 class="regular-title"><span>📌 REGULAR SERVICES</span></h2>
         <div class="services-grid">
-            
             <!-- Sunday Service -->
             <div class="service-card">
                 <div class="service-image" style="background-image: url('{{ url_for('static', filename='images/events/Sunday Service.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
@@ -549,7 +520,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Word Temple Voices -->
             <div class="service-card">
                 <div class="service-image" style="background-image: url('{{ url_for('static', filename='images/events/praise.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
@@ -569,16 +539,13 @@
                 </div>
             </div>
         </div>
-
         <div class="join-btn-container">
             <a href="/connect" class="join-btn"><i class="fas fa-church"></i> JOIN US THIS SUNDAY</a>
         </div>
     </div>
 </section>
-
 <script>
     const youtubeUrl = "https://www.youtube.com/@WordTempleChurchofGod";
-    
     document.querySelectorAll('.watch-live-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -587,4 +554,3 @@
     });
 </script>
 {% endblock %}
-
