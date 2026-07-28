@@ -135,14 +135,12 @@ church_info = {
 
 # Serve static files
 @app.route('/static/<path:filename>')
-dmin/events)/a
 
 def serve_static(filename):
     return send_from_directory('static', filename)
 
 # Gallery API
 @app.route('/get-gallery-images')
-dmin/events)/a
 
 def get_gallery_images():
     gallery_path = 'static/images/gallery/'
@@ -160,97 +158,83 @@ def get_gallery_images():
 
 # Page routes
 @app.route('/')
-dmin/events)/a
 
 def home():
     settings = get_settings()
     return render_template('index.html', church=church_info, settings=settings)
 
 @app.route('/about')
-dmin/events)/a
 
 def about():
     return render_template('about.html', church=church_info)
 
 @app.route('/founders')
-dmin/events)/a
 
 def founders():
     return render_template('founders.html', church=church_info)
 
 @app.route('/leaders')
-dmin/events)/a
 
 def leaders():
     return redirect('/founders')
 
-@app.route('/events')
-dmin/events)/a
 
+@app.route('/events')
 def events():
-    # Load all events
-    all_events = load_events_data()
+    # Load all events from data file
+    events_data = load_events_data()
     
     # Filter out past events
     upcoming_events = []
-    for event in all_events:
+    for event in events_data:
         event_date = event.get('dates', '')
-        if not is_event_past(event_date):
+        if '2025' not in event_date and '2024' not in event_date:
             upcoming_events.append(event)
     
     return render_template('events.html', events=upcoming_events, church=church_info)
 
 @app.route('/connect')
-dmin/events)/a
 
 def connect():
     return render_template('connect.html', church=church_info)
 
 @app.route('/ministries')
-dmin/events)/a
 
 def ministries():
     return render_template('ministries.html', church=church_info)
 
 @app.route('/gallery')
-dmin/events)/a
 
 def gallery():
     return render_template('gallery.html', church=church_info)
 
 @app.route('/quotes')
-dmin/events)/a
 
 def quotes():
     return render_template('quotes.html', church=church_info)
 
 @app.route('/give')
-dmin/events)/a
 
 def give():
     return render_template('give.html', church=church_info)
 
 @app.route('/resources')
-dmin/events)/a
 
 def resources():
     return render_template('resources.html', church=church_info)
 
 @app.route('/membership')
-dmin/events)/a
 
 def membership():
     return render_template('membership.html', church=church_info)
 
 @app.route('/conference-register')
-dmin/events)/a
 
 def conference_register():
     return render_template('conference-register.html', church=church_info)
 
 # Admin routes
 @app.route('/admin/login', methods=['GET', 'POST'])
-dmin/events)/a
 
 def admin_login():
     if request.method == 'POST':
@@ -266,7 +250,6 @@ def admin_login():
     return render_template('admin_login.html', church=church_info)
 
 @app.route('/admin/logout')
-dmin/events)/a
 
 def admin_logout():
     session.clear()
@@ -274,7 +257,6 @@ def admin_logout():
     return redirect(url_for('admin_login'))
 
 @app.route('/admin')
-dmin/events)/a
 
 def admin_dashboard():
     registrations = get_registrations()
@@ -298,14 +280,12 @@ def admin_dashboard():
                          church=church_info)
 
 @app.route('/admin/registrations')
-dmin/events)/a
 
 def admin_registrations():
     registrations = get_registrations()
     return render_template('admin_registrations.html', registrations=registrations, church=church_info)
 
 @app.route('/admin/quotes', methods=['GET', 'POST'])
-dmin/events)/a
 
 def admin_quotes():
     quotes = get_quotes()
@@ -320,7 +300,6 @@ def admin_quotes():
     return render_template('admin_quotes.html', quotes=quotes, church=church_info)
 
 @app.route('/admin/settings', methods=['GET', 'POST'])
-dmin/events)/a
 
 def admin_settings():
     settings = get_settings()
@@ -347,7 +326,6 @@ def admin_settings():
     return render_template('admin_settings.html', settings=settings, church=church_info)
 
 @app.route('/admin/upload-photo', methods=['GET', 'POST'])
-dmin/events)/a
 
 def admin_upload_photo():
     if request.method == 'POST':
@@ -373,7 +351,6 @@ def admin_upload_photo():
     return render_template('admin_upload.html', photos=photos, church=church_info)
 
 @app.route('/admin/delete-photo/<filename>')
-dmin/events)/a
 
 def delete_photo(filename):
     file_path = os.path.join('static/images/gallery/', filename)
@@ -385,7 +362,6 @@ def delete_photo(filename):
     return redirect(url_for('admin_upload_photo'))
 
 @app.route('/register', methods=['GET', 'POST'])
-dmin/events)/a
 
 def register():
     if request.method == 'POST':
@@ -403,9 +379,16 @@ def register():
 # Events data file
 EVENTS_DATA_FILE = 'events_data.json'
 
+def load_events_data():
+    if os.path.exists(EVENTS_DATA_FILE):
+        with open(EVENTS_DATA_FILE, 'r') as f:
+            return json.load(f)
+    return []
+
 def save_events_data(events):
     with open(EVENTS_DATA_FILE, 'w') as f:
         json.dump(events, f, indent=2)
+
 
 @app.route('/admin/events')
 @login_required
@@ -413,52 +396,9 @@ def admin_events():
     events = load_events_data()
     return render_template('admin_events_management.html', events=events, church=church_info)
 
+@app.route('/admin/add-event', methods=['POST'])
+@login_required
 def admin_add_event():
-    if 'event_image' not in request.files:
-        flash('No image file selected', 'error')
-        return redirect(url_for('admin_events'))
-    file = request.files['event_image']
-    if file.filename == '':
-        flash('No image selected', 'error')
-        return redirect(url_for('admin_events'))
-    if file:
-        from werkzeug.utils import secure_filename
-        import os, json
-        from datetime import datetime
-        filename = secure_filename(file.filename)
-        file_path = os.path.join('static/images/events', filename)
-        file.save(file_path)
-        category = request.form.get('category', '')
-        title = request.form.get('title', '')
-        scripture = request.form.get('scripture', '')
-        verse_text = request.form.get('verse_text', '')
-        dates = request.form.get('dates', '')
-        host = request.form.get('host', '')
-        guest_speakers = request.form.getlist('guest_speaker[]')
-        location = request.form.get('location', 'Eastleigh, 1st Avenue, 3rd Street, Nairobi')
-        event = {
-            'id': f'event-{int(datetime.now().timestamp())}',
-            'title': title,
-            'category': category,
-            'dates': dates,
-            'image': filename,
-            'filename': filename,
-            'scripture': scripture,
-            'verse_text': verse_text,
-            'host': host,
-            'guest_speakers': [g for g in guest_speakers if g.strip()],
-            'venue': location
-        }
-        events_file = 'data/events.json'
-        events = []
-        if os.path.exists(events_file):
-            with open(events_file, 'r') as f:
-                events = json.load(f)
-        events.append(event)
-        with open(events_file, 'w') as f:
-            json.dump(events, f, indent=2)
-        flash('Event published successfully!', 'success')
-        return redirect(url_for('admin_events'))
     if 'event_image' not in request.files:
         flash('No image file selected', 'error')
         return redirect(url_for('admin_events'))
