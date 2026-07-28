@@ -1,0 +1,36 @@
+[
+  {
+    "id": "ladies-conference-2026",
+    "title": "Daughters of the Kingdom - Ladies Conference",
+    "category": "\ud83c\udf38 LADIES CONFERENCE 2026",
+    "dates": "20th - 21st August 2026",
+    "image": "ladies conference.jpeg",
+    "theme": "From Shame to Honor",
+    "scripture": "Isaiah 61:7",
+    "hosts": "Apostle Michael & Rev. Bancy Wambua",
+    "guests": "Rev. Blessed Kakala & Rev. Serah Mkala",
+    "time": "9:00 AM - 7:30 PM",
+    "venue": "Eastleigh, 1st Avenue, 3rd Street, Nairobi",
+    "entry": "FREE ENTRY"
+  },
+  {
+    "id": "youth-conference-2026",
+    "title": "Annual Youth Conference 2026",
+    "category": "\ud83d\udc66 ANNUAL YOUTH CONFERENCE 2026",
+    "dates": "November 2026",
+    "image": "Anual Youth.jpg",
+    "theme": "Expect Revival",
+    "scripture": "1 Timothy 4:12",
+    "host": "Word Temple Church of God International",
+    "venue": "Eastleigh, 1st Avenue, 3rd Street, Nairobi"
+  },
+  {
+    "id": "annual-conference-2026",
+    "title": "8th Annual Conference - Revelation & Power",
+    "category": "\ud83d\udc51 8TH ANNUAL CONFERENCE \u2013 DECEMBER 2026",
+    "dates": "December 2026",
+    "image": "Revelation.jpg",
+    "hosts": "Apostle Michael & Rev. Bancy Wambua",
+    "venue": "Eastleigh, 1st Avenue, 3rd Street, Nairobi"
+  }
+]
