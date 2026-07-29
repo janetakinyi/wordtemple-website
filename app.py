@@ -513,6 +513,13 @@ def admin_delete_event(event_id):
 @app.route('/admin/edit-event/<event_id>', methods=['GET', 'POST'])
 @login_required
 def admin_edit_event(event_id):
+    # CSRF validation - temporarily disabled
+    # expected_token = session.get('csrf_token')
+    # submitted_token = request.form.get('csrf_token')
+    # if not expected_token or submitted_token != expected_token:
+    #     flash('Invalid CSRF token', 'error')
+    #     return redirect(url_for('admin_events'))
+
     events = load_events_data()
     event = None
     for e in events:
