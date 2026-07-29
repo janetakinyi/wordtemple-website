@@ -2,18 +2,100 @@
 # Copyright (c) 2026 Word Temple Church of God International
 # All rights reserved.
 
-from flask import Flask, render_template, session, redirect, url_for, request, flash, send_from_directory, jsonify
+from flask import Flask, abort, render_template, session, redirect, url_for, request, flash, send_from_directory
 from functools import wraps
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import json
 import time
 from datetime import datetime
+from pathlib import Path
 import re
+import secrets
+from uuid import uuid4
+from PIL import Image, UnidentifiedImageError
 from werkzeug.utils import secure_filename
-from admin import verify_admin, save_registration, get_registrations, get_quotes, get_events, get_settings, save_settings, update_quotes
+from admin import delete_event, verify_admin, save_registration, get_registrations, get_quotes, get_events, get_settings, save_settings, update_quotes, save_events
 
 app = Flask(__name__)
-app.secret_key = 'wordtemple-church-secret-key-2026'
+app.secret_key = os.environ.get('SECRET_KEY')
+if not app.secret_key:
+    raise RuntimeError('SECRET_KEY is required. Add it as a Render environment variable.')
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SECURE=os.environ.get('SESSION_COOKIE_SECURE', 'true').lower() == 'true',
+    SESSION_COOKIE_SAMESITE='Lax',
+    MAX_CONTENT_LENGTH=5 * 1024 * 1024,
+)
+
+UPLOAD_ROOT = Path(os.environ.get('UPLOAD_DIR', Path(app.root_path) / 'static' / 'images')).resolve()
+LEGACY_IMAGE_ROOT = (Path(app.static_folder) / 'images').resolve()
+ALLOWED_IMAGE_FORMATS = {'JPEG': '.jpg', 'PNG': '.png', 'WEBP': '.webp', 'GIF': '.gif'}
+
+def csrf_token():
+    if 'csrf_token' not in session:
+        session['csrf_token'] = secrets.token_urlsafe(32)
+    return session['csrf_token']
+
+@app.context_processor
+def inject_security_helpers():
+    return {'csrf_token': csrf_token}
+
+@app.before_request
+def protect_admin_forms():
+    if request.path.startswith('/admin/') and request.method in {'POST', 'PUT', 'PATCH', 'DELETE'}:
+        expected_token = session.get('csrf_token')
+        submitted_token = request.form.get('csrf_token')
+        if not expected_token or not submitted_token or not secrets.compare_digest(expected_token, submitted_token):
+            abort(400, 'Invalid or missing CSRF token.')
+
+@app.errorhandler(413)
+def upload_too_large(error):
+    flash('Image files must be 5 MB or smaller.', 'error')
+    return redirect(request.referrer or url_for('admin_dashboard'))
+
+def upload_directory(category):
+    if category not in {'gallery', 'events'}:
+        abort(404)
+    directory = UPLOAD_ROOT / category
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory
+
+def save_image(file, category, label=None):
+    """Verify image content and save it with a server-generated, collision-proof name."""
+    try:
+        image = Image.open(file.stream)
+        image.verify()
+        extension = ALLOWED_IMAGE_FORMATS[image.format]
+    except (UnidentifiedImageError, KeyError, OSError):
+        raise ValueError('Please upload a valid JPEG, PNG, WEBP, or GIF image.')
+    finally:
+        file.stream.seek(0)
+
+    filename = f'{secure_filename(label)}_{uuid4().hex}{extension}' if label else f'{uuid4().hex}{extension}'
+    file.save(upload_directory(category) / filename)
+    return filename
+
+def gallery_images(include_legacy=True):
+    """Return persistent uploads and, during migration, images bundled with the app."""
+    sources = [(upload_directory('gallery'), lambda name: url_for('uploaded_file', category='gallery', filename=name))]
+    legacy_gallery = LEGACY_IMAGE_ROOT / 'gallery'
+    if include_legacy and legacy_gallery != upload_directory('gallery') and legacy_gallery.exists():
+        sources.append((legacy_gallery, lambda name: url_for('static', filename=f'images/gallery/{name}')))
+
+    images = []
+    for directory, make_url in sources:
+        for file_path in directory.iterdir():
+            if file_path.is_file() and file_path.suffix.lower() in {'.jpg', '.jpeg', '.png', '.gif', '.webp'}:
+                images.append({'name': file_path.name, 'url': make_url(file_path.name), 'time': file_path.stat().st_mtime})
+    return sorted(images, key=lambda image: image['time'], reverse=True)
+
+@app.route('/uploads/<category>/<filename>')
+def uploaded_file(category, filename):
+    if category not in {'gallery', 'events'}:
+        abort(404)
+    return send_from_directory(upload_directory(category), filename)
 
 def login_required(f):
     @wraps(f)
@@ -133,28 +215,10 @@ church_info = {
     'instagram': 'https://www.instagram.com/wordtemplechurchofgod/'
 }
 
-# Serve static files
-@app.route('/static/<path:filename>')
-
-def serve_static(filename):
-    return send_from_directory('static', filename)
-
 # Gallery API
 @app.route('/get-gallery-images')
-
 def get_gallery_images():
-    gallery_path = 'static/images/gallery/'
-    images = []
-    if os.path.exists(gallery_path):
-        for f in os.listdir(gallery_path):
-            if f.lower().endswith(('.jpg', '.jpeg', '.JPG', '.png', '.gif')):
-                file_path = os.path.join(gallery_path, f)
-                mod_time = os.path.getmtime(file_path)
-                images.append({'name': f, 'time': mod_time})
-        # Sort by modification time (newest first)
-        images.sort(key=lambda x: x['time'], reverse=True)
-        images = [img['name'] for img in images]
-    return {'images': images}
+    return {'images': gallery_images()}
 
 # Page routes
 @app.route('/')
@@ -257,18 +321,14 @@ def admin_logout():
     return redirect(url_for('admin_login'))
 
 @app.route('/admin')
-
+@login_required
 def admin_dashboard():
     registrations = get_registrations()
     settings = get_settings()
     quotes = get_quotes()
     gallery_count = 0
-    if os.path.exists('static/images/gallery/'):
-        gallery_count = len([f for f in os.listdir('static/images/gallery/') if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
-    events = []
-    if os.path.exists('events_data.json'):
-        with open('events_data.json', 'r') as f:
-            events = json.load(f)
+    gallery_count = len(gallery_images())
+    events = get_events()
     return render_template('admin_dashboard.html', 
                          registrations=registrations, 
                          settings=settings, 
@@ -280,13 +340,13 @@ def admin_dashboard():
                          church=church_info)
 
 @app.route('/admin/registrations')
-
+@login_required
 def admin_registrations():
     registrations = get_registrations()
     return render_template('admin_registrations.html', registrations=registrations, church=church_info)
 
 @app.route('/admin/quotes', methods=['GET', 'POST'])
-
+@login_required
 def admin_quotes():
     quotes = get_quotes()
     if request.method == 'POST':
@@ -300,7 +360,7 @@ def admin_quotes():
     return render_template('admin_quotes.html', quotes=quotes, church=church_info)
 
 @app.route('/admin/settings', methods=['GET', 'POST'])
-
+@login_required
 def admin_settings():
     settings = get_settings()
     if request.method == 'POST':
@@ -326,7 +386,7 @@ def admin_settings():
     return render_template('admin_settings.html', settings=settings, church=church_info)
 
 @app.route('/admin/upload-photo', methods=['GET', 'POST'])
-
+@login_required
 def admin_upload_photo():
     if request.method == 'POST':
         if 'photo' not in request.files:
@@ -337,25 +397,27 @@ def admin_upload_photo():
             flash('No file selected', 'error')
             return redirect(url_for('admin_upload_photo'))
         if file:
-            filename = secure_filename(file.filename)
-            os.makedirs('static/images/gallery/', exist_ok=True)
-            file.save(os.path.join('static/images/gallery/', filename))
+            try:
+                gallery_category = request.form.get('gallery_category', '')
+                if gallery_category not in {'worship', 'rp', 'preaching', 'youth', 'wconf', 'praise'}:
+                    raise ValueError('Please select a gallery category.')
+                filename = save_image(file, 'gallery', gallery_category)
+            except ValueError as error:
+                flash(str(error), 'error')
+                return redirect(url_for('admin_upload_photo'))
             flash(f'Photo {filename} uploaded successfully!', 'success')
             return redirect(url_for('admin_upload_photo'))
     photos = []
-    if os.path.exists('static/images/gallery/'):
-        import glob
-        image_files = glob.glob('static/images/gallery/*.jpg') + glob.glob('static/images/gallery/*.jpeg') + glob.glob('static/images/gallery/*.png')
-        image_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
-        photos = [os.path.basename(f) for f in image_files]
+    photos = gallery_images(include_legacy=False)
     return render_template('admin_upload.html', photos=photos, church=church_info)
 
-@app.route('/admin/delete-photo/<filename>')
-
+@app.route('/admin/delete-photo/<filename>', methods=['POST'])
+@login_required
 def delete_photo(filename):
-    file_path = os.path.join('static/images/gallery/', filename)
-    if os.path.exists(file_path):
-        os.remove(file_path)
+    filename = secure_filename(filename)
+    file_path = upload_directory('gallery') / filename
+    if file_path.is_file():
+        file_path.unlink()
         flash(f'Photo {filename} deleted successfully!', 'success')
     else:
         flash(f'Photo {filename} not found!', 'error')
@@ -376,18 +438,11 @@ def register():
         return redirect(url_for('register'))
     return render_template('register.html', church=church_info)
 
-# Events data file
-EVENTS_DATA_FILE = 'events_data.json'
-
 def load_events_data():
-    if os.path.exists(EVENTS_DATA_FILE):
-        with open(EVENTS_DATA_FILE, 'r') as f:
-            return json.load(f)
-    return []
+    return get_events()
 
 def save_events_data(events):
-    with open(EVENTS_DATA_FILE, 'w') as f:
-        json.dump(events, f, indent=2)
+    save_events(events)
 
 
 @app.route('/admin/events')
@@ -409,14 +464,11 @@ def admin_add_event():
         return redirect(url_for('admin_events'))
     
     if file:
-        from werkzeug.utils import secure_filename
-        import os
-        import json
-        from datetime import datetime
-        
-        filename = secure_filename(file.filename)
-        file_path = os.path.join('static/images/events', filename)
-        file.save(file_path)
+        try:
+            filename = save_image(file, 'events')
+        except ValueError as error:
+            flash(str(error), 'error')
+            return redirect(url_for('admin_events'))
         
         category = request.form.get('category', '')
         title = request.form.get('title', '')
@@ -433,6 +485,7 @@ def admin_add_event():
             'category': category,
             'dates': dates,
             'image': filename,
+            'image_url': url_for('uploaded_file', category='events', filename=filename),
             'filename': filename,
             'scripture': scripture,
             'verse_text': verse_text,
@@ -441,21 +494,57 @@ def admin_add_event():
             'venue': location
         }
         
-        events_file = 'data/events.json'
-        events = []
-        if os.path.exists(events_file):
-            with open(events_file, 'r') as f:
-                events = json.load(f)
-        
+        events = load_events_data()
         events.append(event)
-        
-        with open(events_file, 'w') as f:
-            json.dump(events, f, indent=2)
+        save_events_data(events)
         
         flash('Event published successfully!', 'success')
         return redirect(url_for('admin_events'))
     events = load_events_data()
     return render_template('admin_events_management.html', events=events, church=church_info)
+
+@app.route('/admin/delete-event/<event_id>', methods=['POST'])
+@login_required
+def admin_delete_event(event_id):
+    delete_event(event_id)
+    flash('Event deleted successfully.', 'success')
+    return redirect(url_for('admin_events'))
+
+@app.route('/admin/edit-event/<event_id>', methods=['GET', 'POST'])
+@login_required
+def admin_edit_event(event_id):
+    events = load_events_data()
+    event = None
+    for e in events:
+        if str(e.get('id')) == str(event_id):
+            event = e
+            break
+    if not event:
+        flash('Event not found', 'error')
+        return redirect(url_for('admin_events'))
+    if request.method == 'POST':
+        event['title'] = request.form.get('title', event['title'])
+        event['category'] = request.form.get('category', event['category'])
+        event['dates'] = request.form.get('dates', event['dates'])
+        event['theme'] = request.form.get('theme', event.get('theme', ''))
+        event['scripture'] = request.form.get('scripture', event.get('scripture', ''))
+        event['hosts'] = request.form.get('hosts', event.get('hosts', ''))
+        event['venue'] = request.form.get('venue', event.get('venue', ''))
+        event['entry'] = request.form.get('entry', event.get('entry', 'FREE ENTRY'))
+        event['time'] = request.form.get('time', event.get('time', ''))
+        if 'event_image' in request.files:
+            file = request.files['event_image']
+            if file and file.filename != '':
+                from werkzeug.utils import secure_filename
+                import os
+                filename = secure_filename(file.filename)
+                file_path = os.path.join('static/images/events', filename)
+                file.save(file_path)
+                event['image'] = filename
+        save_events_data(events)
+        flash('Event updated successfully!', 'success')
+        return redirect(url_for('admin_events'))
+    return render_template('admin_edit_event.html', event=event, church=church_info)
 
 if __name__ == '__main__':
     app.run(debug=True)

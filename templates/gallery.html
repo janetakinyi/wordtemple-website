@@ -360,12 +360,12 @@
             console.log('Total images found:', allImages.length);
             
             // Categorize images based on filename patterns
-            const worshipImages = allImages.filter(img => img.toLowerCase().includes('worship'));
-            const rpImages = allImages.filter(img => img.toLowerCase().includes('rp'));
-            const preachingImages = allImages.filter(img => img.toLowerCase().includes('preaching'));
-            const youthImages = allImages.filter(img => img.toLowerCase().includes('youth'));
-            const ladiesImages = allImages.filter(img => img.toLowerCase().includes('wconf'));
-            const praiseImages = allImages.filter(img => img.toLowerCase().includes('praise'));
+            const worshipImages = allImages.filter(img => img.name.toLowerCase().includes('worship'));
+            const rpImages = allImages.filter(img => img.name.toLowerCase().includes('rp'));
+            const preachingImages = allImages.filter(img => img.name.toLowerCase().includes('preaching'));
+            const youthImages = allImages.filter(img => img.name.toLowerCase().includes('youth'));
+            const ladiesImages = allImages.filter(img => img.name.toLowerCase().includes('wconf'));
+            const praiseImages = allImages.filter(img => img.name.toLowerCase().includes('praise'));
             
             function loadImageGrid(containerId, images, count) {
                 const container = document.getElementById(containerId);
@@ -380,9 +380,9 @@
                 const limit = Math.min(count, images.length);
                 for(let i = 0; i < limit; i++) {
                     html += `
-                        <div class="gallery-item" onclick="openModal('${images[i]}')">
+                        <div class="gallery-item" onclick="openModal('${images[i].url}')">
                             <div class="gallery-image">
-                                <img src="/static/images/gallery/${images[i]}" alt="Gallery image" loading="lazy">
+                                <img src="${images[i].url}" alt="Gallery image" loading="lazy">
                             </div>
                         </div>
                     `;
@@ -440,7 +440,7 @@
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
         modal.style.display = 'block';
-        modalImg.src = '/static/images/gallery/' + imageSrc;
+        modalImg.src = imageSrc;
     }
     
     function closeModal() {

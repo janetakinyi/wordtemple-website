@@ -416,41 +416,24 @@
     <div class="container">
         <h2 class="section-title"><span>📅 UPCOMING CONFERENCES</span></h2>
         <div class="events-list">
-            {% for event in events %}
+                                                                        <!-- CONFERENCE 1: DAUGHTERS OF THE KINGDOM -->
             <div class="event-card">
-                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/' + event.image) }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/ladies conference.jpeg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
                 </div>
                 <div class="event-details">
-                    <div class="event-category">{{ event.category }}</div>
-                    <h2 class="event-title">{{ event.title }}</h2>
-                    {% if event.theme or event.scripture %}
+                    <div class="event-category">🌸 LADIES CONFERENCE 2026</div>
+                    <h2 class="event-title">Daughters of the Kingdom</h2>
                     <div class="theme-verse">
-                        {% if event.theme %}<strong>📖 Theme:</strong> "{{ event.theme }}"{% endif %}
-                        {% if event.scripture %} — <strong>{{ event.scripture }}</strong>{% endif %}
-                        {% if event.verse_text %}<br>{{ event.verse_text }}{% endif %}
+                        <strong>📖 Theme:</strong> "From Shame to Honor" — <strong>Isaiah 61:7</strong><br>
+                        "Instead of your shame you shall have double honor, and instead of confusion they shall rejoice in their portion. Therefore in their land they shall possess double; everlasting joy shall be theirs."
                     </div>
-                    {% endif %}
                     <div class="host-info">
-                        {% if event.hosts %}
-                        <p><i class="fas fa-crown"></i> <strong>Hosts:</strong> {{ event.hosts }}</p>
-                        {% endif %}
-                        {% if event.host %}
-                        <p><i class="fas fa-user"></i> <strong>Host:</strong> {{ event.host }}</p>
-                        {% endif %}
-                        {% if event.guests %}
-                        <p><i class="fas fa-microphone-alt"></i> <strong>Guests:</strong> {{ event.guests }}</p>
-                        {% endif %}
-                        {% if event.guest_speakers %}
-                        <p><i class="fas fa-microphone-alt"></i> <strong>Guests:</strong> {{ event.guest_speakers|join(', ') }}</p>
-                        {% endif %}
-                        <p><i class="fas fa-calendar-alt"></i> <strong>Dates:</strong> {{ event.dates }}</p>
-                        {% if event.time %}
-                        <p><i class="fas fa-clock"></i> <strong>Time:</strong> {{ event.time }}</p>
-                        {% endif %}
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> {{ event.venue or 'Eastleigh, 1st Avenue, 3rd Street, Nairobi' }}</p>
-                        {% if event.entry %}
-                        <p><i class="fas fa-ticket-alt"></i> <strong>Entry:</strong> {{ event.entry }}</p>
-                        {% endif %}
+                        <p><i class="fas fa-crown"></i> <strong>Hosts:</strong> Apostle Michael & Rev. Bancy Wambua</p>
+                        <p><i class="fas fa-microphone-alt"></i> <strong>Guests:</strong> Rev. Blessed Kakala & Rev. Serah Mkala</p>
+                        <p><i class="fas fa-calendar-alt"></i> <strong>Dates:</strong> 20th - 21st August 2026</p>
+                        <p><i class="fas fa-clock"></i> <strong>Time:</strong> 9:00 AM - 7:30 PM</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> Eastleigh, 1st Avenue, 3rd Street</p>
+                        <p><i class="fas fa-ticket-alt"></i> <strong>Entry:</strong> FREE ENTRY</p>
                     </div>
                     <div class="sessions-box" style="margin-top: 10px; padding: 12px 15px;">
                         <p style="margin: 0;"><strong>📡 Watch Live:</strong> Signet Revealed Gospel TV</p>
@@ -469,7 +452,58 @@
                     </div>
                 </div>
             </div>
-            {% endfor %}
+                                    <!-- CONFERENCE 4: ANNUAL CONFERENCE - REVELATION & POWER -->
+            <div class="event-card">
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/Revelation.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
+                <div class="event-details">
+                    <div class="event-category">👑 8TH ANNUAL CONFERENCE – DECEMBER 2026</div>
+                    <h2 class="event-title">Revelation & Power Conference</h2>
+                    <div class="host-info">
+                        <p><i class="fas fa-crown"></i> <strong>Hosts:</strong> Apostle Michael & Rev. Bancy Wambua</p>
+                        <p><i class="fas fa-calendar-alt"></i> <strong>Dates:</strong> December 2026 (Exact dates to be announced)</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> Eastleigh, 1st Avenue, 3rd Street, Next to St. Teresa's Dispensary</p>
+                    </div>
+                    <div class="sessions-box" style="margin-top: 10px; padding: 12px 15px;">
+                        <p style="margin: 0;"><strong>📡 Watch Live:</strong> Signet Revealed Gospel TV</p>
+                        <p style="margin: 5px 0 0 0;"><strong>📱 Follow Us:</strong>
+                            <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank" style="color: #FF0000; font-size: 16px; margin-left: 3px;" title="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="https://web.facebook.com/WTCOFGOD" target="_blank" style="color: #1877F2; font-size: 16px; margin-left: 3px;" title="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/WordTempleofGod" target="_blank" style="color: #1DA1F2; font-size: 16px; margin-left: 3px;" title="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/wordtemplechurchofgod/" target="_blank" style="color: #E4405F; font-size: 16px; margin-left: 3px;" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@wordtemplechurchofgod" target="_blank" style="color: #000000; font-size: 16px; margin-left: 3px;" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        </p>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
+                        <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
+                        <a href="#" class="btn-gal" onclick="window.open('https://maps.app.goo.gl/pfPTnGYwt1u4mLXMA', '_blank')"><i class="fas fa-map-marker-alt"></i> GET DIRECTIONS</a>
+                    </div>
+                </div>
+            </div>
+                        <!-- CONFERENCE 3: YOUTH CONFERENCE -->
+            <div class="event-card">
+                <div class="event-poster" style="background-image: url('{{ url_for('static', filename='images/events/Anual Youth.jpg') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+                </div>
+                <div class="event-details">
+                    <div class="event-category">👦 ANNUAL YOUTH CONFERENCE 2026</div>
+                    <h2 class="event-title">Annual Youth Conference 2026</h2>
+                    <div class="theme-verse">
+                        <strong>📖 Theme:</strong> "Expect Revival" — <strong>1 Timothy 4:12</strong><br>
+                        "Let no man despise thy youth; but be thou an example of the believers, in word, in conversation, in charity, in spirit, in faith, in purity."
+                    </div>
+                    <div class="host-info">
+                        <p><i class="fas fa-calendar-alt"></i> <strong>Dates:</strong> November 2026</p>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> Eastleigh, 1st Avenue, 3rd Street, Nairobi</p>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
+                        <a href="/gallery" class="btn-gal"><i class="fas fa-images"></i> GALLERY</a>
+                        <a href="#" class="btn-gal" onclick="window.open('https://maps.app.goo.gl/pfPTnGYwt1u4mLXMA', '_blank')"><i class="fas fa-map-marker-alt"></i> GET DIRECTIONS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- REGULAR SERVICES SECTION -->
         <h2 class="regular-title"><span>📌 REGULAR SERVICES</span></h2>
         <div class="services-grid">

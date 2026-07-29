@@ -13,6 +13,22 @@ This is the official website for **Word Temple Church of God International**, a 
 
 [View Website](https://wordtemple-website.onrender.com)
 
+## Production environment
+
+The application stores admin data, registrations, settings, quotes, and events in PostgreSQL. Set these variables in the Render service before deploying:
+
+- `DATABASE_URL`: the Neon pooled PostgreSQL connection string, including `sslmode=require`
+- `SECRET_KEY`: a long random value for Flask sessions
+- `INITIAL_ADMIN_USERNAME` and `INITIAL_ADMIN_PASSWORD`: used only to create the first admin account when the database is empty
+
+Do not commit any of these values. After the first successful deployment, the initial-admin variables can be removed if desired.
+
+For local HTTP development only, set `SESSION_COOKIE_SECURE=false` in `.env`. Keep the production default of `true`.
+
+### Persistent uploads on Render
+
+Gallery and event images are not stored in PostgreSQL. To retain them after deploys and restarts, attach a Render persistent disk to the web service at `/var/data`, then set `UPLOAD_DIR=/var/data/uploads` in the service environment. Without a persistent disk, uploads remain temporary.
+
 
 ## ✨ Key Features
 

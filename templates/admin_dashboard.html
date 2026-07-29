@@ -120,4 +120,30 @@
         <p>Change theme, service times, announcements</p>
     </a>
 </div>
+
+<script>
+// Auto-delete past events on page load
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/admin/delete-past-events', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.deleted > 0) {
+            console.log('🗑️ Deleted ' + data.deleted + ' past events');
+            // Reload page to update stats
+            setTimeout(function() {
+                location.reload();
+            }, 1000);
+        } else {
+            console.log('✅ No past events to delete');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
+
 {% endblock %}

@@ -3,8 +3,7 @@
   "theme_scripture": "2 Samuel 5:20 (NKJV)",
   "theme_verse": "like a breakthrough of water? Therefore he called the name of that place Baal Perazim.",
   "announcements": [
-    "\ud83c\udf89  Registration for Revelation & Power Conference ends October 31st!",
-    "\ud83c\udf38 Daughters of the Kingdom Conference - Accommodation available",
+    "\ud83c\udf38 Daughters of the Kingdom Conference ",
     "\ud83d\udd25November  Youth Conference "
   ],
   "services": {
@@ -54,5 +53,8 @@
         "time": "10:00 AM - 5:00 PM"
       }
     ]
-  }
+  },
+  "theme_month": "I Have Dominion",
+  "theme_month_scripture": "Genesis 1:26",
+  "theme_month_verse": "\"And God said, Let us make man in our image, after our likeness: and let them have dominion......\""
 }

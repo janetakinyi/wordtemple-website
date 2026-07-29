@@ -73,7 +73,7 @@
     }
     .size-grid div {
         padding: 5px;
-        background: var(--navy);
+        background: #0a1a3a;
         border-radius: 5px;
         color: #C5A55A;
     }
@@ -96,11 +96,11 @@
         padding: 12px;
         border-radius: 10px;
         border: 1px solid rgba(197, 165, 90, 0.3);
-        background: var(--navy);
+        background: #0a1a3a;
         color: var(--white);
     }
     .form-group select option {
-        background: var(--navy);
+        background: #0a1a3a;
         color: var(--white);
     }
     .category-row {
@@ -245,6 +245,7 @@
     <div class="form-card">
         <h2>📝 Event Details</h2>
         <form action="/admin/add-event" method="POST" enctype="multipart/form-data" id="eventForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="form-grid">
                 <div>
                     <div class="form-group">
@@ -272,8 +273,14 @@
                         <label>🏷️ Event Category</label>
                         <div class="category-row">
                             <select name="category" id="category" required>
+                                <style>
+                                    select option {
+                                        background: #0a1a3a;
+                                        color: white;
+                                    }
+                                </style>
                                 <option value="">-- Select Category --</option>
-                                <option value="MID-YEAR REVIVAL CONFERENCE">🔥 MID-YEAR REVIVAL CONFERENCE</option>
+                                
                                 <option value="ANNUAL LADIES CONFERENCE">🌸 ANNUAL LADIES CONFERENCE</option>
                                 <option value="YOUTH CONFERENCE">👦 YOUTH CONFERENCE</option>
                                 <option value="REVELATION & POWER CONFERENCE">👑 REVELATION & POWER CONFERENCE</option>
@@ -304,13 +311,30 @@
                 <div>
                     <div class="form-group">
                         <label>👤 Host/Speaker</label>
-                        <input type="text" name="host" id="host" required placeholder="Apostle Michael Wambua">
+                        <input type="text" name="host" id="host" placeholder="Apostle Michael Wambua (optional)">
                     </div>
                 </div>
                 <div>
                     <div class="form-group">
-                        <label>🎙️ Guest Speaker <span class="optional">(Optional)</span></label>
-                        <input type="text" name="guest_speaker" id="guest_speaker" placeholder="e.g., Apostle Richard Mayanja">
+                    <div class="form-group">
+                        <label>🎙️ Guest Speakers <span class="optional">(Optional - up to 5)</span></label>
+                        <div id="guest-speakers-container">
+                            <div class="guest-row">
+                                <input type="text" name="guest_speaker[]" placeholder="Guest Speaker 1" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(197, 165, 90, 0.3); background: #0a1a3a; color: var(--white); margin-bottom: 8px;">
+                            </div>
+                            <div class="guest-row">
+                                <input type="text" name="guest_speaker[]" placeholder="Guest Speaker 2" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(197, 165, 90, 0.3); background: #0a1a3a; color: var(--white); margin-bottom: 8px;">
+                            </div>
+                            <div class="guest-row">
+                                <input type="text" name="guest_speaker[]" placeholder="Guest Speaker 3" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(197, 165, 90, 0.3); background: #0a1a3a; color: var(--white); margin-bottom: 8px;">
+                            </div>
+                            <div class="guest-row">
+                                <input type="text" name="guest_speaker[]" placeholder="Guest Speaker 4" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(197, 165, 90, 0.3); background: #0a1a3a; color: var(--white); margin-bottom: 8px;">
+                            </div>
+                            <div class="guest-row">
+                                <input type="text" name="guest_speaker[]" placeholder="Guest Speaker 5" style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(197, 165, 90, 0.3); background: #0a1a3a; color: var(--white); margin-bottom: 8px;">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,16 +366,38 @@
         <h2>📋 Published Events ({{ events|length }})</h2>
         <div class="events-list">
             {% for event in events %}
+            
             <div class="event-card">
-                <img src="{{ url_for('static', filename='images/events/' + event.image) }}" alt="{{ event.title }}">
+                <img src="{{ event.image_url or url_for('static', filename='images/events/' + event.image) }}" alt="{{ event.title }}" style="height: 200px; object-fit: cover;">
                 <div class="event-info">
-                    <h4>{{ event.title[:40] }}</h4>
-                    <p>{{ event.dates }}</p>
-                    <form action="/admin/delete-event/{{ event.filename }}" method="POST">
-                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this event?')">Delete</button>
+                    <h4 style="color: #C5A55A;">{{ event.title }}</h4>
+                    <p><strong>Category:</strong> {{ event.category }}</p>
+                    <p><strong>Dates:</strong> {{ event.dates }}</p>
+                    {% if event.hosts %}
+                    <p><strong>Hosts:</strong> {{ event.hosts }}</p>
+                    {% endif %}
+                    {% if event.guests %}
+                    <p><strong>Guests:</strong> {{ event.guests }}</p>
+                    {% endif %}
+                    {% if event.theme %}
+                    <p><strong>Theme:</strong> {{ event.theme }}</p>
+                    {% endif %}
+                    <p><strong>Venue:</strong> {{ event.venue or 'Eastleigh, Nairobi' }}</p>
+                    {% if event.entry %}
+                    <p><strong>Entry:</strong> {{ event.entry }}</p>
+                    {% endif %}
+                    <form action="/admin/delete-event/{{ event.id }}" method="POST" style="margin-top: 10px;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <a href="/admin/edit-event/{{ event.id }}" class="edit-btn" style="background: #2A9D8F; color: white; padding: 8px 15px; border-radius: 50px; text-decoration: none; text-align: center; flex: 1; display: inline-block; border: none; cursor: pointer; font-size: 14px;">✏️ Edit</a>
+                        <form action="/admin/delete-event/{{ event.id }}" method="POST" style="flex: 1;">
+                            <button type="submit" class="delete-btn" onclick="return confirm('Delete this event?')" style="background: #dc3545; color: white; padding: 8px 15px; border: none; border-radius: 50px; width: 100%; cursor: pointer; font-size: 14px;">🗑️ Delete</button>
+                        </form>
+                    </div>
                     </form>
                 </div>
             </div>
+
             {% endfor %}
         </div>
     </div>
@@ -406,8 +452,8 @@
         }
         
         previewContent.innerHTML = `
-            <div style="background: var(--navy); border-radius: 15px; overflow: hidden;">
-                ${currentImage ? `<img src="${currentImage}" style="width: 100%; max-height: 300px; object-fit: contain; background: var(--navy);">` : '<div style="height: 200px; background: var(--navy); display: flex; align-items: center; justify-content: center; color: #C5A55A;">No Image Selected</div>'}
+            <div style="background: #0a1a3a; border-radius: 15px; overflow: hidden;">
+                ${currentImage ? `<img src="${currentImage}" style="width: 100%; max-height: 300px; object-fit: contain; background: #0a1a3a;">` : '<div style="height: 200px; background: #0a1a3a; display: flex; align-items: center; justify-content: center; color: #C5A55A;">No Image Selected</div>'}
                 <div style="padding: 20px;">
                     <div style="display: inline-block; background: #C5A55A; color: var(--navy); padding: 5px 15px; border-radius: 30px; font-weight: 600;">${category}</div>
                     <h3 style="color: #C5A55A; margin: 15px 0;">${title}</h3>

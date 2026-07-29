@@ -33,8 +33,12 @@
     </div>
     <div class="settings-form">
         <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="form-card">
                 <h3>🎨 Theme Settings</h3>
+                <div class="form-group"><label>📅 Month Theme</label><input type="text" name="theme_month" value="{{ settings.theme_month }}" placeholder="e.g., JULY 2026 | HAVE DOMINION"></div>
+                <div class="form-group"><label>📖 Month Scripture</label><input type="text" name="theme_month_scripture" value="{{ settings.theme_month_scripture }}" placeholder="e.g., Genesis 1:26"></div>
+                <div class="form-group"><label>📜 Month Verse</label><textarea name="theme_month_verse" rows="2">{{ settings.theme_month_verse }}</textarea></div>
                 <div class="form-group"><label>2026 Theme</label><input type="text" name="theme_2026" value="{{ settings.theme_2026 }}"></div>
                 <div class="form-group"><label>Theme Scripture</label><input type="text" name="theme_scripture" value="{{ settings.theme_scripture }}"></div>
                 <div class="form-group"><label>Theme Verse</label><textarea name="theme_verse" rows="2">{{ settings.theme_verse }}</textarea></div>

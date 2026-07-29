@@ -37,6 +37,7 @@
         <div class="add-form">
             <h3><i class="fas fa-plus-circle"></i> Add New Quote</h3>
             <form method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label>Quote Text</label>
                     <textarea name="quote" rows="3" required placeholder="Enter the quote text..."></textarea>

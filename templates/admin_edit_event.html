@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .admin-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 60px 0;
+        text-align: center;
+        color: var(--white);
+    }
+    .admin-header h1 { font-size: 48px; }
+    .admin-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+    .form-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 30px;
+        border: 1px solid rgba(197, 165, 90, 0.2);
+    }
+    .form-card h2 {
+        color: #C5A55A;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #C5A55A;
+        padding-bottom: 10px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        color: #C5A55A;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(197, 165, 90, 0.3);
+        background: #0a1a3a;
+        color: var(--white);
+    }
+    .current-image {
+        margin: 15px 0;
+        padding: 15px;
+        background: #0a1a3a;
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid rgba(197, 165, 90, 0.2);
+    }
+    .current-image img {
+        max-width: 200px;
+        max-height: 200px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+    .image-upload-area {
+        border: 2px dashed #C5A55A;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #0a1a3a;
+    }
+    .image-upload-area:hover {
+        background: rgba(197, 165, 90, 0.1);
+    }
+    .btn-submit {
+        background: linear-gradient(135deg, #FFD966, #F0B429);
+        color: #1a2b4a;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 50px;
+        font-weight: 700;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+    .btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255,217,102,0.3);
+    }
+    .btn-back {
+        display: inline-block;
+        padding: 10px 25px;
+        background: #555;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        margin-top: 10px;
+    }
+    .btn-back:hover {
+        background: #777;
+    }
+</style>
+
+<div class="admin-header">
+    <div class="container">
+        <h1>✏️ Edit Event</h1>
+        <p>Update event details</p>
+    </div>
+</div>
+
+<div class="admin-container">
+    <div class="form-card">
+        <h2>📝 Edit: {{ event.title }}</h2>
+        
+        <form method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label>📌 Event Title *</label>
+                <input type="text" name="title" value="{{ event.title }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label>🏷️ Category</label>
+                <select name="category">
+                    <option value="🌸 LADIES CONFERENCE 2026" {% if event.category == '🌸 LADIES CONFERENCE 2026' %}selected{% endif %}>🌸 Ladies Conference</option>
+                    <option value="👦 ANNUAL YOUTH CONFERENCE 2026" {% if event.category == '👦 ANNUAL YOUTH CONFERENCE 2026' %}selected{% endif %}>👦 Youth Conference</option>
+                    <option value="👑 8TH ANNUAL CONFERENCE – DECEMBER 2026" {% if event.category == '👑 8TH ANNUAL CONFERENCE – DECEMBER 2026' %}selected{% endif %}>👑 Annual Conference</option>
+                    <option value="🔥 REVELATION & POWER CONFERENCE" {% if event.category == '🔥 REVELATION & POWER CONFERENCE' %}selected{% endif %}>🔥 Revelation & Power</option>
+                    <option value="OTHER" {% if event.category == 'OTHER' %}selected{% endif %}>📌 Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>📅 Event Dates *</label>
+                <input type="text" name="dates" value="{{ event.dates }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label>📖 Theme</label>
+                <input type="text" name="theme" value="{{ event.theme or '' }}" placeholder="e.g., From Shame to Honor">
+            </div>
+            
+            <div class="form-group">
+                <label>📖 Scripture</label>
+                <input type="text" name="scripture" value="{{ event.scripture or '' }}" placeholder="e.g., Isaiah 61:7">
+            </div>
+            
+            <div class="form-group">
+                <label>👤 Hosts/Speaker</label>
+                <input type="text" name="hosts" value="{{ event.hosts or event.host or '' }}" placeholder="e.g., Apostle Michael & Rev. Bancy Wambua">
+            </div>
+            
+            <div class="form-group">
+                <label>📍 Venue</label>
+                <input type="text" name="venue" value="{{ event.venue or 'Eastleigh, 1st Avenue, 3rd Street, Nairobi' }}">
+            </div>
+            
+            <div class="form-group">
+                <label>🎫 Entry</label>
+                <input type="text" name="entry" value="{{ event.entry or 'FREE ENTRY' }}">
+            </div>
+            
+            <div class="form-group">
+                <label>🕐 Time</label>
+                <input type="text" name="time" value="{{ event.time or '' }}" placeholder="e.g., 9:00 AM - 7:30 PM">
+            </div>
+            
+            <div class="form-group">
+                <label>📸 Current Image</label>
+                <div class="current-image">
+                    <img src="{{ url_for('static', filename='images/events/' + event.image) }}" alt="{{ event.title }}">
+                    <p style="color: var(--text-muted); margin-top: 10px;">{{ event.image }}</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>🔄 Upload New Image (Optional)</label>
+                <div class="image-upload-area" onclick="document.getElementById('event_image').click()">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #C5A55A;"></i>
+                    <p>Click to upload new image</p>
+                    <p style="font-size: 12px; color: var(--text-muted);">Leave empty to keep current image</p>
+                </div>
+                <input type="file" id="event_image" name="event_image" accept="image/*" style="display:none">
+            </div>
+            
+            <button type="submit" class="btn-submit">💾 UPDATE EVENT</button>
+        </form>
+        
+        <a href="/admin/events" class="btn-back">← Back to Events</a>
+    </div>
+</div>
+
+<script>
+    // Show filename when image is selected
+    document.getElementById('event_image').addEventListener('change', function(e) {
+        const filename = e.target.files[0]?.name || 'No file selected';
+        const uploadArea = document.querySelector('.image-upload-area p:first-of-type');
+        if (uploadArea) {
+            uploadArea.textContent = '📸 ' + filename;
+        }
+    });
+</script>
+{% endblock %}

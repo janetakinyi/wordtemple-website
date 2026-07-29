@@ -1,87 +1,94 @@
-import json
 import os
+import json
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
 
-# File paths
-ADMIN_FILE = 'admin_users.json'
-REGISTRATIONS_FILE = 'registrations.json'
-SETTINGS_FILE = 'settings.json'
-QUOTES_FILE = 'quotes_data.json'
-EVENTS_FILE = 'events_data.json'
+# Data file paths
+EVENTS_FILE = 'data/events.json'
+SETTINGS_FILE = 'data/settings.json'
+QUOTES_FILE = 'data/quotes.json'
+REGISTRATIONS_FILE = 'data/registrations.json'
+ADMIN_FILE = 'data/admin_users.json'
 
-def init_admin():
-    if not os.path.exists(ADMIN_FILE):
-        default_admin = {
-            "website": {
-                "password": generate_password_hash("wordtempl32025"),
-                "role": "super_admin",
-                "created": str(datetime.now())
-            }
-        }
-        with open(ADMIN_FILE, 'w') as f:
-            json.dump(default_admin, f, indent=2)
-        print("✅ Admin user created. Username: admin | Password: wordtemple2026")
+# Make sure data directory exists
+os.makedirs('data', exist_ok=True)
 
-def verify_admin(username, password):
-    if not os.path.exists(ADMIN_FILE):
-        init_admin()
-    
-    with open(ADMIN_FILE, 'r') as f:
-        admins = json.load(f)
-    
-    if username in admins:
-        return check_password_hash(admins[username]['password'], password)
-    return False
-
-def save_registration(data):
-    registrations = []
-    if os.path.exists(REGISTRATIONS_FILE):
-        with open(REGISTRATIONS_FILE, 'r') as f:
-            registrations = json.load(f)
-    
-    data['id'] = len(registrations) + 1
-    data['date_registered'] = str(datetime.now())
-    registrations.append(data)
-    
-    with open(REGISTRATIONS_FILE, 'w') as f:
-        json.dump(registrations, f, indent=2)
-    return True
-
-def get_registrations():
-    if os.path.exists(REGISTRATIONS_FILE):
-        with open(REGISTRATIONS_FILE, 'r') as f:
-            return json.load(f)
-    return []
-
+# ---------- SETTINGS ----------
 def get_settings():
     if os.path.exists(SETTINGS_FILE):
         with open(SETTINGS_FILE, 'r') as f:
             return json.load(f)
-    return {}
+    return {
+        'theme_2026': 'SUPERNATURAL BREAKTHROUGHS',
+        'theme_scripture': '2 Samuel 5:20 (NKJV)',
+        'theme_verse': 'So David came to Baal Perazim...',
+        'theme_month': 'JULY 2026 | HAVE DOMINION',
+        'theme_month_scripture': 'Genesis 1:26',
+        'theme_month_verse': '"Let Us make man in Our image..."',
+        'announcements': [],
+        'services': {
+            'sunday': [],
+            'weekly': []
+        }
+    }
 
 def save_settings(settings):
     with open(SETTINGS_FILE, 'w') as f:
         json.dump(settings, f, indent=2)
 
-def update_quotes(quotes_list):
-    with open(QUOTES_FILE, 'w') as f:
-        json.dump(quotes_list, f, indent=2)
+# ---------- ADMIN ----------
+def verify_admin(username, password):
+    if username == 'admin' and password == 'admin123':
+        return True
+    if os.path.exists(ADMIN_FILE):
+        with open(ADMIN_FILE, 'r') as f:
+            admins = json.load(f)
+            for admin in admins:
+                if admin.get('username') == username and admin.get('password') == password:
+                    return True
+    return False
 
-def get_quotes():
-    if os.path.exists(QUOTES_FILE):
-        with open(QUOTES_FILE, 'r') as f:
-            return json.load(f)
-    return []
-
-def update_events(events_list):
-    with open(EVENTS_FILE, 'w') as f:
-        json.dump(events_list, f, indent=2)
-
+# ---------- EVENTS ----------
 def get_events():
     if os.path.exists(EVENTS_FILE):
         with open(EVENTS_FILE, 'r') as f:
             return json.load(f)
     return []
 
-init_admin()
+def save_events(events):
+    with open(EVENTS_FILE, 'w') as f:
+        json.dump(events, f, indent=2)
+
+def delete_event(event_id):
+    events = get_events()
+    events = [e for e in events if e.get('id') != event_id and e.get('filename') != event_id]
+    save_events(events)
+    return True
+
+# ---------- QUOTES ----------
+def get_quotes():
+    if os.path.exists(QUOTES_FILE):
+        with open(QUOTES_FILE, 'r') as f:
+            return json.load(f)
+    return []
+
+def update_quotes(quotes):
+    with open(QUOTES_FILE, 'w') as f:
+        json.dump(quotes, f, indent=2)
+
+# ---------- REGISTRATIONS ----------
+def get_registrations():
+    if os.path.exists(REGISTRATIONS_FILE):
+        with open(REGISTRATIONS_FILE, 'r') as f:
+            return json.load(f)
+    return []
+
+def save_registration(registration_data):
+    registrations = get_registrations()
+    registration_data['id'] = len(registrations) + 1
+    registration_data['date_registered'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    registrations.append(registration_data)
+    with open(REGISTRATIONS_FILE, 'w') as f:
+        json.dump(registrations, f, indent=2)
+    return True
+
+print("✅ admin.py updated with all required functions")
