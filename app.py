@@ -275,7 +275,8 @@ def gallery():
 @app.route('/quotes')
 
 def quotes():
-    return render_template('quotes.html', church=church_info)
+    quotes_data = get_quotes()
+    return render_template('quotes.html', quotes=quotes_data, church=church_info)
 
 @app.route('/give')
 
