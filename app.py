@@ -293,7 +293,7 @@ def resources():
 def membership():
     return render_template('membership.html', church=church_info)
 
-@app.route('/conference-register')
+@app.route('/conference-register', methods=['GET', 'POST'])
 
 def conference_register():
     print("="*50)
