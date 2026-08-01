@@ -320,10 +320,10 @@ def conference_register():
             'date_registered': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         
-        # Save to JSON
+        # 1. Save to JSON (admin dashboard)
         save_registration(registration_data)
         
-        # Send email via FormSubmit
+        # 2. Send email via FormSubmit
         import requests
         try:
             form_data = request.form.to_dict()
@@ -333,8 +333,6 @@ def conference_register():
             form_data['_autoresponse'] = 'Thank you for registering for our conference! We have received your information and will contact you within 24 hours. God bless you! - Word Temple Church Team'
             
             response = requests.post('https://formsubmit.co/wordtemple@hotmail.com', data=form_data)
-            print(f"📧 Email sent with status: {response.status_code}")
-            print(f"📧 Response: {response.text[:200] if response.text else 'Empty response'}")
             if response.status_code == 200:
                 print("✅ Email sent successfully")
             else:
@@ -342,12 +340,11 @@ def conference_register():
         except Exception as e:
             print(f"⚠️ Email error: {e}")
         
-        flash('Registration successful! Check your email for confirmation.', 'success')
-        return redirect(url_for('conference_register'))
+        flash('✅ Registration Successful! Thank you for registering. You will receive a confirmation email shortly.', 'success')
+        return redirect(url_for('home'))
     
     return render_template('register.html', church=church_info)
 
-@app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         username = request.form.get('username')
