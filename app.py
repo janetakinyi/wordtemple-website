@@ -333,6 +333,8 @@ def conference_register():
             form_data['_autoresponse'] = 'Thank you for registering for our conference! We have received your information and will contact you within 24 hours. God bless you! - Word Temple Church Team'
             
             response = requests.post('https://formsubmit.co/wordtemple@hotmail.com', data=form_data)
+            print(f"📧 Email sent with status: {response.status_code}")
+            print(f"📧 Response: {response.text[:200] if response.text else 'Empty response'}")
             if response.status_code == 200:
                 print("✅ Email sent successfully")
             else:
