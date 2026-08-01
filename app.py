@@ -296,9 +296,6 @@ def membership():
 @app.route('/conference-register', methods=['GET', 'POST'])
 
 def conference_register():
-    print("="*50)
-    print("🔍 REGISTRATION ROUTE CALLED!")
-    print("="*50)
     if request.method == 'POST':
         # Get form data
         full_name = request.form.get('Full Name', '')
@@ -323,11 +320,10 @@ def conference_register():
             'date_registered': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         
-        # 1. Save to JSON (admin dashboard)
+        # Save to JSON
         save_registration(registration_data)
-        print("✅ Registration saved to JSON")
         
-        # 2. Send email via FormSubmit
+        # Send email via FormSubmit
         import requests
         try:
             form_data = request.form.to_dict()
@@ -338,7 +334,7 @@ def conference_register():
             
             response = requests.post('https://formsubmit.co/wordtemple@hotmail.com', data=form_data)
             if response.status_code == 200:
-                print("✅ Email sent successfully to wordtemple@hotmail.com")
+                print("✅ Email sent successfully")
             else:
                 print(f"⚠️ Email sending failed: {response.status_code}")
         except Exception as e:
@@ -349,6 +345,7 @@ def conference_register():
     
     return render_template('register.html', church=church_info)
 
+@app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         username = request.form.get('username')
