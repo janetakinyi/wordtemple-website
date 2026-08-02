@@ -320,13 +320,12 @@ def conference_register():
             'date_registered': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         
-        # 1. Save to JSON (admin dashboard)
+        # 1. Save to JSON (admin dashboard) - ALWAYS DO THIS FIRST
         save_registration(registration_data)
-        print("✅ Registration saved to JSON")
         
-        # 2. Send email via FormSubmit
-        import requests
+        # 2. Try to send email (but don't fail if it doesn't work)
         try:
+            import requests
             form_data = {
                 'Full Name': full_name,
                 'Email': email,
@@ -346,20 +345,19 @@ def conference_register():
                 '_autoresponse': 'Thank you for registering for our conference! We have received your information and will contact you within 24 hours. God bless you! - Word Temple Church Team'
             }
             
-            response = requests.post('https://formsubmit.co/wordtemplemedia@hotmail.com', data=form_data)
+            response = requests.post('https://formsubmit.co/wordtemplemedia@hotmail.com', data=form_data, timeout=10)
             if response.status_code == 200:
                 print("✅ Email sent successfully to wordtemplemedia@hotmail.com")
             else:
-                print(f"⚠️ Email sending failed: {response.status_code} - {response.text[:100]}")
+                print(f"⚠️ Email sending failed: {response.status_code}")
         except Exception as e:
-            print(f"⚠️ Email error: {e}")
+            # Email failed, but we still save the registration
+            print(f"⚠️ Email error (non-critical): {e}")
         
-        flash('Registration successful! You will receive a confirmation email shortly.', 'success')
+        flash('✅ Registration Successful! You will receive a confirmation email shortly.', 'success')
         return redirect(url_for('home'))
     
-    return render_template('register.html', church=church_info)
-
-@app.route('/admin/login', methods=['GET', 'POST'])
+    return render_template('register.html', church=church_info)@app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         username = request.form.get('username')
