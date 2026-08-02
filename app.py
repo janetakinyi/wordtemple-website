@@ -345,6 +345,7 @@ def conference_register():
     
     return render_template('register.html', church=church_info)
 
+@app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         username = request.form.get('username')
