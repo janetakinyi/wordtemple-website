@@ -320,44 +320,32 @@ def conference_register():
             'date_registered': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         
-        # 1. Save to JSON (admin dashboard) - ALWAYS DO THIS FIRST
+        # Save to JSON
         save_registration(registration_data)
         
-        # 2. Try to send email (but don't fail if it doesn't work)
+        # Try to send email (but don't fail if it doesn't work)
         try:
             import requests
-            form_data = {
-                'Full Name': full_name,
-                'Email': email,
-                'Phone Number': phone,
-                'Conference': conference,
-                'Church/Organization': request.form.get('Church/Organization', ''),
-                'Accommodation Needed': request.form.get('Accommodation Needed', 'No'),
-                'Room Type': request.form.get('Room Type', ''),
-                'Check-in Date': request.form.get('Check-in Date', ''),
-                'Check-out Date': request.form.get('Check-out Date', ''),
-                'Number of Nights': request.form.get('Number of Nights', ''),
-                'Meal Preference': request.form.get('Meal Preference', ''),
-                'Special Requests': request.form.get('Special Requests', ''),
-                '_captcha': 'false',
-                '_template': 'table',
-                '_subject': '🎟️ NEW CONFERENCE REGISTRATION - Word Temple Church',
-                '_autoresponse': 'Thank you for registering for our conference! We have received your information and will contact you within 24 hours. God bless you! - Word Temple Church Team'
-            }
+            form_data = request.form.to_dict()
+            form_data['_captcha'] = 'false'
+            form_data['_template'] = 'table'
+            form_data['_subject'] = '🎟️ NEW CONFERENCE REGISTRATION - Word Temple Church'
+            form_data['_autoresponse'] = 'Thank you for registering for our conference! We have received your information and will contact you within 24 hours. God bless you! - Word Temple Church Team'
             
             response = requests.post('https://formsubmit.co/wordtemplemedia@hotmail.com', data=form_data, timeout=10)
             if response.status_code == 200:
-                print("✅ Email sent successfully to wordtemplemedia@hotmail.com")
+                print("✅ Email sent successfully")
             else:
                 print(f"⚠️ Email sending failed: {response.status_code}")
         except Exception as e:
-            # Email failed, but we still save the registration
             print(f"⚠️ Email error (non-critical): {e}")
         
         flash('✅ Registration Successful! You will receive a confirmation email shortly.', 'success')
         return redirect(url_for('home'))
     
-    return render_template('register.html', church=church_info)@app.route('/admin/login', methods=['GET', 'POST'])
+    return render_template('register.html', church=church_info)
+
+@app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         username = request.form.get('username')
