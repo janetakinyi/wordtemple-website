@@ -148,7 +148,7 @@ church_info = {
     'address_full': 'PRJX+JF2, Nairobi, Kenya - Eastleigh, 1st Avenue, 3rd Street, Next to St. Teresa\'s Dispensary',
     'phone': '+254 719 306011',
     'phone_alt': '+254 720 313 832',
-    'email': 'wordtemple@hotmail.com',
+    'email': 'wordtemplemedia@hotmail.com',
     'apostle': {
         'name': 'Apostle Michael Wambua',
         'title': 'Apostle Over The Commission',
@@ -202,7 +202,7 @@ church_info = {
         'development_account': 'WORD TEMPLE CHURCH',
         'sendwave': '+254 720 313 832',
         'sendwave_name': 'Michael Ndiku',
-        'paypal': 'wordtemple@hotmail.com',
+        'paypal': 'wordtemplemedia@hotmail.com',
         'kcb_paybill': '52252',
         'kcb_account': '7544081',
         'kcb_cheque': '1325540706'
@@ -322,30 +322,42 @@ def conference_register():
         
         # 1. Save to JSON (admin dashboard)
         save_registration(registration_data)
+        print("✅ Registration saved to JSON")
         
         # 2. Send email via FormSubmit
         import requests
         try:
-            form_data = request.form.to_dict()
-            form_data['_captcha'] = 'false'
-            form_data['_template'] = 'table'
-            form_data['_subject'] = '🎟️ NEW CONFERENCE REGISTRATION - Word Temple Church'
-            form_data['_autoresponse'] = 'Thank you for registering for our conference! We have received your information and will contact you within 24 hours. God bless you! - Word Temple Church Team'
+            form_data = {
+                'Full Name': full_name,
+                'Email': email,
+                'Phone Number': phone,
+                'Conference': conference,
+                'Church/Organization': request.form.get('Church/Organization', ''),
+                'Accommodation Needed': request.form.get('Accommodation Needed', 'No'),
+                'Room Type': request.form.get('Room Type', ''),
+                'Check-in Date': request.form.get('Check-in Date', ''),
+                'Check-out Date': request.form.get('Check-out Date', ''),
+                'Number of Nights': request.form.get('Number of Nights', ''),
+                'Meal Preference': request.form.get('Meal Preference', ''),
+                'Special Requests': request.form.get('Special Requests', ''),
+                '_captcha': 'false',
+                '_template': 'table',
+                '_subject': '🎟️ NEW CONFERENCE REGISTRATION - Word Temple Church',
+                '_autoresponse': 'Thank you for registering for our conference! We have received your information and will contact you within 24 hours. God bless you! - Word Temple Church Team'
+            }
             
-            response = requests.post('https://formsubmit.co/wordtemple@hotmail.com', data=form_data)
+            response = requests.post('https://formsubmit.co/wordtemplemedia@hotmail.com', data=form_data)
             if response.status_code == 200:
-                print("✅ Email sent successfully")
+                print("✅ Email sent successfully to wordtemplemedia@hotmail.com")
             else:
-                print(f"⚠️ Email sending failed: {response.status_code}")
+                print(f"⚠️ Email sending failed: {response.status_code} - {response.text[:100]}")
         except Exception as e:
             print(f"⚠️ Email error: {e}")
         
-        flash('✅ Registration Successful! Thank you for registering. You will receive a confirmation email shortly.', 'success')
+        flash('Registration successful! You will receive a confirmation email shortly.', 'success')
         return redirect(url_for('home'))
     
-    return render_template('register.html', church=church_info)
-
-@app.route('/admin/login', methods=['GET', 'POST'])
+    return render_template('register.html', church=church_info)@app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
         username = request.form.get('username')
