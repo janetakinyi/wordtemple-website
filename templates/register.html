@@ -182,16 +182,6 @@
 </section>
 <section class="register-section">
     <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}" style="background: linear-gradient(135deg, #2ecc71, #27ae60); color: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; text-align: center; font-size: 18px; box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3);">
-                        <i class="fas fa-check-circle" style="font-size: 24px; margin-right: 10px;"></i>
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
     <div class="container">
         <div class="register-grid">
             <!-- REGISTRATION FORM - Sends to wordtemple@hotmail.com -->
