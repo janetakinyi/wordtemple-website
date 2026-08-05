@@ -2,6 +2,14 @@
 
 {% block content %}
 <style>
+
+    /* Pulse glow animation for TV logo */
+    @keyframes pulseGlow {
+        0% { transform: scale(1); box-shadow: 0 0 20px rgba(255,217,102,0.2), 0 0 40px rgba(255,217,102,0.1); }
+        50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,217,102,0.4), 0 0 80px rgba(255,217,102,0.2); }
+        100% { transform: scale(1); box-shadow: 0 0 20px rgba(255,217,102,0.2), 0 0 40px rgba(255,217,102,0.1); }
+    }
+
     .page-header {
         background: linear-gradient(135deg, var(--blue), var(--maroon));
         padding: 80px 0;
@@ -260,12 +268,47 @@
                
             </div>
 
-            <!-- 6. Media Ministry - HIGHLIGHTED -->
+            
+            
+            
+            <!-- 7. Television Ministry - REVEALED GOSPEL TV -->
+            <div class="ministry-card highlight" data-aos="fade-up" data-aos-delay="600" style="background: linear-gradient(135deg, rgba(184,59,94,0.15), rgba(42,157,143,0.15)); border: 2px solid var(--gold); border-radius: 20px; overflow: hidden;">
+                <!-- Animated circular logo -->
+                <div style="display: flex; justify-content: center; margin-top: 20px;">
+                    <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 3px solid var(--gold); box-shadow: 0 0 30px rgba(255,217,102,0.3), 0 0 60px rgba(255,217,102,0.1); animation: pulseGlow 2s ease-in-out infinite; background: var(--dark-bg); padding: 8px; display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ url_for('static', filename='images/Revealed_Gospel_TV_logo.jpeg') }}" alt="Revealed Gospel TV Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">
+                    </div>
+                </div>
+                <h3 class="ministry-name" style="color: var(--gold); text-align: center; margin-top: 15px;">📺 REVEALED GOSPEL TV</h3>
+                <p class="ministry-leader" style="color: var(--gold); text-align: center;"><i class="fas fa-satellite-dish"></i> "Revealing Christ To You"</p>
+                <p class="ministry-description" style="color: var(--text-light); font-size: 14px; line-height: 1.5; text-align: center;">
+                    Broadcasting the uncompromised Gospel to the nations on Signet TV since 1st July 2026.
+                </p>
+                <div style="margin: 10px 0; padding: 10px; background: rgba(255,217,102,0.08); border-radius: 10px; border-left: 3px solid var(--gold);">
+                    <p style="margin: 3px 0; color: var(--gold); font-size: 13px;"><i class="fas fa-tv"></i> 📡 Watch Live: <strong>Signet Revealed Gospel TV</strong></p>
+                    <p style="margin: 5px 0 0 0; color: var(--gold); font-size: 13px;"><strong>📱 Follow Us:</strong>
+                        <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank" style="color: #FF0000; font-size: 18px; margin-left: 5px;" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://web.facebook.com/WTCOFGOD" target="_blank" style="color: #1877F2; font-size: 18px; margin-left: 5px;" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/WordTempleofGod" target="_blank" style="color: #1DA1F2; font-size: 18px; margin-left: 5px;" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/wordtemplechurchofgod/" target="_blank" style="color: #E4405F; font-size: 18px; margin-left: 5px;" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@wordtemplechurchofgod" target="_blank" style="color: #000000; font-size: 18px; margin-left: 5px;" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </p>
+                </div>
+                <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <a href="#" class="btn-reg" style="background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--maroon); padding: 6px 18px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 12px; display: inline-flex; align-items: center; gap: 5px;">
+                        <i class="fas fa-play"></i> WATCH LIVE
+                    </a>
+                    <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank" class="btn-gal" style="background: transparent; color: var(--gold); padding: 6px 18px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 12px; border: 2px solid var(--gold); display: inline-flex; align-items: center; gap: 5px;">
+                        <i class="fab fa-youtube"></i> VISIT CHANNEL
+                    </a>
+                </div>
+            </div>
+<!-- 6. Media Ministry - HIGHLIGHTED -->
             <div class="ministry-card" data-aos="fade-up" data-aos-delay="500">
                 <div class="ministry-icon"><i class="fas fa-video"></i></div>
                 <h3 class="ministry-name">📺 MEDIA MINISTRY</h3>
                 <p class="ministry-leader"><i class="fas fa-user"></i> Leader: Samuel Molo</p>
-                <p class="ministry-description">Supporting church communication, livestreaming, photography, videography, and digital outreach.</p>
+                <p class="ministry-description">Supporting church communication, livestreaming, photography, videography, and digital outreach. The Media Ministry ensures that the message of the Gospel reaches beyond the four walls through professional audio, visual, and digital content creation. From Sunday services to conferences, the team captures and distributes life-changing moments that inspire faith and spread the Word of God across the globe.</p>
                 </div>
 
             <!-- 7. Protocol Ministry -->
@@ -273,7 +316,7 @@
                 <div class="ministry-icon"><i class="fas fa-handshake"></i></div>
                 <h3 class="ministry-name">Protocol Ministry</h3>
                 <p class="ministry-leader"><i class="fas fa-users"></i> Church Leadership Team</p>
-                <p class="ministry-description">Ensuring proper coordination, order, and support during church services and events.</p>
+                <p class="ministry-description">Ensuring proper coordination, order, and support during church services and events. The Protocol Ministry creates a seamless worship experience by managing seating, offering, communion, and transitions during services. With a heart of excellence and order, this team helps maintain an atmosphere where the Holy Spirit moves freely and the congregation can focus on encountering God.</p>
             </div>
 
             <!-- 8. Hospitality Ministry - HIGHLIGHTED -->
