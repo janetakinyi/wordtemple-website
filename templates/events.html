@@ -453,6 +453,14 @@
                         {% endif %}
                     </div>
                     <div class="sessions-box" style="margin-top: 10px; padding: 12px 15px;">
+                        {% if event.id == "sunday-school-trip-2026" %}
+                        <h4><i class="fas fa-info-circle"></i> Trip Details</h4>
+                        <p style="margin: 0;"><strong>🎢 Activities:</strong> {{ event.activities }}</p>
+                        <p style="margin: 5px 0 0 0;"><strong>🍽️ Inclusive:</strong> {{ event.inclusive }}</p>
+                        <p style="margin: 5px 0 0 0;"><strong>💰 Fee:</strong> {{ event.fee }}</p>
+                        <p style="margin: 5px 0 0 0;"><strong>📅 Payment Deadline:</strong> {{ event.payment_deadline }}</p>
+                        <p style="margin: 5px 0 0 0;"><strong>💳 Payment & Enquiries:</strong> {{ event.contact }}</p>
+                        {% else %}
                         <p style="margin: 0;"><strong>📡 Watch Live:</strong> Signet Revealed Gospel TV</p>
                         <p style="margin: 5px 0 0 0;"><strong>📱 Follow Us:</strong>
                             <a href="https://www.youtube.com/channel/UChcwF0pY1uwpVRWLUVCbfDw" target="_blank" style="color: #FF0000; font-size: 16px; margin-left: 3px;" title="YouTube"><i class="fab fa-youtube"></i></a>
@@ -461,6 +469,7 @@
                             <a href="https://www.instagram.com/wordtemplechurchofgod/" target="_blank" style="color: #E4405F; font-size: 16px; margin-left: 3px;" title="Instagram"><i class="fab fa-instagram"></i></a>
                             <a href="https://www.tiktok.com/@wordtemplechurchofgod" target="_blank" style="color: #000000; font-size: 16px; margin-left: 3px;" title="TikTok"><i class="fab fa-tiktok"></i></a>
                         </p>
+                        {% endif %}
                     </div>
                     <div class="action-buttons">
                         <a href="/conference-register" class="btn-reg"><i class="fas fa-ticket-alt"></i> REGISTER</a>
