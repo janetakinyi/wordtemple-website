@@ -28,19 +28,6 @@
     "contact": "\ud83d\udcde +254 722 266 110 (Benard Mutava Kiio)"
   },
   {
-    "id": "youth-conference-2026",
-    "title": "Annual Youth Conference 2026",
-    "category": "\ud83d\udc66 ANNUAL YOUTH CONFERENCE 2026",
-    "dates": "November 2026",
-    "image": "Anual Youth.jpg",
-    "theme": "",
-    "scripture": "",
-    "venue": "Eastleigh, 1st Avenue, 3rd Street, Nairobi",
-    "hosts": "",
-    "entry": "FREE ENTRY",
-    "time": ""
-  },
-  {
     "id": "annual-conference-2026",
     "title": "8th Annual Conference - Revelation & Power",
     "category": "\ud83d\udc51 8TH ANNUAL CONFERENCE \u2013 DECEMBER 2026",
@@ -52,5 +39,16 @@
     "scripture": "",
     "entry": "FREE ENTRY",
     "time": ""
+  },
+  {
+    "id": "youth-conference-2027",
+    "title": "Annual Youth Conference 2027",
+    "category": "\ud83d\udc66 ANNUAL YOUTH CONFERENCE 2027",
+    "dates": "April 2027",
+    "image": "Annual youth.jpg",
+    "scripture": "1 Timothy 4:12",
+    "verse_text": "Let no man despise thy youth; but be thou an example of the believers...",
+    "venue": "Eastleigh, 1st Avenue, 3rd Street, Nairobi",
+    "hosts": "Apostle Michael & Rev. Bancy Wambua"
   }
 ]
