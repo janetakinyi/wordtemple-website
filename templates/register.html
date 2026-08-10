@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block content %}
 <style>
     .page-header {
@@ -8,21 +9,20 @@
         color: var(--white);
         animation: fadeInDown 1s ease;
     }
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
     .page-header h1 { font-size: 48px; font-weight: 900; font-family: 'Playfair Display', serif; }
     .page-header p { font-size: 16px; opacity: 0.9; margin-top: 15px; }
+    
     .register-section {
         padding: 60px 0;
         background: var(--dark-bg);
     }
+    
     .register-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 50px;
     }
+    
     .form-card {
         background: var(--card-bg);
         border-radius: 20px;
@@ -30,34 +30,36 @@
         border: 1px solid rgba(255,217,102,0.2);
         animation: fadeInUp 0.8s ease;
     }
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+    
     .form-card h2 {
         color: var(--gold);
         font-size: 28px;
         margin-bottom: 10px;
     }
+    
     .form-card h3 {
         color: var(--white);
-        font-size: 20px;
+        font-size: 18px;
         margin: 25px 0 15px;
         border-left: 3px solid var(--gold);
         padding-left: 15px;
     }
+    
     .form-group {
         margin-bottom: 20px;
     }
+    
     .form-group label {
         display: block;
         color: var(--text-light);
         margin-bottom: 8px;
         font-weight: 500;
     }
+    
     .form-group label .required {
         color: #ff4444;
     }
+    
     .form-group input,
     .form-group select,
     .form-group textarea {
@@ -70,6 +72,7 @@
         font-size: 14px;
         transition: all 0.3s ease;
     }
+    
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
@@ -77,28 +80,34 @@
         border-color: var(--gold);
         box-shadow: 0 0 10px rgba(255,217,102,0.2);
     }
+    
     .radio-group {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
         margin-top: 10px;
     }
+    
     .radio-option {
         display: flex;
         align-items: center;
         gap: 8px;
     }
+    
     .radio-option input {
         width: auto;
     }
+    
     .radio-option label {
         margin-bottom: 0;
     }
+    
     .row-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 15px;
     }
+    
     .submit-btn {
         background: linear-gradient(135deg, var(--gold), var(--gold-dark));
         color: var(--maroon);
@@ -112,10 +121,17 @@
         width: 100%;
         margin-top: 20px;
     }
+    
     .submit-btn:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 20px rgba(255,217,102,0.3);
     }
+    
+    .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    
     .event-info-card {
         background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
         border-radius: 20px;
@@ -124,209 +140,267 @@
         animation: fadeInUp 0.8s ease;
         height: fit-content;
     }
+    
     .event-info-card h2 {
         color: var(--gold);
         font-size: 28px;
         margin-bottom: 20px;
     }
+    
     .event-detail {
         margin-bottom: 25px;
         padding-bottom: 15px;
         border-bottom: 1px solid rgba(255,217,102,0.1);
     }
+    
     .event-detail i {
         color: var(--gold);
         width: 30px;
         margin-right: 10px;
     }
+    
     .event-detail strong {
         color: var(--white);
     }
+    
     .event-detail p {
         color: var(--text-muted);
         margin-top: 8px;
         margin-left: 40px;
     }
+    
     .accommodation-card {
         background: rgba(255,217,102,0.1);
         border-radius: 15px;
         padding: 20px;
         margin-top: 20px;
     }
-    .success-message {
-        background: linear-gradient(135deg, #2ecc71, #27ae60);
-        color: white;
-        padding: 30px;
-        border-radius: 15px;
+    
+    .status-message {
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 10px;
         text-align: center;
+        font-weight: 600;
         display: none;
     }
-    .success-message i {
-        font-size: 60px;
-        margin-bottom: 15px;
+    
+    .status-message.success {
+        display: block;
+        background: rgba(46, 204, 113, 0.2);
+        color: #2ecc71;
+        border: 1px solid #2ecc71;
     }
+    
+    .status-message.error {
+        display: block;
+        background: rgba(231, 76, 60, 0.2);
+        color: #e74c3c;
+        border: 1px solid #e74c3c;
+    }
+    
     @media (max-width: 1024px) {
         .register-grid { grid-template-columns: 1fr; }
         .row-2 { grid-template-columns: 1fr; }
     }
+    
     @media (max-width: 768px) {
         .page-header h1 { font-size: 32px; }
         .form-card { padding: 25px; }
     }
 </style>
+
 <section class="page-header">
     <div class="container">
         <h1 data-aos="fade-up">CONFERENCE REGISTRATION</h1>
         <p data-aos="fade-up" data-aos-delay="100">Register for Upcoming Events & Conferences</p>
     </div>
 </section>
+
 <section class="register-section">
     <div class="container">
-    <div class="container">
         <div class="register-grid">
-            <!-- REGISTRATION FORM - Sends to wordtemple@hotmail.com -->
+            
+            <!-- REGISTRATION FORM - Sends to Google Sheets -->
             <div class="form-card" data-aos="fade-right">
                 <h2>📝 Registration Form</h2>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">Fill in your details to register. You will receive a confirmation email.</p>
-                <form action="https://formsubmit.co/wordtemplemedia@hotmail.com" method="POST">
-                    <!-- FormSubmit Settings -->
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_subject" value="🎟️ NEW CONFERENCE REGISTRATION - Word Temple Church">
-                    <input type="hidden" name="_autoresponse" value="Thank you for registering for our conference! We have received your information and will contact you within 24 hours with payment instructions and further details. God bless you! - Word Temple Church Team">
+                
+                <form id="registrationForm" method="POST">
                     <h3>👤 Personal Information</h3>
                     <div class="row-2">
                         <div class="form-group">
                             <label>Full Name <span class="required">*</span></label>
-                            <input type="text" name="Full Name" required placeholder="Enter your full name">
+                            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
                         </div>
                         <div class="form-group">
                             <label>Church/Organization</label>
-                            <input type="text" name="Church/Organization" placeholder="Your church or organization">
+                            <input type="text" id="organization" name="organization" placeholder="Your church or organization">
                         </div>
                     </div>
+                    
                     <div class="row-2">
                         <div class="form-group">
                             <label>Email Address <span class="required">*</span></label>
-                            <input type="email" name="Email" required placeholder="youremail@example.com">
+                            <input type="email" id="email" name="email" required placeholder="youremail@example.com">
                         </div>
                         <div class="form-group">
                             <label>Phone Number <span class="required">*</span></label>
-                            <input type="tel" name="Phone Number" required placeholder="+254 XXX XXX XXX">
+                            <input type="tel" id="phone" name="phone" required placeholder="+254 XXX XXX XXX">
                         </div>
                     </div>
+                    
                     <h3>📅 Select Conference</h3>
                     <div class="form-group">
-                        <select name="Conference" required>
-                            <option value="">-- Select a Conference --</option>
-                            <option value="Revelation & Power Conference 2026">Revelation & Power Conference (December 2026)</option>
-                            <option value="Daughters of the Kingdom 2026">Daughters of the Kingdom - Ladies Conference (August 2026)</option>
-                            <option value="Youth Conference 2026">Youth Conference - "The Remnant" (April 2026)</option>
+                        <select id="conference" name="conference" required>
+                            <option value="" disabled selected>-- Select a Conference --</option>
+                            <option value="Revelation & Power Conference (December 2026)">Revelation & Power Conference (December 2026)</option>
+                            <option value="Daughters of the Kingdom - Ladies Conference (August 2026)">Daughters of the Kingdom - Ladies Conference (August 2026)</option>
+                            <option value="Youth Conference - The Remnant (April 2026)">Youth Conference - The Remnant (April 2026)</option>
                             <option value="Pastors & Leaders Summit">Pastors & Leaders Summit</option>
                         </select>
                     </div>
+                    
                     <h3>🏨 Accommodation</h3>
                     <div class="form-group">
                         <label>Do you need accommodation?</label>
                         <div class="radio-group">
                             <div class="radio-option">
-                                <input type="radio" name="Accommodation Needed" value="Yes" id="accYes"> 
+                                <input type="radio" name="accommodation" value="Yes, I need accommodation" id="accYes"> 
                                 <label for="accYes">Yes, I need accommodation</label>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" name="Accommodation Needed" value="No" id="accNo" checked> 
+                                <input type="radio" name="accommodation" value="No, I have my own arrangements" id="accNo" checked> 
                                 <label for="accNo">No, I have my own arrangements</label>
                             </div>
                         </div>
                     </div>
-                    <div id="accommodationDetails" style="display: none;">
-                        <div class="form-group">
-                            <label>Room Type Preferred</label>
-                            <select name="Room Type">
-                                <option value="">-- Select Room Type --</option>
-                                <option value="Single Room">Single Room (1 person) - KES 2,500/night</option>
-                                <option value="Double Room">Double Room (2 persons) - KES 3,500/night</option>
-                                <option value="Shared Dormitory">Shared Dormitory (4-6 persons) - KES 1,500/night</option>
-                                <option value="VIP Suite">VIP Suite - KES 5,000/night</option>
-                            </select>
-                        </div>
-                        <div class="row-2">
-                            <div class="form-group">
-                                <label>Check-in Date</label>
-                                <input type="date" name="Check-in Date">
-                            </div>
-                            <div class="form-group">
-                                <label>Check-out Date</label>
-                                <input type="date" name="Check-out Date">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Number of Nights</label>
-                            <input type="number" name="Number of Nights" placeholder="Number of nights" min="1">
-                        </div>
-                    </div>
+                    
                     <h3>🍽️ Meal Preference</h3>
                     <div class="form-group">
                         <div class="radio-group">
                             <div class="radio-option">
-                                <input type="radio" name="Meal Preference" value="Vegetarian" id="veg"> 
+                                <input type="radio" name="mealPreference" value="Vegetarian" id="veg"> 
                                 <label for="veg">Vegetarian</label>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" name="Meal Preference" value="Non-Vegetarian" id="nonVeg" checked> 
+                                <input type="radio" name="mealPreference" value="Non-Vegetarian" id="nonVeg" checked> 
                                 <label for="nonVeg">Non-Vegetarian</label>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" name="Meal Preference" value="Vegan" id="vegan"> 
+                                <input type="radio" name="mealPreference" value="Vegan" id="vegan"> 
                                 <label for="vegan">Vegan</label>
                             </div>
                         </div>
                     </div>
+                    
                     <h3>🙏 Special Requests</h3>
                     <div class="form-group">
-                        <textarea name="Special Requests" rows="3" placeholder="Any special needs, dietary restrictions, or accessibility requirements..."></textarea>
+                        <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Any special needs, dietary restrictions, or accessibility requirements..."></textarea>
                     </div>
+                    
                     <div class="form-group">
                         <div class="radio-option">
-                            <input type="checkbox" name="Terms Agreement" value="Agreed" required>
-                            <label>I confirm that the information provided is accurate.</label>
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I confirm that the information provided is accurate.</label>
                         </div>
                     </div>
-                    <button type="submit" class="submit-btn">SUBMIT REGISTRATION <i class="fas fa-arrow-right"></i></button>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">SUBMIT REGISTRATION <i class="fas fa-arrow-right"></i></button>
+                    <div id="statusMessage" class="status-message"></div>
                 </form>
             </div>
+            
             <!-- EVENT INFORMATION -->
             <div class="event-info-card" data-aos="fade-left">
                 <h2>ℹ️ Event Information</h2>
+                
                 <div class="event-detail">
                     <i class="fas fa-calendar-alt"></i> <strong>Upcoming Conferences</strong>
                     <p>📅 Daughters of the Kingdom - Ladies Conference: August 20-21, 2026<br>
                     📅 Youth Conference: November 2026<br>
                     📅 8th Annual Conference - Revelation & Power: December 2026</p>
                 </div>
+                
                 <div class="event-detail">
                     <i class="fas fa-map-marker-alt"></i> <strong>Venue</strong>
                     <p>Word Temple Church of God International<br>
                     Eastleigh, 1st Avenue, 3rd Street<br>
                     Next to St. Teresa's Dispensary, Nairobi</p>
                 </div>
+                
+                <div class="accommodation-card">
+                    <h4>🏨 Accommodation Information</h4>
+                    <p>We have partnered with nearby guest houses to provide comfortable accommodation.</p>
+                    <p><strong>Contact for accommodation:</strong> {{ church.phone }}</p>
+                </div>
+                
+                <div class="event-detail">
+                    <i class="fas fa-tag"></i> <strong>Registration Fee</strong>
+                    <p>🎫 FREE ENTRY - All conferences are free!</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
 <script>
-    // Show/hide accommodation details
-    const accYes = document.getElementById('accYes');
-    const accNo = document.getElementById('accNo');
-    const accommodationDetails = document.getElementById('accommodationDetails');
-    accYes.addEventListener('change', function() {
-        if(this.checked) {
-            accommodationDetails.style.display = 'block';
-        }
+// Google Apps Script URL - Replace with your actual URL
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyRM5AtTr3QcXvD0J6GLbLhBFjNoC4WPlIuhiiCIo4vwSKLypMzXliOsfm1norCeDfl/exec';
+
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    // Disable button and show loading
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '⏳ Submitting...';
+    statusMessage.className = 'status-message';
+    statusMessage.style.display = 'none';
+    
+    // Collect form data
+    const formData = {
+        fullName: document.getElementById('fullName').value,
+        organization: document.getElementById('organization').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        conference: document.getElementById('conference').value,
+        accommodation: document.querySelector('input[name="accommodation"]:checked').value,
+        mealPreference: document.querySelector('input[name="mealPreference"]:checked').value,
+        specialRequests: document.getElementById('specialRequests').value
+    };
+    
+    // Send to Google Sheets
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(() => {
+        statusMessage.className = 'status-message success';
+        statusMessage.style.display = 'block';
+        statusMessage.innerHTML = '✅ Registration successful! Thank you for registering. You will receive a confirmation email shortly.';
+        
+        // Reset form
+        document.getElementById('registrationForm').reset();
+        document.getElementById('terms').checked = false;
+        
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'SUBMIT REGISTRATION <i class="fas fa-arrow-right"></i>';
+    })
+    .catch((error) => {
+        statusMessage.className = 'status-message error';
+        statusMessage.style.display = 'block';
+        statusMessage.innerHTML = '❌ Error submitting registration. Please try again or contact us directly.';
+        
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'SUBMIT REGISTRATION <i class="fas fa-arrow-right"></i>';
     });
-    accNo.addEventListener('change', function() {
-        if(this.checked) {
-            accommodationDetails.style.display = 'none';
-        }
-    });
+});
 </script>
 {% endblock %}
