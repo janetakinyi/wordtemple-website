@@ -228,7 +228,61 @@
     }
 </style>
 
+
+
 <!-- HERO SECTION WITH BACKGROUND VIDEO -->
+
+<style>
+/* Wave / Fluid Shimmer for "triumph" */
+.water-flow-text {
+    background: linear-gradient(
+        90deg, 
+        #FFD966 0%, 
+        #FFFFFF 25%, 
+        #2A9D8F 50%, 
+        #FFD966 75%, 
+        #FFFFFF 100%
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: 800;
+    display: inline-block;
+    animation: waveFlow 3.5s linear infinite;
+}
+
+@keyframes waveFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+</style>
+
+<style>
+/* Wave / Fluid Shimmer for "The LORD has broken through" */
+.water-flow-text {
+    background: linear-gradient(
+        90deg, 
+        #FFD966 0%, 
+        #FFFFFF 25%, 
+        #2A9D8F 50%, 
+        #FFD966 75%, 
+        #FFFFFF 100%
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: 800;
+    display: inline-block;
+    animation: waveFlow 3.5s linear infinite;
+}
+
+@keyframes waveFlow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+</style>
 <section class="hero">
                     <video autoplay muted playsinline preload="auto" class="hero-video" id="heroVideo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; min-height: 100vh;">
         <source src="/static/videos/Revealed.mp4" type="video/mp4">
@@ -240,7 +294,7 @@
         <div class="series-badge" data-aos="fade-down" style="background: linear-gradient(135deg, rgba(42,157,143,0.3), rgba(184,59,94,0.3)); border: 2px solid var(--gold); padding: 20px 30px; border-radius: 15px; margin-bottom: 30px; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,0.4);">
             <i class="fas fa-calendar-alt" style="color: var(--gold); font-size: 20px;"></i>
             <span id="theme-text" style="color: var(--white); font-size: 22px; font-weight: 700; display: block; margin-top: 5px;">THEME: <span id="typed-theme"></span></span>
-            <span style="color: var(--gold); font-size: 18px; font-style: italic; display: block; margin-top: 8px;"><span id="typed-quote"></span></span>
+            <span style="color: var(--gold); font-size: 18px; font-style: italic; display: block; margin-top: 8px;">"Now thanks be to God, who always leads us in <span class="water-flow-text">triumph</span> in Christ..."</span>
         </div>
         
         <h1 data-aos="fade-up">YEAR OF<br><span><span id="typed-supernatural"></span><br><span id="typed-breakthroughs"></span></span></h1>
@@ -250,7 +304,7 @@
         <div style="background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); padding: 25px 30px; border-radius: 15px; margin: 20px auto; max-width: 850px; border-left: 4px solid var(--gold);">
             <p class="lead" data-aos="fade-up" data-aos-delay="200" style="font-size: 20px; line-height: 1.8; color: var(--white); margin: 0; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
                 <i class="fas fa-quote-left" style="color: var(--gold); font-size: 24px; margin-right: 10px;"></i>
-                <span id="verse-text">"So David went to Baal Perazim, and David defeated them there; and he said, "The LORD has broken through my enemies before me, like a breakthrough of water." Therefore he called the name of that place Baal Perazim."</span>
+                <span id="verse-text">"So David went to Baal Perazim, and David defeated them there; and he said, <span class="water-flow-text">"The LORD has broken through</span> my enemies before me, like a breakthrough of water." Therefore he called the name of that place Baal Perazim."</span>
                 <i class="fas fa-quote-right" style="color: var(--gold); font-size: 24px; margin-left: 10px;"></i>
             </p>
         </div>
