@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- International Telephone Input CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/css/intlTelInput.css">
-
 <style>
     .page-header {
         background: linear-gradient(135deg, var(--blue), var(--maroon));
@@ -12,12 +9,6 @@
         color: var(--white);
         animation: fadeInDown 1s ease;
     }
-    
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
     .page-header h1 { font-size: 48px; font-weight: 900; font-family: 'Playfair Display', serif; }
     .page-header p { font-size: 16px; opacity: 0.9; margin-top: 15px; }
     
@@ -26,13 +17,9 @@
         background: var(--dark-bg);
     }
     
-    .membership-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-    }
-    
-    .form-card {
+    .membership-container {
+        max-width: 700px;
+        margin: 0 auto;
         background: var(--card-bg);
         border-radius: 20px;
         padding: 40px;
@@ -40,149 +27,148 @@
         animation: fadeInUp 0.8s ease;
     }
     
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .form-card h2 {
+    .membership-container h2 {
         color: var(--gold);
         font-size: 28px;
         margin-bottom: 10px;
     }
     
-    .form-card h3 {
+    .membership-container .subtitle {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+    
+    .section-divider {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 25px 0 20px 0;
+        font-size: 1.1rem;
+        font-weight: 600;
         color: var(--white);
-        font-size: 20px;
-        margin: 25px 0 15px;
-        border-left: 3px solid var(--gold);
-        padding-left: 15px;
+    }
+    
+    .section-divider::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 18px;
+        background-color: var(--gold);
+        border-radius: 2px;
+    }
+    
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
     }
     
     .form-group {
-        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+    
+    .form-group.full-width {
+        grid-column: span 2;
     }
     
     .form-group label {
-        display: block;
-        color: var(--text-light);
-        margin-bottom: 8px;
+        font-size: 0.88rem;
         font-weight: 500;
+        color: var(--text-light);
     }
     
-    .form-group label .required {
-        color: #ff4444;
+    .required-star {
+        color: #ef4444;
+        margin-left: 2px;
     }
     
     .form-group input,
-    .form-group select,
-    .form-group textarea {
+    .form-group select {
         width: 100%;
-        padding: 12px 15px;
-        border-radius: 10px;
-        border: 1px solid rgba(255,217,102,0.3);
-        background: var(--dark-bg);
-        color: var(--white);
-        font-size: 14px;
-    }
-    
-    .form-group select option {
-        background: var(--dark-bg);
-        color: var(--white);
-        padding: 12px;
+        padding: 12px 14px;
+        background-color: var(--dark-bg);
+        border: 1px solid rgba(255,217,102,0.2);
+        border-radius: 8px;
+        color: var(--text-light);
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.2s;
     }
     
     .form-group input:focus,
     .form-group select:focus {
-        outline: none;
         border-color: var(--gold);
+        box-shadow: 0 0 0 2px rgba(229, 169, 60, 0.2);
     }
     
-    /* International Telephone Input styling */
-    .iti {
-        width: 100%;
+    .form-group input::placeholder {
+        color: #475569;
     }
     
-    .iti__selected-flag {
-        background: var(--dark-bg) !important;
-        border-radius: 10px 0 0 10px;
+    .form-group select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        background-size: 16px;
+        padding-right: 40px;
     }
     
-    .iti input {
-        width: 100%;
-        padding: 12px 15px;
-        padding-left: 55px;
-        border-radius: 10px;
-        border: 1px solid rgba(255,217,102,0.3);
-        background: var(--dark-bg);
-        color: var(--white);
-        font-size: 14px;
-    }
-    
-    .iti input:focus {
-        outline: none;
-        border-color: var(--gold);
-    }
-    
-    /* Country dropdown visibility */
-    .iti__country-list {
-        background: var(--dark-bg);
-        border: 1px solid var(--gold);
-        border-radius: 10px;
-        color: var(--white);
-    }
-    
-    .iti__country {
-        color: var(--white);
-        padding: 10px;
-    }
-    
-    .iti__country:hover {
-        background: var(--gold);
-        color: var(--maroon);
-    }
-    
-    .iti__search-input {
-        background: var(--dark-bg);
-        color: var(--white);
-        border: 1px solid var(--gold);
-    }
-    
-    .row-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-    
-    .checkbox-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-top: 10px;
-    }
-    
-    .checkbox-option {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+    .form-group select option {
+        background-color: var(--card-bg);
         color: var(--text-light);
     }
     
-    .checkbox-option input {
-        width: auto;
+    .phone-input-wrapper {
+        display: flex;
+        align-items: center;
+        background-color: var(--dark-bg);
+        border: 1px solid rgba(255,217,102,0.2);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .phone-input-wrapper:focus-within {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 2px rgba(229, 169, 60, 0.2);
+    }
+    
+    .country-prefix {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px;
+        background-color: rgba(255, 255, 255, 0.03);
+        border-right: 1px solid rgba(255,217,102,0.2);
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        height: 100%;
+    }
+    
+    .phone-input-wrapper input {
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none !important;
     }
     
     .submit-btn {
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        color: var(--maroon);
-        padding: 15px 40px;
-        border: none;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 16px;
-        cursor: pointer;
         width: 100%;
         margin-top: 20px;
+        padding: 14px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--maroon);
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
     }
     
     .submit-btn:hover {
@@ -190,226 +176,167 @@
         box-shadow: 0 10px 20px rgba(255,217,102,0.3);
     }
     
-    .info-card {
-        background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
-        border-radius: 20px;
-        padding: 40px;
-        border: 1px solid rgba(255,217,102,0.2);
-        height: fit-content;
+    .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
     
-    .info-card h2 {
-        color: var(--gold);
-        font-size: 28px;
-        margin-bottom: 20px;
+    .form-status {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        text-align: center;
+        display: none;
     }
     
-    .info-item {
-        margin-bottom: 25px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid rgba(255,217,102,0.1);
+    .form-status.success {
+        display: block;
+        background-color: rgba(34, 197, 94, 0.15);
+        border: 1px solid #22c55e;
+        color: #4ade80;
     }
     
-    .info-item i {
-        color: var(--gold);
-        width: 30px;
-        margin-right: 10px;
+    .form-status.error {
+        display: block;
+        background-color: rgba(239, 68, 68, 0.15);
+        border: 1px solid #ef4444;
+        color: #f87171;
     }
     
-    .info-item strong {
-        color: var(--white);
-    }
-    
-    .info-item p {
-        color: var(--text-muted);
-        margin-top: 8px;
-        margin-left: 40px;
-    }
-    
-    .benefits-list {
-        list-style: none;
-        margin-top: 15px;
-    }
-    
-    .benefits-list li {
-        padding: 8px 0;
-        color: var(--text-light);
-    }
-    
-    .benefits-list i {
-        color: var(--gold);
-        margin-right: 10px;
-    }
-    
-    @media (max-width: 1024px) {
-        .membership-grid { grid-template-columns: 1fr; }
-        .row-2 { grid-template-columns: 1fr; }
-    }
-    
-    @media (max-width: 768px) {
-        .page-header h1 { font-size: 32px; }
-        .form-card { padding: 25px; }
+    @media (max-width: 600px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+        .form-group.full-width {
+            grid-column: span 1;
+        }
+        .membership-container {
+            padding: 24px 18px;
+        }
     }
 </style>
 
 <section class="page-header">
     <div class="container">
-        <h1 data-aos="fade-up">BECOME A MEMBER</h1>
-        <p data-aos="fade-up" data-aos-delay="100">Join the Word Temple Church Family</p>
+        <h1 data-aos="fade-up">📋 MEMBERSHIP APPLICATION</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Join the Word Temple Church family</p>
     </div>
 </section>
 
 <section class="membership-section">
     <div class="container">
-        <div class="membership-grid">
-            
-            <!-- MEMBERSHIP FORM -->
-            <div class="form-card" data-aos="fade-right">
-                <h2>📝 Membership Application</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Fill in your details to become a member.</p>
-                
-                <form action="https://formsubmit.co/wordtemplemedia@hotmail.com" method="POST">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_subject" value="📝 NEW MEMBERSHIP APPLICATION - Word Temple Church">
-                    <input type="hidden" name="_autoresponse" value="Thank you for your interest in becoming a member! We will contact you within 48 hours. God bless you!">
-                    
-                    <h3>👤 Personal Information</h3>
-                    <div class="row-2">
-                        <div class="form-group">
-                            <label>Full Name <span class="required">*</span></label>
-                            <input type="text" name="Full Name" required placeholder="Enter your full name">
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address <span class="required">*</span></label>
-                            <input type="email" name="Email" required placeholder="youremail@example.com">
-                        </div>
-                    </div>
-                    
-                    <div class="row-2">
-                        <div class="form-group">
-                            <label>Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="phone" name="Phone Number" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Location <span class="required">*</span></label>
-                            <input type="text" name="Location" required placeholder="e.g., Eastleigh, Nairobi">
-                        </div>
-                    </div>
-                    
+        <div class="membership-container" data-aos="fade-up">
+            <h2>📝 Membership Application</h2>
+            <p class="subtitle">Fill in your details to become a member of Word Temple Church of God International.</p>
+
+            <div class="section-divider">
+                <span>👤 Personal Information</span>
+            </div>
+
+            <form id="membershipForm">
+                <div class="form-grid">
                     <div class="form-group">
-                        <label>Residential Address</label>
-                        <input type="text" name="Address" placeholder="Your street/estate address">
+                        <label for="fullName">Full Name <span class="required-star">*</span></label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
                     </div>
-                    
+
                     <div class="form-group">
-                        <label>How did you hear about us?</label>
-                        <select name="How did you hear">
-                            <option value="">-- Select --</option>
+                        <label for="email">Email Address <span class="required-star">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="youremail@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required-star">*</span></label>
+                        <div class="phone-input-wrapper">
+                            <div class="country-prefix">
+                                <span>🇰🇪 +254</span>
+                            </div>
+                            <input type="tel" id="phone" name="phone" placeholder="712 123456" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location <span class="required-star">*</span></label>
+                        <input type="text" id="location" name="location" placeholder="e.g., Eastleigh, Nairobi" required />
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="residentialAddress">Residential Address</label>
+                        <input type="text" id="residentialAddress" name="residentialAddress" placeholder="Your street/estate address" />
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="referralSource">How did you hear about us? <span class="required-star">*</span></label>
+                        <select id="referralSource" name="referralSource" required>
+                            <option value="" disabled selected>-- Select --</option>
                             <option value="Friend/Family">Friend/Family</option>
                             <option value="Social Media">Social Media</option>
-                            <option value="YouTube">YouTube</option>
+                            <option value="Youtube">Youtube</option>
                             <option value="Event/Conference">Event/Conference</option>
+                            <option value="Tv">Tv</option>
                             <option value="Online Search">Online Search</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    
-                    <h3>🙏 Ministry Interest</h3>
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <div class="checkbox-option">
-                                <input type="checkbox" name="Ministry Interest" value="Worship Team">
-                                <label>Worship Team</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" name="Ministry Interest" value="Ushering">
-                                <label>Ushering</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" name="Ministry Interest" value="Youth Ministry">
-                                <label>Youth Ministry</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" name="Ministry Interest" value="Children's Ministry">
-                                <label>Children's Ministry</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" name="Ministry Interest" value="Media/Technical">
-                                <label>Media/Technical</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" name="Ministry Interest" value="Outreach/Evangelism">
-                                <label>Outreach/Evangelism</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" name="Ministry Interest" value="Prayer Team">
-                                <label>Prayer Team</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h3>📝 About You</h3>
-                    <div class="form-group">
-                        <textarea name="About You" rows="3" placeholder="Share briefly why you want to join Word Temple Church..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="Terms Agreement" value="Agreed" required>
-                            <label>I confirm that the information provided is accurate.</label>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">SUBMIT APPLICATION <i class="fas fa-arrow-right"></i></button>
-                </form>
-            </div>
-            
-            <!-- INFORMATION CARD -->
-            <div class="info-card" data-aos="fade-left">
-                <h2>ℹ️ Why Join Us</h2>
-                
-                <div class="info-item">
-                    <i class="fas fa-church"></i> <strong>What We Believe</strong>
-                    <p>We are an apostolic, interdenominational, Kingdom-based ministry committed to teaching the Word of God with revelation.</p>
                 </div>
-                
-                <div class="info-item">
-                    <i class="fas fa-gift"></i> <strong>What You Will Receive</strong>
-                    <ul class="benefits-list">
-                        <li><i class="fas fa-check-circle"></i> Spiritual covering and mentorship</li>
-                        <li><i class="fas fa-check-circle"></i> Access to leadership training</li>
-                        <li><i class="fas fa-check-circle"></i> Participation in church events</li>
-                        <li><i class="fas fa-check-circle"></i> Volunteer opportunities</li>
-                    </ul>
-                </div>
-                
-                <div class="info-item">
-                    <i class="fas fa-handshake"></i> <strong>Our Commitment to You</strong>
-                    <p>As a member, you will receive spiritual guidance, prayer support, and opportunities to grow in your faith.</p>
-                </div>
-            </div>
+
+                <button type="submit" id="submitBtn" class="submit-btn">Submit Application</button>
+                <div id="formStatus" class="form-status"></div>
+            </form>
         </div>
     </div>
 </section>
 
-<!-- International Telephone Input JS -->
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/intlTelInput.min.js"></script>
 <script>
-    // Initialize international telephone input
-    const input = document.querySelector("#phone");
-    const iti = window.intlTelInput(input, {
-        initialCountry: "ke",
-        preferredCountries: ["ke", "ug", "tz", "us", "gb", "ca", "ng", "za"],
-        separateDialCode: true,
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.10/build/js/utils.js"
+// Google Apps Script URL
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyOUtEPi0aWg4lpmJlcvICeopD8XVkV0XtBg3eJzkjo-Ltt1xoVAVq9rTSpOPYoAnV1BQ/exec";
+
+document.getElementById("membershipForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById("submitBtn");
+    const formStatus = document.getElementById("formStatus");
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+    formStatus.className = "form-status";
+    formStatus.style.display = "none";
+
+    const phoneRaw = document.getElementById("phone").value.trim();
+    const formattedPhone = phoneRaw.startsWith("+") ? phoneRaw : `+254 ${phoneRaw}`;
+
+    const payload = {
+        fullName: document.getElementById("fullName").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: formattedPhone,
+        location: document.getElementById("location").value.trim(),
+        residentialAddress: document.getElementById("residentialAddress").value.trim(),
+        referralSource: document.getElementById("referralSource").value
+    };
+
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        formStatus.textContent = "✅ Application submitted successfully! You will receive a confirmation email shortly.";
+        formStatus.className = "form-status success";
+        document.getElementById("membershipForm").reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Application";
+    })
+    .catch((error) => {
+        formStatus.textContent = "❌ Submission failed. Please check your internet connection and try again.";
+        formStatus.className = "form-status error";
+        console.error("Submission Error:", error);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Application";
     });
-    
-    // Make sure the full number is submitted
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function() {
-        const fullNumber = iti.getNumber();
-        document.querySelector("#phone").value = fullNumber;
-    });
+});
 </script>
 {% endblock %}
