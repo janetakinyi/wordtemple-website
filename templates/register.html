@@ -226,7 +226,7 @@
                 <h2>📝 Registration Form</h2>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">Fill in your details to register. You will receive a confirmation email.</p>
                 
-                <form id="registrationForm" method="POST">
+                <form id="registrationForm">
                     <h3>👤 Personal Information</h3>
                     <div class="row-2">
                         <div class="form-group">
@@ -345,7 +345,7 @@
 </section>
 
 <script>
-// Google Apps Script URL - Replace with your actual URL
+// Google Apps Script URL
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyRM5AtTr3QcXvD0J6GLbLhBFjNoC4WPlIuhiiCIo4vwSKLypMzXliOsfm1norCeDfl/exec';
 
 document.getElementById('registrationForm').addEventListener('submit', function(e) {
@@ -354,13 +354,11 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     const submitBtn = document.getElementById('submitBtn');
     const statusMessage = document.getElementById('statusMessage');
     
-    // Disable button and show loading
     submitBtn.disabled = true;
     submitBtn.innerHTML = '⏳ Submitting...';
     statusMessage.className = 'status-message';
     statusMessage.style.display = 'none';
     
-    // Collect form data
     const formData = {
         fullName: document.getElementById('fullName').value,
         organization: document.getElementById('organization').value,
@@ -372,7 +370,6 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         specialRequests: document.getElementById('specialRequests').value
     };
     
-    // Send to Google Sheets
     fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -384,20 +381,15 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     .then(() => {
         statusMessage.className = 'status-message success';
         statusMessage.style.display = 'block';
-        statusMessage.innerHTML = '✅ Registration successful! Thank you for registering. You will receive a confirmation email shortly.';
-        
-        // Reset form
+        statusMessage.innerHTML = '✅ Registration successful! Thank you for registering.';
         document.getElementById('registrationForm').reset();
-        document.getElementById('terms').checked = false;
-        
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'SUBMIT REGISTRATION <i class="fas fa-arrow-right"></i>';
     })
     .catch((error) => {
         statusMessage.className = 'status-message error';
         statusMessage.style.display = 'block';
-        statusMessage.innerHTML = '❌ Error submitting registration. Please try again or contact us directly.';
-        
+        statusMessage.innerHTML = '❌ Error submitting. Please try again.';
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'SUBMIT REGISTRATION <i class="fas fa-arrow-right"></i>';
     });
