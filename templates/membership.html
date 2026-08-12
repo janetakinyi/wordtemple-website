@@ -307,7 +307,7 @@
                             <div class="country-prefix">
                                 <span>🇰🇪 +254</span>
                             </div>
-                            <input type="tel" id="phone" name="phone" placeholder="712 123456" required />
+                            <input type="tel" id="phone" name="phone" placeholder="0712 345678" required />
                         </div>
                     </div>
 
@@ -405,7 +405,7 @@ document.getElementById("membershipForm").addEventListener("submit", function(e)
     formStatus.style.display = "none";
 
     const phoneRaw = document.getElementById("phone").value.trim();
-    const formattedPhone = phoneRaw.startsWith("+") ? phoneRaw : `+254 ${phoneRaw}`;
+    const formattedPhone = phoneRaw;
 
     const selectedMinistries = Array.from(document.querySelectorAll('input[name="ministry"]:checked'))
         .map(cb => cb.value)
@@ -414,7 +414,7 @@ document.getElementById("membershipForm").addEventListener("submit", function(e)
     const payload = {
         fullName: document.getElementById("fullName").value.trim(),
         email: document.getElementById("email").value.trim(),
-        phone: formattedPhone,
+        phone: document.getElementById("phone").value.trim(),
         location: document.getElementById("location").value.trim(),
         residentialAddress: document.getElementById("residentialAddress").value.trim(),
         referralSource: document.getElementById("referralSource").value,
