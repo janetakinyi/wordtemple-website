@@ -3,20 +3,21 @@ function doPost(e) {
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     const data = JSON.parse(e.postData.contents);
 
+    // Log data to Google Sheet (8 columns - removed residentialAddress)
     sheet.appendRow([
       new Date(),
-      data.fullName,
-      data.email,
-      data.phone,
-      data.location,
-      data.residentialAddress || "N/A",
-      data.referralSource,
-      data.ministryInterests || "None",
-      data.aboutYou || "N/A"
+      data.fullName || '',
+      data.email || '',
+      data.phone || '',
+      data.location || '',
+      data.referralSource || '',
+      data.ministryInterests || 'None',
+      data.aboutYou || ''
     ]);
 
+    // Send confirmation email
     const emailSubject = "Membership Application Confirmation - Word Temple Church of God International";
-    const emailBody = `Dear ${data.fullName},\n\n` +
+    const emailBody = `Dear ${data.fullName || 'Member'},\n\n` +
       `Thank you for submitting your membership application to Word Temple Church of God International.\n\n` +
       `We have received your details and ministry preferences. Our pastoral and ministry team will connect with you soon.\n\n` +
       `Blessings,\nWord Temple Church of God International`;
