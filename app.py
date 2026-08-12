@@ -202,7 +202,7 @@ church_info = {
         'development_account': 'WORD TEMPLE CHURCH',
         'sendwave': '+254 720 313 832',
         'sendwave_name': 'Michael Ndiku',
-        'paypal': 'wordtemplemedia@hotmail.com',
+        'paypal': 'wordtemple@hotmail.com',
         'kcb_paybill': '52252',
         'kcb_account': '7544081',
         'kcb_cheque': '1325540706'
@@ -340,7 +340,7 @@ def conference_register():
         except Exception as e:
             print(f"⚠️ Email error (non-critical): {e}")
         
-        flash('✅ Registration Successful! You will receive a confirmation email shortly.', 'success')
+        flash('🎉 Thank You for Registering! Your registration has been submitted successfully. We\'re excited to have you join us! Keep an eye on your email or phone for updates and important event information. See you soon!', 'success')
         return redirect(url_for('home'))
     
     return render_template('register.html', church=church_info)

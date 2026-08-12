@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .page-header {
+        background: linear-gradient(135deg, var(--blue), var(--maroon));
+        padding: 80px 0;
+        text-align: center;
+        color: var(--white);
+        animation: fadeInDown 1s ease;
+    }
+    
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .page-header h1 { font-size: 56px; font-weight: 900; font-family: 'Playfair Display', serif; }
+    .page-header p { font-size: 18px; opacity: 0.9; margin-top: 15px; }
+    
+    .connect-section {
+        padding: 60px 0;
+        background: var(--dark-bg);
+    }
+    
+    .section-title {
+        font-size: 32px;
+        color: var(--gold);
+        margin: 40px 0 25px;
+        font-family: 'Playfair Display', serif;
+        border-left: 5px solid var(--gold);
+        padding-left: 20px;
+    }
+    
+    .service-card {
+        background: var(--card-bg);
+        padding: 20px 25px;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid var(--gold);
+        transition: all 0.3s ease;
+    }
+    
+    .service-card:hover {
+        transform: translateX(8px);
+        background: var(--card-bg);
+    }
+    
+    .service-day {
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    
+    .service-name {
+        font-size: 20px;
+        color: var(--white);
+        margin-bottom: 5px;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+    }
+    
+    .service-time {
+        font-size: 16px;
+        color: var(--blue-bright);
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    
+    .service-location {
+        color: var(--text-muted);
+        font-size: 13px;
+    }
+    
+    .location-card {
+        background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 40px;
+        border: 1px solid rgba(255,217,102,0.3);
+    }
+    
+    .location-card h3 {
+        color: var(--gold);
+    }
+    
+    .map-container {
+        border-radius: 15px;
+        overflow: hidden;
+        margin-top: 20px;
+    }
+    
+    .online-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(42,157,143,0.15);
+        color: var(--blue-bright);
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: 8px;
+    }
+    
+    .special-badge {
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--maroon);
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 11px;
+        margin-top: 8px;
+    }
+    
+    .social-links-footer {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 25px;
+    }
+    
+    .social-links-footer a {
+        color: var(--white);
+        font-size: 28px;
+        transition: all 0.3s ease;
+    }
+    
+    .social-links-footer a:hover {
+        color: var(--gold);
+        transform: translateY(-3px);
+    }
+    
+    @media (max-width: 768px) {
+        .page-header h1 { font-size: 36px; }
+        .section-title { font-size: 24px; }
+        .service-name { font-size: 18px; }
+        .service-time { font-size: 14px; }
+    }
+</style>
+
+<section class="page-header">
+    <div class="container">
+        <h1 data-aos="fade-up">CONNECT WITH US</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Join us in person or online</p>
+    </div>
+</section>
+
+<section class="connect-section">
+    <div class="container">
+        
+        <!-- SUNDAY SERVICES -->
+        <h2 class="section-title" data-aos="fade-right">📅 SUNDAY SERVICES</h2>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">SUNDAY</div>
+            <div class="service-name">1st Service</div>
+            <div class="service-time">5:30 AM - 8:00 AM</div>
+            <div class="service-location">Eastleigh, 1st Avenue, 3rd Street</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">SUNDAY</div>
+            <div class="service-name">2nd Service</div>
+            <div class="service-time">8:30 AM - 11:00 AM</div>
+            <div class="service-location">Eastleigh, 1st Avenue, 3rd Street</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">SUNDAY</div>
+            <div class="service-name">3rd Service</div>
+            <div class="service-time">11:00 AM - 2:00 PM</div>
+            <div class="service-location">Eastleigh, 1st Avenue, 3rd Street</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
+        </div>
+        
+        
+        
+        <div class="service-name">Children's Ministry</div>
+            <div class="service-time">9:00 AM - 11:00 AM (2nd Service)</div>
+            <div class="service-time" style="color: var(--gold);">11:30 AM - 2:00 PM (3rd Service)</div>
+            <div class="service-location" style="color: var(--text-light); font-size: 14px; margin-top: 8px;">
+                For children aged <strong>4–18 years</strong>, with classes organized according to age and grade.
+            </div>
+            <div class="service-location" style="color: var(--text-light); font-size: 14px; margin-top: 5px; font-style: italic;">
+                <i class="fas fa-info-circle" style="color: var(--gold);"></i> 
+                Parents are kindly requested to drop off their children at the church entrance, where our deacons will receive them and guide them to their respective classes.
+            </div>
+            <span class="online-badge" style="margin-top: 10px;"><i class="fas fa-child"></i> Ages 4–18 | Age-appropriate classes</span>
+        </div>
+        
+        <!-- FIRST SUNDAY SPECIAL -->
+        <div class="service-card" data-aos="fade-up" style="background: linear-gradient(135deg, var(--maroon), var(--dark-bg)); border-left-color: var(--gold);">
+            <div class="service-day">🎉 EVERY FIRST SUNDAY</div>
+            <div class="service-name">Prophetic Family Blessing Sunday</div>
+            <div class="service-time">All Sunday Services</div>
+            <div class="service-location">Eastleigh, 1st Avenue, 3rd Street</div>
+            <span class="special-badge"><i class="fas fa-hands-praying"></i> Special Family Blessing</span>
+        </div>
+        
+        <!-- WEEKDAY SERVICES -->
+        <h2 class="section-title" data-aos="fade-right">⏰ WEEKDAY SERVICES</h2>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">MONDAY - FRIDAY</div>
+            <div class="service-name">Morning Breakthrough</div>
+            <div class="service-time">6:30 AM - 7:30 AM</div>
+            <div class="service-location">Church Auditorium & Online</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">MONDAY - FRIDAY</div>
+            <div class="service-name">Lunch Hour Services</div>
+            <div class="service-time">12:30 PM - 2:00 PM</div>
+            <div class="service-location">Church Auditorium & Online</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Live on YouTube</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">TUESDAY</div>
+            <div class="service-name">Pastors & Leaders Meeting</div>
+            <div class="service-time">9:00 AM - 11:30 AM</div>
+            <div class="service-location">Church Auditorium</div>
+            <span class="online-badge"><i class="fas fa-chalkboard-user"></i> Leadership Training</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">WEDNESDAY</div>
+            <div class="service-name">Gospel Master Class</div>
+            <div class="service-time">6:30 PM - 8:00 PM</div>
+            <div class="service-location">Church Auditorium & Online</div>
+            <span class="online-badge"><i class="fab fa-youtube"></i> Deep teaching and anointing</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">FIRST FRIDAY OF EVERY MONTH</div>
+            <div class="service-name">Mini-Kesha Prayer Service</div>
+            <div class="service-time">6:30 PM - 9:30 PM</div>
+            <div class="service-location">Church Auditorium</div>
+            <span class="online-badge"><i class="fas fa-pray"></i> Powerful prayer service</span>
+        </div>
+        
+        <div class="service-card" data-aos="fade-up">
+            <div class="service-day">SATURDAY</div>
+            <div class="service-name">Youth Service - "The Remnant"</div>
+            <div class="service-time">10:00 AM - 12:00 PM</div>
+            <div class="service-location">Church Auditorium</div>
+            <span class="online-badge"><i class="fas fa-child"></i> Young adults and teens</span>
+        </div>
+        
+        <!-- LOCATION CARD -->
+        <div class="location-card" data-aos="zoom-in">
+            <i class="fas fa-church" style="font-size: 48px; color: var(--gold); margin-bottom: 20px;"></i>
+            <h3 style="font-size: 28px;">Word Temple Church of God International</h3>
+            <p style="margin: 20px 0;">Eastleigh, 1st Avenue, 3rd Street, Next to St. Teresa's Dispensary, Nairobi, Kenya</p>
+            <p><i class="fas fa-phone"></i> {{ church.phone }} | <i class="fas fa-envelope"></i> {{ church.email }}</p>
+            
+            <!-- Google Maps -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8042!2d36.8463!3d-1.2891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1629b0f5e3a1%3A0x8f4c6c5c8e5d9cfe!2sWord%20Temple%20Church%20of%20God%20-Eastleigh%20-Headquarters!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske" 
+                    width="100%" 
+                    height="300" 
+                    style="border:0; border-radius: 15px;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+            <p style="margin-top: 15px;"><i class="fas fa-directions"></i> <a href="https://maps.app.goo.gl/pfPTnGYwt1u4mLXMA" target="_blank" style="color: var(--gold);">Get Directions</a></p>
+            
+            <!-- Social Media Links -->
+            <div class="social-links-footer">
+                <a href="{{ church.youtube }}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="{{ church.facebook }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="{{ church.twitter }}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="{{ church.instagram }}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
