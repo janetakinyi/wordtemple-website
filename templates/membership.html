@@ -639,14 +639,15 @@ document.getElementById("membershipForm").addEventListener("submit", function(e)
         body: JSON.stringify(payload)
     })
     .then(() => {
-        formStatus.innerHTML = '<i class="fas fa-check-circle" style="font-size: 20px; margin-right: 10px;"></i> Registration successful! Thank you for registering.';
+        formStatus.innerHTML = '<i class="fas fa-check-circle" style="font-size: 20px; margin-right: 10px;"></i> ✅ Registration successful! Thank you for registering. You will receive a confirmation email shortly.';
         formStatus.className = "form-status success";
         document.getElementById("membershipForm").reset();
         submitBtn.disabled = false;
         submitBtn.textContent = "Submit Application";
+        window.scrollTo({ top: 0, behavior: "smooth" });
     })
     .catch((error) => {
-        formStatus.innerHTML = '<i class="fas fa-exclamation-circle" style="font-size: 20px; margin-right: 10px;"></i> Submission failed. Please check your internet connection and try again.';
+        formStatus.innerHTML = '<i class="fas fa-exclamation-circle" style="font-size: 20px; margin-right: 10px;"></i> ❌ Submission failed. Please check your internet connection and try again.';
         formStatus.className = "form-status error";
         console.error("Submission Error:", error);
         submitBtn.disabled = false;
