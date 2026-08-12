@@ -281,6 +281,16 @@
             grid-template-columns: 1fr;
         }
     }
+
+    select {
+        direction: ltr;
+    }
+    
+    select option {
+        direction: ltr;
+        padding: 8px 12px;
+    }
+
 </style>
 
 <section class="page-header">
@@ -314,7 +324,7 @@
 
                     <div class="form-group">
                         <label for="phone">Phone Number <span class="required-star">*</span></label>
-                        <div style="display: flex; gap: 10px;">
+                        <div style="display: flex; gap: 10px; position: relative;">
                             <select id="countryCode" name="countryCode" style="width: 120px; padding: 12px 14px; background-color: var(--dark-bg); border: 1px solid rgba(255,217,102,0.2); border-radius: 8px; color: var(--text-light);">
                                 <option value="+254" selected>🇰🇪 +254 (Kenya)</option>
                                 <option value="+93">🇦🇫 +93 (Afghanistan)</option>

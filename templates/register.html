@@ -208,6 +208,37 @@
         .page-header h1 { font-size: 32px; }
         .form-card { padding: 25px; }
     }
+
+    .form-status.success {
+        display: block;
+        background-color: rgba(46, 204, 113, 0.15);
+        border: 2px solid #22c55e;
+        color: #4ade80;
+        animation: fadeInUp 0.5s ease;
+    }
+    
+    .form-status.error {
+        display: block;
+        background-color: rgba(239, 68, 68, 0.15);
+        border: 2px solid #ef4444;
+        color: #f87171;
+        animation: fadeInUp 0.5s ease;
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    select {
+        direction: ltr;
+    }
+    
+    select option {
+        direction: ltr;
+        padding: 8px 12px;
+    }
+
 </style>
 
 <section class="page-header">
@@ -247,7 +278,7 @@
                         
                     <div class="form-group">
                         <label>Phone Number <span class="required">*</span></label>
-                        <div style="display: flex; gap: 10px;">
+                        <div style="display: flex; gap: 10px; position: relative;">
                             <select id="countryCode" name="countryCode" style="width: 120px; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,217,102,0.3); background: var(--dark-bg); color: var(--text-light);">
                                 <option value="+254" selected>🇰🇪 +254 (Kenya)</option>
                                 <option value="+93">🇦🇫 +93 (Afghanistan)</option>
@@ -582,7 +613,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     .then(() => {
         statusMessage.className = 'status-message success';
         statusMessage.style.display = 'block';
-        statusMessage.innerHTML = '✅ Registration successful! Thank you for registering.';
+        statusMessage.innerHTML = '<i class="fas fa-check-circle" style="font-size: 20px; margin-right: 10px;"></i> Registration successful! Thank you for registering.';
         document.getElementById('registrationForm').reset();
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'SUBMIT REGISTRATION <i class="fas fa-arrow-right"></i>';
