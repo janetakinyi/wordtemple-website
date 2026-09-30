@@ -1,78 +1,139 @@
-# Word Temple Church of God International Website
+# 🏛️ Word Temple Church of God International
 
-![Word Temple Church](https://img.shields.io/badge/Word-Temple%20Church-blue)
-![Flask](https://img.shields.io/badge/Flask-3.1.3-green)
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+A dynamic, full-stack church website built with **Flask**, **JavaScript**, and **Google Sheets integration** — featuring a custom CMS, cinematic animations, and a modern UI/UX design.
 
-## 📖 About The Project
+## 🌐 Live Demo
+**[https://wordtemple-website-aoc4.onrender.com/](https://wordtemple-website-aoc4.onrender.com/)**
 
-This is the official website for **Word Temple Church of God International**, a dynamic and growing ministry based in Eastleigh, Nairobi, Kenya.
+---
 
-## 🚀 Live Demo
+## 📸 Screenshots
 
-[View Website](https://wordtemple-website.onrender.com)
+### Homepage
+![Homepage](screenshots/homepage.png)
 
-## Production environment
+### Events Page
+![Events](screenshots/events.png)
 
-The application stores admin data, registrations, settings, quotes, and events in PostgreSQL. Set these variables in the Render service before deploying:
+### Admin Dashboard
+![Admin](screenshots/admin.png)
 
-- `DATABASE_URL`: the Neon pooled PostgreSQL connection string, including `sslmode=require`
-- `SECRET_KEY`: a long random value for Flask sessions
-- `INITIAL_ADMIN_USERNAME` and `INITIAL_ADMIN_PASSWORD`: used only to create the first admin account when the database is empty
+### Membership Form
+![Membership](screenshots/membership.png)
 
-Do not commit any of these values. After the first successful deployment, the initial-admin variables can be removed if desired.
+---
 
-For local HTTP development only, set `SESSION_COOKIE_SECURE=false` in `.env`. Keep the production default of `true`.
+## ✨ Features
 
-### Persistent uploads on Render
+### 🎨 Frontend
+- **Cinematic Hero Section** with alternating background videos and Typed.js text animations
+- **Responsive Design** — Optimized for mobile, tablet, and desktop
+- **AOS (Animate on Scroll)** animations for smooth reveal effects
+- **Water-flow text animation** for highlighted scripture
+- **Dynamic event display** from JSON data
+- **Multi-language phone support** with 40+ country codes
+- **Dark mode design** with custom color palette
 
-Gallery and event images are not stored in PostgreSQL. To retain them after deploys and restarts, attach a Render persistent disk to the web service at `/var/data`, then set `UPLOAD_DIR=/var/data/uploads` in the service environment. Without a persistent disk, uploads remain temporary.
+### ⚙️ Admin Dashboard
+- **Event Management** — Add, edit, and delete events
+- **Quote Management** — Add apostolic quotes
+- **Registration Viewer** — See all conference registrations
+- **Website Settings** — Change theme, scriptures, and service times
+- **Gallery Upload** — Manage church photos
+- **Auto-delete past events** — Keeps events page current
 
+### 📊 Data Integration
+- **Google Sheets Integration** for:
+  - Conference registrations
+  - Membership applications
+  - Automated email confirmations
+- **JSON-based data storage** for events, quotes, and settings
+- **Automated Git push** workflow for content updates
 
-## ✨ Key Features
+---
 
-- 🎥 **Live Streaming** - Watch services live on YouTube
-- 📝 **Conference Registration** - Register with accommodation booking
-- 💰 **Online Giving** - M-PESA, Bank, PayPal, Sendwave
-- 🖼️ **Photo Gallery** - 180+ photos from events
-- 📖 **Apostolic Quotes** - Daily inspiration
-- 👥 **Admin Panel** - Easy content management
+## 🎨 UI/UX Design
+
+### UI Skills Demonstrated
+
+| Skill | Implementation |
+|-------|---------------|
+| **Color Palette Design** | Gold (#FFD966), Maroon (#B83B5E), Teal (#2A9D8F), Navy (#0a1a3a) |
+| **Typography Pairing** | Playfair Display (headings) + Inter (body) |
+| **Visual Hierarchy** | Theme badge → Heading → Scripture → Verse → Buttons |
+| **Component Design** | Event cards, Ministry cards, Quote cards, Service cards |
+| **Gradient Design** | Gold gradient buttons, dark gradient backgrounds |
+| **Icon Usage** | Font Awesome icons used consistently |
+| **White Space** | Proper padding, margins, and gap spacing |
+| **Dark Mode Design** | Full dark theme with proper contrast ratios |
+
+### UX Skills Demonstrated
+
+| Skill | Implementation |
+|-------|---------------|
+| **Navigation Design** | Sticky navbar, mobile hamburger menu, clear active states |
+| **Information Architecture** | HOME, ABOUT, FOUNDERS, EVENTS, CONNECT, MINISTRIES, GALLERY, QUOTES, GIVE |
+| **User Flows** | Registration → Google Sheets → Email → Success message |
+| **Form Design** | Multi-step forms, radio buttons, dropdowns, country codes |
+| **Feedback Systems** | Success popups, loading states, hover effects |
+| **Accessibility** | Alt text, aria-labels, keyboard-navigable |
+| **Mobile Responsiveness** | Media queries, flexbox/grid, mobile-first approach |
+| **Error Handling** | Form validation, user-friendly error messages |
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Backend**: Python Flask
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Animations**: AOS
-- **Icons**: Font Awesome 6
-- **Hosting**: Render
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Python, Flask |
+| **Templating** | Jinja2 |
+| **Frontend** | HTML5, CSS3, JavaScript |
+| **Animations** | Typed.js, AOS |
+| **Data** | JSON, Google Sheets |
+| **Version Control** | Git, GitHub |
+| **Deployment** | Render |
+| **Email** | Google Apps Script |
+
 
 ## 📁 Project Structure
-
 wordtemple-website/
-├── app.py
-├── admin.py
-├── templates/
-│ ├── base.html
-│ ├── index.html
-│ ├── about.html
-│ ├── leaders.html
-│ ├── events.html
-│ ├── gallery.html
-│ ├── quotes.html
-│ ├── give.html
-│ └── conference-register.html
+├── app.py # Main Flask application
+├── admin.py # Admin functions
+├── data/ # JSON data files
+│ ├── events.json
+│ ├── quotes.json
+│ ├── registrations.json
+│ └── settings.json
 ├── static/
+│ ├── css/
+│ ├── js/
 │ ├── images/
 │ └── videos/
+├── templates/ # Jinja2 templates
+│ ├── base.html
+│ ├── index.html
+│ ├── events.html
+│ ├── membership.html
+│ └── admin_*.html
+├── screenshots/ # Portfolio screenshots
 └── requirements.txt
 
-## 🛠️ Installation
+
+
+## 🚀 Getting Started
 
 ```bash
+# Clone the repository
 git clone https://github.com/janetakinyi/wordtemple-website.git
 cd wordtemple-website
-python -m venv venv
+
+# Create virtual environment
+python3 -m venv venv
 source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Run the application
 python app.py
