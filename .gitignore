@@ -16,8 +16,6 @@ instance/
 
 # Local files
 admin_users.json
-registrations.json
-settings.json
 quotes_data.json
 events_data.json
 

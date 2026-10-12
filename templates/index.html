@@ -407,12 +407,12 @@ document.addEventListener('DOMContentLoaded', function() {
         heroContent.classList.add('visible');
 
         const t1 = new Typed("#typed-theme", {
-            strings: ["OCTOBER 2026 | MY STORY HAS CHANGED | JOB 14:14"],
+            strings: ["{{ settings.theme_month }}"],
             typeSpeed: 12,
             showCursor: false,
             onComplete: function() {
                 const t2 = new Typed("#typed-quote", {
-                    strings: ['"If a man dies, shall he live again? All the days of my hard service I will wait, till my change comes."'],
+                    strings: ["{{ settings.theme_month_verse }}"],
                     typeSpeed: 18,
                     showCursor: false,
                     onComplete: function() {
