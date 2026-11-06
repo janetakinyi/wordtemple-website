@@ -24,3 +24,5 @@ events_data.json
 
 # OS
 Thumbs.db
+static/videos/conference_promo.mp4
+static/videos/*.mp4
