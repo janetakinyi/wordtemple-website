@@ -1,6 +1,81 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<!-- CONFERENCE PROMO VIDEO BANNER -->
+<div id="promoBanner" style="background: linear-gradient(135deg, #1a1a2e, #B83B5E); padding: 25px 20px; text-align: center; position: relative; z-index: 100; border-bottom: 3px solid #FFD966;">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h3 style="margin: 0 0 8px; color: #FFD966; font-size: 22px; font-family: 'Playfair Display', serif;">
+            🎙️ A Personal Invitation from Apostle Michael Wambua
+        </h3>
+        <p style="margin: 0 0 15px; color: #e0e0e0; font-size: 14px;">
+            Revelation & Power Conference — December 2026
+        </p>
+
+        <div style="position: relative; border-radius: 15px; overflow: hidden; border: 3px solid #FFD966; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000;">
+            <video id="promoVideo" controls playsinline preload="metadata" style="width: 100%; max-height: 450px; display: block;">
+                <source src="{{ url_for('static', filename='videos/conference_promo.mp4') }}" type="video/mp4">
+                Your browser does not support video.
+            </video>
+
+            <!-- Click to hear overlay -->
+            <div id="unmuteOverlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;">
+                <div style="text-align: center; color: #FFD966;">
+                    <i class="fas fa-volume-up" style="font-size: 48px; margin-bottom: 10px; display: block;"></i>
+                    <span style="font-size: 18px; font-weight: 700;">🔊 Click to hear Apostle's Invitation</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 18px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="/events" style="background: #FFD966; color: #1a1a2e; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px;">
+                📅 REGISTER NOW
+            </a>
+            <a href="/connect" style="background: transparent; color: #FFD966; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; border: 2px solid #FFD966;">
+                📍 GET DIRECTIONS
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('promoVideo');
+    const overlay = document.getElementById('unmuteOverlay');
+    if (!video) return;
+
+    // Muted autoplay (allowed by browsers)
+    video.muted = true;
+    video.play().catch(() => {});
+
+    // Click overlay -> unmute & play with sound
+    if (overlay) {
+        overlay.addEventListener('click', function(e) {
+            e.stopPropagation();
+            video.muted = false;
+            video.volume = 1;
+            video.play();
+            overlay.style.display = 'none';
+        });
+    }
+
+    // Also unmute when user clicks the video itself
+    video.addEventListener('click', function() {
+        if (video.muted) {
+            video.muted = false;
+            video.volume = 1;
+            if (overlay) overlay.style.display = 'none';
+        }
+    });
+
+    // Repeat automatically when ended
+    video.addEventListener('ended', function() {
+        video.currentTime = 0;
+        video.play();
+    });
+});
+</script>
+
 <style>
     .hero {
         min-height: 90vh;
