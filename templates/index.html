@@ -2,7 +2,8 @@
 
 {% block content %}
 
-<!-- CONFERENCE PROMO VIDEO BANNER -->
+
+<!-- CONFERENCE PROMO VIDEO BANNER - YOUTUBE EMBED -->
 <div id="promoBanner" style="background: linear-gradient(135deg, #1a1a2e, #B83B5E); padding: 25px 20px; text-align: center; position: relative; z-index: 100; border-bottom: 3px solid #FFD966;">
     <div style="max-width: 800px; margin: 0 auto;">
         <h3 style="margin: 0 0 8px; color: #FFD966; font-size: 22px; font-family: 'Playfair Display', serif;">
@@ -12,24 +13,26 @@
             Revelation & Power Conference — December 2026
         </p>
 
-        <div style="position: relative; border-radius: 15px; overflow: hidden; border: 3px solid #FFD966; box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000;">
-            <video id="promoVideo" controls playsinline preload="metadata" style="width: 100%; max-height: 450px; display: block;">
-                <source src="{{ url_for('static', filename='videos/conference_promo.mp4') }}" type="video/mp4">
-                Your browser does not support video.
-            </video>
-
-            <!-- Click to hear overlay -->
-            <div id="unmuteOverlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;">
-                <div style="text-align: center; color: #FFD966;">
-                    <i class="fas fa-volume-up" style="font-size: 48px; margin-bottom: 10px; display: block;"></i>
-                    <span style="font-size: 18px; font-weight: 700;">🔊 Click to hear Apostle's Invitation</span>
-                </div>
-            </div>
+        <div style="position: relative; border-radius: 15px; overflow: hidden; border: 3px solid #FFD966; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <iframe 
+                width="100%" 
+                height="450" 
+                src="https://www.youtube.com/embed/ffzmOShsFQk?rel=0&modestbranding=1" 
+                title="REVELATION & POWER CONFERENCE - December 2026"
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                style="display: block; width: 100%; min-height: 450px;">
+            </iframe>
         </div>
 
         <div style="margin-top: 18px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
             <a href="/events" style="background: #FFD966; color: #1a1a2e; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px;">
                 📅 REGISTER NOW
+            </a>
+            <a href="https://www.youtube.com/@WordTempleChurchofGod" target="_blank" style="background: #FF0000; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; border: 2px solid #FF0000;">
+                <i class="fab fa-youtube"></i> VISIT YOUTUBE CHANNEL
             </a>
             <a href="/connect" style="background: transparent; color: #FFD966; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; border: 2px solid #FFD966;">
                 📍 GET DIRECTIONS
@@ -38,311 +41,7 @@
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('promoVideo');
-    const overlay = document.getElementById('unmuteOverlay');
-    if (!video) return;
 
-    // Muted autoplay (allowed by browsers)
-    video.muted = true;
-    video.play().catch(() => {});
-
-    // Click overlay -> unmute & play with sound
-    if (overlay) {
-        overlay.addEventListener('click', function(e) {
-            e.stopPropagation();
-            video.muted = false;
-            video.volume = 1;
-            video.play();
-            overlay.style.display = 'none';
-        });
-    }
-
-    // Also unmute when user clicks the video itself
-    video.addEventListener('click', function() {
-        if (video.muted) {
-            video.muted = false;
-            video.volume = 1;
-            if (overlay) overlay.style.display = 'none';
-        }
-    });
-
-    // Repeat automatically when ended
-    video.addEventListener('ended', function() {
-        video.currentTime = 0;
-        video.play();
-    });
-});
-</script>
-
-<style>
-    .hero {
-        min-height: 90vh;
-        position: relative;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        background-color: #0a0a14;
-    }
-    
-    .hero-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-        opacity: 0;
-        transition: opacity 1s ease;
-    }
-
-    .hero-video.active-video {
-        opacity: 1;
-    }
-    
-    .hero-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #0a0a14; /* Solid dark background when text is typing */
-        z-index: 1;
-        opacity: 1;
-        transition: opacity 1s ease;
-    }
-
-    .hero-overlay.transparent-overlay {
-        /* Subtle overlay when video is playing solo */
-        background: linear-gradient(135deg, rgba(10,10,20,0.3) 0%, rgba(184,59,94,0.2) 50%, rgba(42,157,143,0.2) 100%);
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        color: var(--white);
-        max-width: 900px;
-        margin: 0 auto;
-        text-align: center;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 1s ease, visibility 1s ease;
-    }
-
-    .hero-content.visible {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .hero h1 {
-        font-size: 80px;
-        font-weight: 900;
-        line-height: 1.1;
-        margin-bottom: 20px;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-    }
-
-    .hero h1 span {
-        background: linear-gradient(135deg, var(--gold), var(--white));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        text-shadow: none;
-    }
-
-    .hero .scripture {
-        font-size: 28px;
-        margin-bottom: 20px;
-        font-style: italic;
-        font-family: 'Playfair Display', serif;
-        color: #FFD966;
-        text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
-        font-weight: 600;
-    }
-
-    .hero .verse {
-        font-size: 22px;
-        margin-bottom: 30px;
-        opacity: 0.95;
-        line-height: 1.6;
-        color: #FFD966;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        font-weight: 500;
-        background: rgba(0,0,0,0.3);
-        display: inline-block;
-        padding: 10px 20px;
-        border-radius: 10px;
-    }
-
-    .series-badge {
-        display: inline-block;
-        background: rgba(0,0,0,0.5);
-        backdrop-filter: blur(5px);
-        padding: 12px 25px;
-        border-radius: 50px;
-        margin-bottom: 30px;
-        border: 1px solid var(--gold);
-        animation: bounce 2s ease-in-out infinite;
-        color: white;
-        font-weight: 500;
-    }
-
-    .verse-space {
-        margin-bottom: 40px;
-    }
-
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
-    }
-
-    .hero-buttons {
-        margin-top: 20px;
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        opacity: 0;
-        transition: opacity 0.8s ease;
-    }
-
-    .hero-buttons.visible {
-        opacity: 1;
-    }
-
-    .section-title {
-        text-align: center;
-        font-size: 48px;
-        margin-bottom: 50px;
-        background: linear-gradient(135deg, var(--gold), var(--blue-bright));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-
-    .quick-links {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-        margin: 60px 0;
-    }
-
-    .link-card {
-        background: var(--card-bg);
-        padding: 40px;
-        border-radius: 20px;
-        text-align: center;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(255,217,102,0.2);
-        text-decoration: none;
-        display: block;
-    }
-
-    .link-card:hover {
-        transform: translateY(-10px);
-        border-color: var(--gold);
-        box-shadow: 0 20px 40px rgba(184,59,94,0.2);
-    }
-
-    .link-icon {
-        width: 70px;
-        height: 70px;
-        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-    }
-
-    .link-icon i {
-        font-size: 28px;
-        color: var(--dark-bg);
-    }
-
-    .link-card h3 {
-        font-size: 24px;
-        color: var(--gold);
-        margin-bottom: 10px;
-    }
-
-    .link-card p {
-        color: var(--text-muted);
-    }
-
-    .event-card {
-        background: var(--card-bg);
-        padding: 30px;
-        border-radius: 20px;
-        text-align: center;
-        border-left: 5px solid var(--gold);
-        margin-bottom: 20px;
-    }
-
-    .event-card h3 {
-        color: var(--gold);
-    }
-
-    .about-preview {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: center;
-    }
-
-    .stats-card {
-        background: linear-gradient(135deg, var(--card-bg), var(--dark-bg));
-        padding: 40px;
-        border-radius: 20px;
-        text-align: center;
-        border: 1px solid rgba(255,217,102,0.2);
-    }
-
-    .theme-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        max-width: 1000px;
-        margin: 40px auto;
-        padding: 0 20px;
-    }
-
-    @media (max-width: 768px) {
-        .hero h1 { font-size: 40px; }
-        .quick-links { grid-template-columns: 1fr; }
-        .section-title { font-size: 32px; }
-        .about-preview { grid-template-columns: 1fr; }
-        .hero-buttons { flex-direction: column; align-items: center; }
-        .theme-grid { grid-template-columns: 1fr; gap: 20px; }
-    }
-
-    .water-flow-text {
-        background: linear-gradient(
-            90deg, 
-            #FFD966 0%, 
-            #FFFFFF 25%, 
-            #2A9D8F 50%, 
-            #FFD966 75%, 
-            #FFFFFF 100%
-        );
-        background-size: 200% auto;
-        color: transparent;
-        -webkit-background-clip: text;
-        background-clip: text;
-        font-weight: 800;
-        display: inline-block;
-        animation: waveFlow 3.5s linear infinite;
-    }
-
-    @keyframes waveFlow {
-        0% { background-position: 0% center; }
-        100% { background-position: 200% center; }
-    }
-</style>
-
-<!-- HERO SECTION WITH BACKGROUND VIDEO -->
 <section class="hero">
     <video muted playsinline preload="auto" class="hero-video" id="heroVideo"></video>
     <div class="hero-overlay" id="heroOverlay"></div>
