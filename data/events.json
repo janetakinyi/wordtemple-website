@@ -1,26 +1,16 @@
 [
   {
-    "id": "annual-conference-2026",
-    "title": "8th Annual Conference - Revelation & Power",
-    "category": "\ud83d\udc51 8TH ANNUAL CONFERENCE \u2013 DECEMBER 2026",
-    "dates": "December 2026",
-    "image": "Revelation.jpg",
-    "hosts": "Apostle Michael & Rev. Bancy Wambua",
-    "venue": "Eastleigh, 1st Avenue, 3rd Street, Nairobi",
-    "theme": "",
-    "scripture": "",
-    "entry": "FREE ENTRY",
-    "time": ""
-  },
-  {
-    "id": "youth-conference-2027",
-    "title": "Annual Youth Conference 2027",
-    "category": "\ud83d\udc66 ANNUAL YOUTH CONFERENCE 2027",
-    "dates": "April 2027",
-    "image": "Annual youth.jpg",
-    "scripture": "1 Timothy 4:12",
-    "verse_text": "Let no man despise thy youth; but be thou an example of the believers...",
-    "venue": "Eastleigh, 1st Avenue, 3rd Street, Nairobi",
-    "hosts": "Apostle Michael & Rev. Bancy Wambua"
+    "id": "event-1793984022",
+    "title": "Dominion in Christ",
+    "category": "REVELATION & POWER CONFERENCE",
+    "dates": "6th-13th December 2026",
+    "image": "d4f646e9944046e9ae3c67d5b64deff2.jpg",
+    "image_url": "/uploads/events/d4f646e9944046e9ae3c67d5b64deff2.jpg",
+    "filename": "d4f646e9944046e9ae3c67d5b64deff2.jpg",
+    "scripture": "Colossians 1:16",
+    "verse_text": "",
+    "host": "Apostle MIchael Wambua",
+    "guest_speakers": [],
+    "venue": "Eastleigh, 1st Avenue, 3rd Street, Nairobi"
   }
 ]
